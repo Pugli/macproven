@@ -1,9 +1,8 @@
 <?php
     namespace Model;
 
-
-    class Artist{
-        private $name;
+    class Ticket{
+        private $number;
         private $id;
 
         public function setId($id)
@@ -16,14 +15,14 @@
             return $this->id;
         }
 
-        public function setName($name)
+        public function setNumber($number)
         {
-            $this->name = $name;
+            $this->number = $number;
         }
 
-        public function getName()
+        public function getNumber()
         {
-            return $this->name;
-        }        
+            return $this->number;
+        }
     }
 ?>

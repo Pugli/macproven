@@ -2,8 +2,8 @@
     namespace Model;
 
 
-    class Artist{
-        private $name;
+    class EventPlace{
+        private $quantity;
         private $id;
 
         public function setId($id)
@@ -16,14 +16,14 @@
             return $this->id;
         }
 
-        public function setName($name)
+        public function setQuantity($quantity)
         {
-            $this->name = $name;
+            $this->quantity = $quantity;
         }
 
-        public function getName()
+        public function getQuantity()
         {
-            return $this->name;
-        }        
+            return $this->quantity;
+        }
     }
 ?>

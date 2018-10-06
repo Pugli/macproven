@@ -1,9 +1,8 @@
 <?php
     namespace Model;
 
-
-    class Artist{
-        private $name;
+    class Calendar{
+        private $date;
         private $id;
 
         public function setId($id)
@@ -16,14 +15,14 @@
             return $this->id;
         }
 
-        public function setName($name)
+        public function setDate($date)
         {
-            $this->name = $name;
+            $this->date = $date;
         }
 
-        public function getName()
+        public function getDate()
         {
-            return $this->name;
-        }        
+            return $this->date;
+        }
     }
 ?>

@@ -1,9 +1,8 @@
 <?php
     namespace Model;
 
-
-    class Artist{
-        private $name;
+    class Category{
+        private $description;
         private $id;
 
         public function setId($id)
@@ -16,14 +15,14 @@
             return $this->id;
         }
 
-        public function setName($name)
+        public function setDescription($description)
         {
-            $this->name = $name;
+            $this->description = $description;
         }
 
-        public function getName()
+        public function getDescription()
         {
-            return $this->name;
-        }        
+            return $this->description;
+        }
     }
 ?>
