@@ -3,7 +3,7 @@
 
     use Model\Artist as Artist;    
 
-    interface IDao{
+    interface IDaoArtist{
         public function add(Artist $artist);
         public function getAll();
         public function isArtistName($name);
