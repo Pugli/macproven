@@ -1,10 +1,10 @@
 <?php
     namespace Dao;
 
-    use Dao\IDaoArtistList as IDaoArtistList;
+    use Dao\IDaoArtist as IDaoArtist;
     use Model\Artist as Artist;
 
-    class DaoArtistList implements IDaoArtist{
+    class DaoArtist implements IDaoArtist{
         private $artistList = array();
 
         public function add(Artist $artist)
