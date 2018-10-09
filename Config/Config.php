@@ -1,12 +1,11 @@
 <?php namespace Config;
 
-define("ROOT", dirname(__DIR__) . "/");
-define("FRONT_ROOT", "/UTN/MVC Example/");
-define("VIEWS_PATH", "Views/");
-define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
-define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
+define('ROOT', dirname(__DIR__) . "/");
 
-define("DB_HOST", "localhost");
-define("DB_NAME", "test");
-define("DB_USER", "root");
-define("DB_PASS", "");
+define("FRONT_ROOT", "/TPfinal");
+
+define("URL_THEME", "Views/");
+
+define("URL_CSS", URL_THEME . "css");
+
+define("URL_JS", URL_THEME . "js");
