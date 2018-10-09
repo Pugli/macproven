@@ -17,7 +17,8 @@
             return $this->artistList;
         }
 
-        public function isArtistName($name)
+        //Return true if there is a match between the name and the artistList
+        public function checkArtist($name)
         {
             $result = false;
             $artist = new Artist();

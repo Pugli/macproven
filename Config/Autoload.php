@@ -1,18 +1,13 @@
-<?php
-
-    namespace Config;
-
-    class Autoload{
-
-        public function start()
-        {
-            define("ROOT", dirname(__DIR__));
+<?php namespace Config;
+	
+    class Autoload {
         
-            spl_autoload_register(function ($className)
-            {
-               require_once(ROOT."/".$className.".php");
-            });            
+        public static function Start() {
+            spl_autoload_register(function($classPath)
+			{
+				$class = str_replace("\\", "/", ROOT. $classPath)  . ".php";
+				include_once($class);
+			});
         }
     }
-        
 ?>
