@@ -2,16 +2,21 @@
     namespace Controller;
 
     use Model\Artist as Artist;
-    use Dao\DaoAristList as DaoArtistList;
+    use Dao\DaoArtistList as DaoArtistList;
 
     class ControllerArtist{
 
         private $artists = array();
         private $DaoArtist;
+        
 
         function __construct(){
+            
             $this->DaoArtist = DaoArtistList::getInstance();
+            
             $this->refreshList();
+            /*var_dump($this->DaoArtist);
+            var_dump($this->artists);*/
         }
 
         public function index(){
@@ -19,9 +24,11 @@
         }
 
         public function addArtist($artist){
-            if ($DaoArtist->checkArtist($artist) == false){
+            
+            if ($this->DaoArtist->checkArtist($artist) == false){
                 $newArtist = new Artist();
                 $newArtist->setName($artist);
+                $this->DaoArtist->add($newArtist);
                 echo "<script> if(alert('Nuevo Artista ingresado!'));</script>";
             }else{
                 echo "<script> if(alert('El Artista Ya existe'));</script>";
@@ -32,6 +39,10 @@
 
         public function refreshList(){
             $this->artists = $this->DaoArtist->getAll();
+        }
+
+        public function getAll(){
+            return $this->DaoArtist->getAll();
         }
     }
 

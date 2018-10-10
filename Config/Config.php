@@ -2,7 +2,7 @@
 
 define('ROOT', dirname(__DIR__) . "/");
 
-define("FRONT_ROOT", "/TPfinal");
+define("FRONT_ROOT", "/merge");
 
 define("URL_THEME", "Views/");
 
