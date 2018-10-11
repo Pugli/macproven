@@ -3,10 +3,11 @@
     class Autoload {
         
         public static function Start() {
-            spl_autoload_register(function($classPath)
+            spl_autoload_register(function($className)
 			{
-				$class = str_replace("\\", "/", ROOT. $classPath)  . ".php";
-				include_once($class);
+                $classPath = strtolower(str_replace("\\", "/", ROOT.$className).".php");
+                
+				include_once($classPath);
 			});
         }
     }
