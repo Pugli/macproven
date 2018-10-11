@@ -5,35 +5,20 @@
     use Model\Artist as Artist;
 
     class DaoArtistList implements IDaoArtist{
+        
         private $artistList = array();
-        private static $instance;
 
         public function __construct(){
-            $this->listInSession();
-        }
+            if(!iseet($_SESSION['artistList'])){
+                $_SESSION['artistList'] = array();
 
-        public function listInSession(){
-            if (isset($_SESSION['Artists'])){
-                $this->artistList = $_SESSION['Artists'];
-            }else{
-                $_SESSION['Artists'] = array();
-                $this->artistList = $_SESSION['Artists'];
+                $this->artistList = &$_SESSION['artistList'];
             }
-        }
-
-        public static function getInstance(){            
-            if (!isset(self::$instance))
-            {
-                self::$instance = new DaoArtistList();
-            }
-            
-            return self::$instance;
         }
 
         public function add(Artist $artist)
         {
             array_push($this->artistList, $artist);
-            $_SESSION['Artists'] = $this->artistList;
         }
 
         public function getAll()
@@ -42,20 +27,35 @@
         }
         //Return true if there is a match between the name and the artistList
         public function checkArtist($name)
-
         {
-            $result = false;
-            $artist = new Artist();
+            $artist = null;
             
             foreach ($this->artistList as $artist) {
                 if($name == $artist->getName()){
-                    $result = true;
+                    $result = $artist;
                     break;
                 }
             }            
-            return $result;
+            return $artist;
         }
 
+        public function delete($name)
+        {
+            $i = 0;
+
+            foreach($this->artistList as $artist)
+            {
+                if($artist->getName() == $name)
+                {
+                    unset($this->artistList[$i]);
+                    break;
+                }
+
+                $i++;
+            }
+
+            $this->artistList = array_values($this->artistList);
+        }
 
     }
 ?>
