@@ -1,50 +1,26 @@
-<?php namespace Config;
+<?php 
+    namespace Config;
 
-    class Router {
+    use Config\Request as Request;
 
-        /**
-         * Se encarga de direccionar a la pagina solicitada
-         *
-         * @param Request
-         */
-        
-        public static function direccionar(Request $request) {
+    class Router
+    {
+        public static function Route(Request $request)
+        {
+            $controllerName = $request->getcontroller() . 'Controller';
 
-            /**
-             *  
-             */
-            $controlador = 'Controller'.$request->getControlador();
+            $methodName = $request->getmethod();
+
+            $methodParameters = $request->getparameters();          
+
+            $controllerClassName = "Controllers\\". $controllerName;            
+
+            $controller = new $controllerClassName;
             
-            /**
-             * 
-             */
-            $metodo = $request->getMetodo();
-            
-            /**
-             * 
-             */
-            $parametros = $request->getParametros();
-
-            /**
-             * 
-             */
-            $mostrar = "Controller\\". $controlador;
-            echo "el new es de: ".$mostrar;
-
-            /**
-             * 
-             */
-            $controlador = new $mostrar;
-
-            /**
-             * 
-             */
-
-            if(!isset($parametros)) {
-                call_user_func(array($controlador, $metodo));
-            } else {
-                call_user_func_array(array($controlador, $metodo), $parametros);
-            }
+            if(!isset($methodParameters))            
+                call_user_func(array($controller, $methodName));
+            else
+                call_user_func_array(array($controller, $methodName), $methodParameters);
         }
     }
 

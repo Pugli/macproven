@@ -1,90 +1,67 @@
-<?php namespace Config;
+<?php 
+    namespace Config;
 
-    class Request {
-
-        private $controlador;
-        private $metodo;
-        private $parametros;
-        private static $instance = null;
+    class Request
+    {
+        private $controller;
+        private $method;
+        private $parameters = array();
         
         public function __construct()
         {
 
             $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL);
 
-            $urlToArray = explode("/", $url);
+            $urlArray = explode("/", $url);
          
-            $ArregloUrl = array_filter($urlToArray);
+            $urlArray = array_filter($urlArray);
 
-            if(empty($ArregloUrl))
-            {
-                $this->controlador = 'Home';
-            } 
-            else 
-            {
-                $this->controlador = ucwords(array_shift($ArregloUrl));
-            }
-
-            if(empty($ArregloUrl))
-            {
-                $this->metodo = 'index';
-            } 
-            else 
-            {
-                $this->metodo = array_shift($ArregloUrl);
-            }
-
-            $metodoRequest = $this->getMetodoRequest();
-
-            if($metodoRequest == 'GET') #Metodo para recuperar los valores que viajan por GET
-            {
-                $cant = count($_GET);
-                $tags = array_keys($_GET);// obtiene los nombres de las varibles
-                $valores = array_values($_GET);// obtiene los valores de las varibles
-
-                // crea las variables y les asigna el valor
-                for($i = 1; $i < $cant; $i++)
-                {
-                    if(strcmp($tags[$i], 'url') != 0){
-                        array_push($ArregloUrl, $valores[$i]);
-                    }
-                }
-
-                if(!empty($ArregloUrl))
-                {
-                    $this->parametros = $ArregloUrl;
-                }
-            }
+            if(empty($urlArray))
+                $this->controller = 'Home';            
             else
-            {
-                $this->parametros = $_POST;
-            }
-        }
+                $this->controller = ucwords(array_shift($urlArray));
 
-        public static function getInstance()
-        {            
-            if (!isset(self::$instance))
-            {
-                self::$instance = new Request();
-            }
+            if(empty($urlArray))
+                $this->method = 'Index';
+            else
+                $this->method = array_shift($urlArray);
+
+            $methodRequest = $this->getMethodRequest();
             
-            return self::$instance;
+            if($methodRequest == 'GET')
+            {
+                unset($_GET["url"]);
+
+                /*Determines if GET is sent with Controller/Method/Value1/ValueN 
+                or Controller/Method?Param1=value1&ParamN=valueN format*/
+                if(!empty($_GET))
+                {
+                    foreach($_GET as $key => $value)                    
+                        array_push($this->parameters, $value);
+                }
+                else
+                    $this->parameters = $urlArray;
+            }
+            elseif ($_POST)
+                $this->parameters = $_POST;
         }
 
-        public static function getMetodoRequest()
+        private static function getMethodRequest()
         {
             return $_SERVER['REQUEST_METHOD'];
+        }            
+
+        public function getController() {
+            return $this->controller;
         }
 
-        public function getControlador() {
-            return $this->controlador;
+        public function getMethod() {
+            return $this->method;
         }
 
-        public function getMetodo() {
-            return $this->metodo;
-        }
-
-        public function getParametros() {
-            return $this->parametros;
+        public function getparameters() {
+            return $this->parameters;
         }
     }
+
+?>
