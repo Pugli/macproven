@@ -1,3 +1,3 @@
 <?php
-asdasdasdasd
+echo "puto";
 ?>
