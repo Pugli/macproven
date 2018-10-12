@@ -8,8 +8,9 @@
         private $artistList;
 
         public function __construct(){
-            if(!isset($_SESSION['artistList']))
-                $this->artistList = array();
+            if(!isset($_SESSION['artistList'])){
+                $_SESSION['artistList'] = $this->artistList = array();
+            }
             $this->artistList = &$_SESSION['artistList'];
         }
 
@@ -24,7 +25,7 @@
          */
         public function lastId()
         {
-            $artistList = $this->artistList();
+            $artistList = $this->artistList;
             $id = 0;
 
             if(isset($artistList[0])){
@@ -38,7 +39,6 @@
          * Add an Artist in the Array
          * 
          * This method use @see lastId() to add the artist
-         * 
          * the var $id add one to the last id because is a new artist
          */
         public function add(Artist $artist)
@@ -64,6 +64,19 @@
                 }
             }            
             return $result;
+        }
+
+        public function delete($idArtist)
+        {
+            $i = 0;
+            foreach ($this->artistList as $artist) {
+                if($artist->getId() == $idArtist){
+                    unset($this->artistList[$i]);
+                    break;
+                }
+                $i++;
+            }
+            $this->artistList = array_values($this->artistList);
         }
     }
 ?>
