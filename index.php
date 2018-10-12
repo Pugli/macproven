@@ -17,7 +17,7 @@
 
 	//include_once URL_THEME . 'header.php';
 
-	Router::direccionar(Request::getInstance());
+	Router::Route(new Request());
 
 	//include_once URL_THEME . 'footer.php';
 ?>
