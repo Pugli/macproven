@@ -1,6 +1,6 @@
 <?php namespace View;
 
-    use Controller\ControllerArtist as ControllerArtist;
+    use controllers\ControllerArtist as ControllerArtist;
 
     $controller = new ControllerArtist();
 

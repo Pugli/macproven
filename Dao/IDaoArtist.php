@@ -6,6 +6,6 @@
     interface IDaoArtist{
         public function add(Artist $artist);
         public function getAll();
-        public function checkArtist($name);
+       // public function checkArtist($name);
     }
  ?>
