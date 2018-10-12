@@ -87,13 +87,13 @@
             }
         }
 
-        public function Delete($productCode)
+        public function Delete($idArtist)
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE productCode = :productCode";
+                $query = "DELETE FROM ".$this->tableName." WHERE id_artist = :idArtist";
             
-                $parameters["productCode"] = $productCode;
+                $parameters["idArtist"] = $idArtist;
 
                 $this->connection = Connection::GetInstance();
 

@@ -54,6 +54,11 @@
         public function getAll(){
             return $this->DaoArtist->getAll();
         }
+
+        public function delete($idArtist){
+            $this->DaoArtist->Delete($idArtist);
+            include_once VIEWS_PATH . 'artistlist.php';
+        }
     }
 
 ?>
