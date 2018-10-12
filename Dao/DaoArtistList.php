@@ -21,14 +21,6 @@
             }
         }
 
-        public static function getInstance(){            
-            if (!isset(self::$instance))
-            {
-                self::$instance = new DaoArtistList();
-            }
-            
-            return self::$instance;
-        }
 
         public function add(Artist $artist)
         {

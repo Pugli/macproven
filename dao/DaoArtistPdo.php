@@ -58,15 +58,15 @@
             }
         }
 
-        public function GetByProductCode($productCode)
+        public function checkArtist($name)
         {
             try
             {
-                $product = null;
+                $artist = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE productCode = :productCode";
+                $query = "SELECT * FROM ".$this->tableName." WHERE name = :name";
 
-                $parameters["productCode"] = $productCode;
+                $parameters["name"] = $name;
 
                 $this->connection = Connection::GetInstance();
 
@@ -74,15 +74,12 @@
                 
                 foreach ($resultSet as $row)
                 {
-                    $product = new Product();
-                    $product->setProductCode($row["productCode"]);
-                    $product->setName($row["name"]);
-                    $product->setCost($row["cost"]);
-                    $product->setPrice($row["price"]);
-                    $product->setStock($row["stock"]);
+                    $artist = new Artist();
+                    $artist->setName($row["name"]);
+                    $artist->setId($row["id_artist"]);
                 }
                             
-                return $product;
+                return $artist;
             }
             catch(Exception $ex)
             {

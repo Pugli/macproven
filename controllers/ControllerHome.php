@@ -9,9 +9,6 @@
         	include_once VIEWS_PATH .'Home.php';
         }
 
-        public function addArtist(){
-            include_once VIEWS_PATH . 'addArtist.php';
-        }
     }
 
 
