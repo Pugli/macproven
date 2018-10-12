@@ -14,7 +14,7 @@
          * the Pdo by List or inverse
         */
         function __construct(){
-            $this->DaoArtist = new DaoArtistList();
+            $this->DaoArtist = new DaoArtistPdo();
         }
 
         public function index(){
