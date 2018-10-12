@@ -9,9 +9,11 @@
         	include_once VIEWS_PATH .'Home.php';
         }
 
-        public function addArtist(){
-            include_once VIEWS_PATH . 'addArtist.php';
+        public function logout(){
+            session_destroy();
+            include_once VIEWS_PATH . 'Home.php';
         }
+
     }
 
 

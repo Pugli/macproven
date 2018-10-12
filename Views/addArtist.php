@@ -6,6 +6,7 @@
 </head>
 <body>
     <form action="<?php echo FRONT_ROOT; ?>/Artist/addArtist" method="POST">
+    <br>
         Nombre: <input type="text" name="name"/>
         <input type="submit" value="Enviar"/>
     </form>

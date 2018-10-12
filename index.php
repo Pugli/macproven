@@ -15,9 +15,10 @@
 
 	session_start();
 
-	//include_once URL_THEME . 'header.php';
+	include_once VIEWS_PATH . 'header.php';
+	include_once VIEWS_PATH . 'nav.php';
 
 	Router::Route(new Request());
 
-	//include_once URL_THEME . 'footer.php';
+	include_once VIEWS_PATH . 'footer.php';
 ?>

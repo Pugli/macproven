@@ -5,20 +5,27 @@
     use Model\Artist as Artist;
 
     class DaoArtistList implements IDaoArtist{
-        
         private $artistList = array();
+        private static $instance;
 
         public function __construct(){
-            if(!iseet($_SESSION['artistList'])){
-                $_SESSION['artistList'] = array();
+            $this->listInSession();
+        }
 
-                $this->artistList = &$_SESSION['artistList'];
+        public function listInSession(){
+            if (isset($_SESSION['Artists'])){
+                $this->artistList = $_SESSION['Artists'];
+            }else{
+                $_SESSION['Artists'] = array();
+                $this->artistList = $_SESSION['Artists'];
             }
         }
+
 
         public function add(Artist $artist)
         {
             array_push($this->artistList, $artist);
+            $_SESSION['Artists'] = $this->artistList;
         }
 
         public function getAll()
@@ -27,35 +34,21 @@
         }
         //Return true if there is a match between the name and the artistList
         public function checkArtist($name)
+
         {
-            $artist = null;
+            $result = false;
+            $artist = new Artist();
             
             foreach ($this->artistList as $artist) {
                 if($name == $artist->getName()){
-                    $result = $artist;
+                    $result = true;
                     break;
                 }
             }            
-            return $artist;
+            return $result;
         }
 
-        public function delete($name)
-        {
-            $i = 0;
-
-            foreach($this->artistList as $artist)
-            {
-                if($artist->getName() == $name)
-                {
-                    unset($this->artistList[$i]);
-                    break;
-                }
-
-                $i++;
-            }
-
-            $this->artistList = array_values($this->artistList);
-        }
 
     }
 ?>
+
