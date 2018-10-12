@@ -38,6 +38,8 @@
          * Add an Artist in the Array
          * 
          * This method use @see lastId() to add the artist
+         * 
+         * the var $id add one to the last id because is a new artist
          */
         public function add(Artist $artist)
         {
@@ -51,6 +53,7 @@
             return $this->artistList;
         }
 
+        
         public function checkArtist($name)
         {
             $result = null;
