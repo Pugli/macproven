@@ -7,7 +7,6 @@
 
     class ControllerArtist{
 
-        private $artists = array();
         private $DaoArtist;
         
 
@@ -32,23 +31,24 @@
         }
 
         public function addArtist($artist){
-            
+
             $newArtist = new Artist();
             $newArtist->setName($artist);
+
             if ($this->DaoArtist->checkArtist($artist) == null){
+
                 $newArtist = new Artist();
                 $newArtist->setName($artist);
                 $this->DaoArtist->add($newArtist);
+
                 echo "<script> if(alert('Nuevo Artista ingresado!'));</script>";
-            }else{
+            }
+            else{
+
                 echo "<script> if(alert('El Artista Ya existe'));</script>";
             }
             include_once VIEWS_PATH . 'artistlist.php';
             
-        }
-
-        public function refreshList(){
-            $this->artists = $this->DaoArtist->getAll();
         }
 
         public function getAll(){
