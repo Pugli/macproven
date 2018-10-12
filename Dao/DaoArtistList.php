@@ -5,50 +5,35 @@
     use Model\Artist as Artist;
 
     class DaoArtistList implements IDaoArtist{
-        private $artistList = array();
-        private static $instance;
+        private $artistList;
 
         public function __construct(){
-            $this->listInSession();
+            if(!isset($_SESSION['Artists']))
+                $this->artistList = array();
+            $this->artistList = &$_SESSION['Artists'];
         }
-
-        public function listInSession(){
-            if (isset($_SESSION['Artists'])){
-                $this->artistList = $_SESSION['Artists'];
-            }else{
-                $_SESSION['Artists'] = array();
-                $this->artistList = $_SESSION['Artists'];
-            }
-        }
-
 
         public function add(Artist $artist)
         {
             array_push($this->artistList, $artist);
-            $_SESSION['Artists'] = $this->artistList;
         }
 
         public function getAll()
         { 
             return $this->artistList;
         }
-        //Return true if there is a match between the name and the artistList
-        public function checkArtist($name)
 
+        public function checkArtist($name)
         {
-            $result = false;
-            $artist = new Artist();
-            
+            $result = null;
             foreach ($this->artistList as $artist) {
                 if($name == $artist->getName()){
-                    $result = true;
+                    $result = $artist;
                     break;
                 }
             }            
             return $result;
         }
-
-
     }
 ?>
 
