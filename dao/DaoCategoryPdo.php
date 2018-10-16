@@ -29,7 +29,7 @@
             }
         }
 
-        public function GetAll()
+        public function getAll()
         {
             try
             {
@@ -87,7 +87,7 @@
             }
         }
 
-        public function Delete($idCategory)
+        public function delete($idCategory)
         {
             try
             {
