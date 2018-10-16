@@ -3,8 +3,19 @@
 
 
     class EventPlace{
+        private $name;
         private $quantity;
         private $id;
+
+        public function setName($name)
+        {
+            $this->name = $name;
+        }
+
+        public function getName()
+        {
+            return $this->name;
+        }
 
         public function setId($id)
         {
