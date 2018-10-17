@@ -58,15 +58,15 @@
             }
         }
 
-        /*public function checkArtist($name)
+        public function checkDescription($description)
         {
             try
             {
-                $artist = null;
+                $placeType = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE name = :name";
+                $query = "SELECT * FROM ".$this->tableName." WHERE description = :description";
 
-                $parameters["name"] = $name;
+                $parameters["description"] = $description;
 
                 $this->connection = Connection::GetInstance();
 
@@ -74,26 +74,26 @@
                 
                 foreach ($resultSet as $row)
                 {
-                    $artist = new Artist();
-                    $artist->setName($row["name"]);
-                    $artist->setId($row["id_artist"]);
+                    $placeType = new PlaceType();
+                    $placeType->setDescription($row["description"]);
+                    $placeType->setId($row["id_placeType"]);
                 }
                             
-                return $artist;
+                return $placeType;
             }
             catch(Exception $ex)
             {
                 throw $ex;
             }
-        }*/
+        }
 
-       /* public function delete($idArtist)
+        public function delete($idPlaceType)
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_artist = :idArtist";
+                $query = "DELETE FROM ".$this->tableName." WHERE id_placeType = idPlaceType";
             
-                $parameters["idArtist"] = $idArtist;
+                $parameters["idPlaceType"] = $idPlaceType;
 
                 $this->connection = Connection::GetInstance();
 
@@ -103,6 +103,6 @@
             {
                 throw $ex;
             }            
-        }*/
+        }
     }
 ?>

@@ -6,7 +6,7 @@
     interface IDaoPlaceType{
         public function add(PlaceType $PlaceType);
         public function getAll();
-       // public function checkArtist($name);
+        public function checkDescription($description);
        //public function delete($idCategory);
     }
  ?>

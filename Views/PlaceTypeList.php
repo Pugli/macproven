@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    
+<table>
+    <thead>
+    <tr>
+    <th>Descripcion</th>
+    </tr>
+    </thead>
+    <?php foreach($list as $i){ ?>
+    <tbody>
+    <tr>
+    <td><?php echo $i->getDescription()?></td>
+    </tr>
+    </tbody>
+    <?php } ?>
+    </table>
 </body>
 </html>
