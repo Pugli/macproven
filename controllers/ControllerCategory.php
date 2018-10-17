@@ -42,6 +42,10 @@
 
         }
 
+        public function checkCategoryById($categoryId){
+            return $this->daoCategory->checkCategoryById($categoryId);
+        }
+
         public function delete($id){
             $this->DaoCategory->delete($idCategory);
             $this->showCategoryList();

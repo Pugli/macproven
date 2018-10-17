@@ -3,12 +3,19 @@
 
     use Model\Event as Event;
     use dao\DaoEventPdo as DaoEventPdo;
+    use dao\DaoCategoryPdo as DaoCategoryPdo;
 
     class ControllerEvent{
         private $daoEvent;
+        private $daoCategory;
+
+        public function __construct(){
+            $this->daoEvent = new DaoEventPdo;
+            $this->daoCategory = new DaoCategoryPdo;
+        }
 
         public function index(){
-            include_once VIEWS_PATH.'eventlist.php';
+            $this->showEventList();
         }
 
         public function showAddEvent(){
@@ -16,24 +23,26 @@
         }
 
         public function showEventList(){
-            $this->index();
+            include_once VIEWS_PATH.'eventlist.php';
         }
 
-        public function addEvent($event,$category){
-           if ($this->checkEvent($event) == null && ){
+        public function addEvent($event,$categoryId){
+           if (($this->daoEvent->checkEvent($event) == null) && ($this->daoCategory->checkCategoryById($categoryId) != null)){
                $newEvent = new Event;
                $newEvent->setTitle($event);
+               $newEvent->setCategory($categoryId);
                $this->daoEvent->add($newEvent);
-               echo "<script> if(alert('Nueva Categoria ingresada!'));</script>";
+               echo "<script> if(alert('Nuevo Evento Ingresado'));</script>";
             }
             else{
 
-                echo "<script> if(alert('La Categoria Ya existe'));</script>";
+                echo "<script> if(alert('Evento no ingresado, Vuelva a intentar.'));</script>";
            } 
+           $this->showEventList();
         }
 
         public function delete($id){
-            $this->DaoEvent->delete($idEvent);
+            $this->daoEvent->delete($id);
             $this->showEventList();
         }
 

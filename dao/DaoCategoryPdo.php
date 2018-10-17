@@ -87,6 +87,33 @@
             }
         }
 
+        public function checkCategoryById($categoryId){
+            try
+            {
+                $category = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_category = :category";
+
+                $parameters["category"] = $categoryId;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $category = new Category();
+                    $category->setDescription($row["category"]);
+                    $category->setId($row["id_category"]);
+                }
+                return $category;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function delete($idCategory)
         {
             try

@@ -5,7 +5,7 @@
     interface IDaoEventPdo{
         public function add(Event $event);
         public function delete($idEvent);
-        public function checkEvent($event);
+        public function checkEvent($eventname);
         public function getAll();
     }
 
