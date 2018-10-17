@@ -8,6 +8,7 @@
         public function delete($idCategory);
         public function getAll();
         public function checkCategory($categoryname);
+        public function checkCategoryById($categoryId);
     }
 
 
