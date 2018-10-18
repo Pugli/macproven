@@ -15,7 +15,7 @@
                     <thead>
                          <th>Id</th>
                          <th>Nombre del Lugar</th>
-                         <th>Ocupacion</th>
+                         <th>Capacidad</th>
                     </thead>
                     <tbody>
                         <?php
