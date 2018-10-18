@@ -11,13 +11,12 @@
         private $connection;
         private $tableName = "PlaceType";
 
-
         public function add(PlaceType $PlaceType)
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (TypePlace) VALUES (:description);";
-                $parameters["description"] = $artist->getDescription();
+                $query = "INSERT INTO ".$this->tableName." (description) VALUES (:description);";
+                $parameters["description"] = $PlaceType->getDescription();
 
                 $this->connection = Connection::GetInstance();
 
@@ -45,7 +44,7 @@
                 {                
                     $PlaceType = new PlaceType();
                     $PlaceType->setDescription($row["description"]);
-                    $PlaceType->setId($row['id_PlaceType']);
+                    $PlaceType->setId($row['id_placetype']);
 
                     array_push($TypePlaceList, $PlaceType);
                 }
@@ -76,7 +75,7 @@
                 {
                     $placeType = new PlaceType();
                     $placeType->setDescription($row["description"]);
-                    $placeType->setId($row["id_placeType"]);
+                    $placeType->setId($row["id_placetype"]);
                 }
                             
                 return $placeType;
@@ -91,7 +90,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_placeType = idPlaceType";
+                $query = "DELETE FROM ".$this->tableName." WHERE id_placetype = (:idPlaceType)";
             
                 $parameters["idPlaceType"] = $idPlaceType;
 

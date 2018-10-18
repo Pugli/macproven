@@ -7,7 +7,7 @@
     <title>Agregar tipo plaza</title>
 </head>
 <body>
-    <form action="<?php FRONT_ROOT ?>PlaceType/addPlaceType"  method="post">
+    <form action="<?php echo FRONT_ROOT; ?>PlaceType/addPlaceType"  method="post">
     <label for="description">Descripcion</label>
     <input type="text" name="description">
     <input type="submit" value="agregar">

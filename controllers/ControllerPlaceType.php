@@ -2,6 +2,7 @@
 namespace controllers;
 
 use Dao\DaoPlaceTypePdo as DaoPlaceTypePdo;
+use Model\PlaceType as PlaceType;
 
 class controllerPlaceType{
 
@@ -15,11 +16,16 @@ class controllerPlaceType{
     {
         include_once VIEWS_PATH."addPlaceType.php";
     }
+    
+    public function showPlaceTypeList()
+    {
+        require_once VIEWS_PATH."PlaceTypeList.php";
+    }
 
     public function addPlaceType($description)
     {
         if($this->daoPlaceType->checkDescription($description)==null){
-        $PlaceType = new PlaceType;
+        $PlaceType = new PlaceType();
         $PlaceType->setDescription($description);
         $this->daoPlaceType->add($PlaceType);
         }
@@ -29,14 +35,14 @@ class controllerPlaceType{
         $this->showPlaceTypeList();
     }
 
-    public function showPlaceTypeList()
+    public function getAll()
     {
-        $list = $this->daoPlaceType->getAll();
-        require_once VIEWS_PATH."PlaceTypeList.php";
+        return $this->daoPlaceType->getAll();
     }
-    public function delete($id)     
+
+    public function delete($idPlaceType)     
     {
-        $this->daoPlaceType->delete($id);
+        $this->daoPlaceType->delete($idPlaceType);
         $this->showPlaceTypeList();
     }
 }
