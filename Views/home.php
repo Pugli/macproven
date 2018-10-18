@@ -13,4 +13,7 @@
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="Lista de Espacios" onclick="location='<?php echo FRONT_ROOT?>EventPlace'">
     <input class="btn btn-success ml-3" type="submit" value="Añadir un Espacio" onclick="location='<?php echo FRONT_ROOT?>EventPlace/showAddEventPlace'">
+    <br><br>
+    <input class="btn btn-success ml-3" type="submit" value="Lista de Localidades" onclick="location='<?php echo FRONT_ROOT?>PlaceType'">
+    <input class="btn btn-success ml-3" type="submit" value="Añadir una Localidad" onclick="location='<?php echo FRONT_ROOT?>PlaceType/showAddPlacetype'"
 </div>

@@ -12,6 +12,11 @@ class controllerPlaceType{
     {
         $this->daoPlaceType = new DaoPlaceTypePdo;
     }
+
+    public function index(){
+        $this->showPlaceTypeList();
+    }
+
     public function showAddPlaceType()
     {
         include_once VIEWS_PATH."addPlaceType.php";
