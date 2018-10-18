@@ -30,5 +30,8 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/Logout">Cerrar sesión</a>
           </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>PlaceType/showAddPlaceType">Agregar tipo plaza</a>
+          </li>
      </ul>
 </nav>
