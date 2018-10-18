@@ -7,3 +7,18 @@ CREATE TABLE EVENTS(
     PRIMARY KEY (ID_EVENT),
     FOREIGN KEY (FK_CATEGORY) REFERENCES CATEGORIES (ID_CATEGORY)
 );
+
+//Tabla de Lugar-Eventos
+
+create table eventPlaces(
+  quantity INT NOT NULL,
+  id_eventPlace INT NOT NULL AUTO_INCREMENT,
+  name varchar(50) not null,
+  PRIMARY KEY (id_eventPlace)
+  );
+
+  create table placetype(
+      description varchar (50) NOT NULL,
+      id_placetype int auto_increment,
+      primary key (id_placetype)
+  );
