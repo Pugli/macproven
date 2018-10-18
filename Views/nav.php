@@ -16,6 +16,12 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Artist/showAddArtist">Agregar Artista</a>
           </li>
           <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>EventPlace/showAddEventPlace">Agregar Lugar de Evento</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT ?>EventPlace/showEventPlaceList">Listar Lugar de Eventos</a>
+          </li>
+          <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/Logout">Cerrar sesión</a>
           </li>
      </ul>
