@@ -87,6 +87,35 @@
             }
         }
 
+        public function checkArtistById($id)
+        {
+            try
+            {
+                $artist = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_artist = :id";
+
+                $parameters["id"] = $id;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $artist = new Artist();
+                    $artist->setName($row["name"]);
+                    $artist->setId($row["id_artist"]);
+                }
+                            
+                return $artist;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function delete($idArtist)
         {
             try

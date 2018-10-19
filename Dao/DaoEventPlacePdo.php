@@ -107,6 +107,36 @@
             }
         }
 
+        public function checkEventPlaceById($id)
+        {
+            try
+            {
+                $eventPlace = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_eventPlace = :id";
+
+                $parameters["id"] = $id;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setQuantity($row["quantity"]);
+                    $eventPlace->setId($row['id_eventPlace']);
+                    $eventPlace->setName($row["name"]);
+                }
+                            
+                return $eventPlace;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
     }
 
 ?>

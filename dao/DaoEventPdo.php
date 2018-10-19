@@ -26,7 +26,7 @@
             {
                 throw $ex;
             }
-        }
+        }  
 
         public function getAll()
         {
@@ -67,6 +67,35 @@
                 $query = "SELECT * FROM ".$this->tableName." WHERE TITLE = :title";
 
                 $parameters["title"] = $eventname;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $event = new Event();
+                    $event->setTitle($row["TITLE"]);
+                    $event->setId($row["ID_EVENT"]);
+                    $event->setCategory($row["FK_CATEGORY"]);
+                }
+                return $event;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function checkEventById($id)
+        {
+            try
+            {
+                $event = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE ID_EVENT = :id";
+
+                $parameters["id"] = $eventname;
 
                 $this->connection = Connection::GetInstance();
 
