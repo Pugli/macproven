@@ -1,6 +1,8 @@
 <?php
     namespace Model;
 
+    use Model\Category as Category;
+
     class Event{
         private $title;
         private $id;
@@ -26,7 +28,7 @@
             return $this->title;
         }
 
-        public function setCategory($category)
+        public function setCategory(Category $category)
         {
             $this->category = $category;
         }
