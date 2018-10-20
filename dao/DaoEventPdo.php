@@ -101,7 +101,7 @@
 
                 $query = "SELECT * FROM ".$this->tableName." WHERE ID_EVENT = :id";
 
-                $parameters["id"] = $eventname;
+                $parameters["id"] = $id;
 
                 $this->connection = Connection::GetInstance();
 
@@ -112,7 +112,7 @@
                     $event = new Event();
                     $event->setTitle($row["TITLE"]);
                     $event->setId($row["ID_EVENT"]);
-                    $event->setCategory($row["FK_CATEGORY"]);
+                    $event->setCategory($this->daoCategory->checkCategoryById($row['FK_CATEGORY']));
                 }
                 return $event;
             }

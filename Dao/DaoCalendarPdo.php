@@ -12,7 +12,7 @@
     use Dao\DaoEventPdo as DaoEventPdo;
     use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
     
-    class DaoCalendar implements IDaoCalendar{
+    class DaoCalendarPdo implements IDaoCalendar{
         private $connection;
         private $tableName = "calendars";
         private $daoArtist;
@@ -29,7 +29,7 @@
         public function add(Calendar $calendar)
         {
             try{
-                $query = "INSERT INTO" . $this->tableName . "(fk_id_eventplace, fk_id_artist, fk_id_event) VALUES (:fk_id_eventplace, :fk_id_artist, :fk_id_event)";
+                $query = "INSERT INTO " . $this->tableName . " (fk_id_eventplace, fk_id_artist, fk_id_event) VALUES (:fk_id_eventplace, :fk_id_artist, :fk_id_event)";
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
                 $parameters["fk_id_artist"] =  $calendar->getArtist()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
@@ -48,7 +48,7 @@
             try{
                 $calendarList = array();
 
-                $query = "SELECT * FROM" . $this->tableName;
+                $query = "SELECT * FROM " . $this->tableName;
 
                 $this->connection = Connection::GetInstance();
 
@@ -61,7 +61,7 @@
                     $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
                     $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
                     $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));
-
+                     
                     array_push($calendarList, $calendar);
                 }
 

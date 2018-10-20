@@ -4,11 +4,16 @@
     use Model\Calendar as Calendar;
     use dao\DaoCalendarPdo as DaoCalendarPdo;
     use dao\DaoCategoryPdo as DaoCategoryPdo;
+    use Dao\DaoArtistPdo as DaoArtistPdo;
+    use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
+    use Dao\DaoEventPdo as DaoEventPdo;
 
-    class ControllerCalendar{
+class ControllerCalendar{
 
-        $daoCalendar;
-        $daoCategory;
+        private $daoCalendar;
+        private $daoCategory;
+        private $daoPlace;
+        private $daoEvent;
 
         public function __construct(){
             $this->daoCalendar = new DaoCalendarPdo;
@@ -29,18 +34,20 @@
             include_once VIEWS_PATH.'addCalendar.php';
         }
 
-        public function addCalendar($date,$eventId,$placeId,$artistId){
-            if($this->daoArtist->checkArtistById() != null && $this->daoPlace->checkEventPlaceById() != null && $this->daoEvent->checkEventById() != null){
+        public function addCalendar($date,$artistId,$placeId,$eventId){
+
+            if($this->daoArtist->checkArtistById($artistId) != null && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
                 $newCalendar = new Calendar();
-                $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById());
-                $newCalendar->setArtist($this->daoArtist->checkArtistById());
-                $newCalendar->setEvent($this->daoEvent->checkEventById());
+                $newCalendar->setDate($date);
+                $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
+                $newCalendar->setArtist($this->daoArtist->checkArtistById($artistId));
+                $newCalendar->setEvent($this->daoEvent->checkEventById($eventId));
                 $this->daoCalendar->add($newCalendar);
-                echo "<script> if(alert('Nuevo Evento Ingresado'));</script>";
+                echo "<script> if(alert('Nuevo Calendario Ingresado'));</script>";
             }
             else{
 
-                echo "<script> if(alert('Evento no ingresado, Vuelva a intentar.'));</script>";
+                echo "<script> if(alert('Calendario no ingresado, Vuelva a intentar.'));</script>";
            } 
            $this->showCalendarList();
         }

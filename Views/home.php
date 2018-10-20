@@ -15,5 +15,8 @@
     <input class="btn btn-success ml-3" type="submit" value="Añadir un Espacio" onclick="location='<?php echo FRONT_ROOT?>EventPlace/showAddEventPlace'">
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="Lista de Localidades" onclick="location='<?php echo FRONT_ROOT?>PlaceType'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir una Localidad" onclick="location='<?php echo FRONT_ROOT?>PlaceType/showAddPlacetype'"
+    <input class="btn btn-success ml-3" type="submit" value="Añadir una Localidad" onclick="location='<?php echo FRONT_ROOT?>PlaceType/showAddPlacetype'"/>
+    <br><br>
+    <input class="btn btn-success ml-3" type="submit" value="Lista de Calendarios" onclick="location='<?php echo FRONT_ROOT?>Calendar'">
+    <input class="btn btn-success ml-3" type="submit" value="Añadir un Calendario" onclick="location='<?php echo FRONT_ROOT?>Calendar/showAddCalendar'"/>
 </div>
