@@ -30,7 +30,7 @@
            if (($this->daoEvent->checkEvent($event) == null) && ($this->daoCategory->checkCategoryById($categoryId) != null)){
                $newEvent = new Event;
                $newEvent->setTitle($event);
-               $newEvent->setCategory($categoryId);
+               $newEvent->setCategory($this->daoCategory->checkCategoryById($categoryId));
                $this->daoEvent->add($newEvent);
                echo "<script> if(alert('Nuevo Evento Ingresado'));</script>";
             }

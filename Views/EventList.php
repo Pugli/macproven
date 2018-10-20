@@ -29,7 +29,7 @@
                                         <tr>
                                             <td><?php echo $Event->getId() ?></td>
                                             <td><?php echo $Event->getTitle() ?></td>
-                                            <td><?php echo $controllerCategory->checkCategoryById($Event->getCategory())->getDescription() ?></td>
+                                            <td><?php echo $Event->getCategory()->getDescription() ?></td>
                                         </tr>
                                     <?php
                                 }
