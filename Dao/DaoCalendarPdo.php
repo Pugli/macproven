@@ -71,5 +71,55 @@
                 throw $ex;
             }
         }
+
+        public function checkCalendarById($calendarId){
+            try
+            {
+                $calendar = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :calendar";
+
+                $parameters["calendar"] = $calendarId;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $calendar = new Calendar();
+                    $calendar->setId($row["id_calendar"]);
+                    $calendar->setDate($row["dateEvent"]);
+                    $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
+                    $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
+                    $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));
+                }
+                return $category;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function delete($idCalendar)
+        {
+            try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE id_calendar = :idCalendar";
+            
+                $parameters["idCalendar"] = $idCalendar;
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);   
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            } 
+        }
+
+
     }
 ?>
