@@ -51,3 +51,15 @@ CREATE TABLE admins (
      foreign key (fk_id_event) references events (id_event),
      foreign key (fk_id_eventplace) references eventplaces (id_eventplace)
  );
+
+ CREATE TABLE eventseats(
+     id_eventseat int auto_increment,
+     price int not null,
+     quantity int not null,
+     remainder int not null,
+     fk_id_calendar int not null,
+     fk_id_placetype int not null,
+     primary key (id_eventseat),
+     foreign key (fk_id_calendar) references calendars (id_calendar),
+     foreign key (fk_id_placetype) references placetype (id_placetype)
+ );
