@@ -35,7 +35,7 @@ class ControllerCalendar{
         }
 
         public function addCalendar($date,$artistId,$placeId,$eventId){
-
+            
             if($this->daoArtist->checkArtistById($artistId) != null && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
                 $newCalendar = new Calendar();
                 $newCalendar->setDate($date);

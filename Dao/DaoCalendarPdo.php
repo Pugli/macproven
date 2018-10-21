@@ -29,7 +29,8 @@
         public function add(Calendar $calendar)
         {
             try{
-                $query = "INSERT INTO " . $this->tableName . " (fk_id_eventplace, fk_id_artist, fk_id_event) VALUES (:fk_id_eventplace, :fk_id_artist, :fk_id_event)";
+                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_artist, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_artist, :fk_id_event)";
+                $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
                 $parameters["fk_id_artist"] =  $calendar->getArtist()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
@@ -57,7 +58,7 @@
                 foreach ($resultSet as $row){
                     $calendar = new Calendar();
                     $calendar->setId($row["id_calendar"]);
-                    $calendar->setDate($row["dateEvent"]);
+                    $calendar->setDate($row["dateevent"]);
                     $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
                     $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
                     $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));

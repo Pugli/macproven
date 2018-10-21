@@ -8,3 +8,6 @@ Tp Final del 4to cuatrimestre
 5.-Tipo plaza
 6.-Plaza Evento
 7.-Calendario
+
+Ver porque el primer calendario lo agrega por duplicado.
+Router para que no deje mandar fruta url.
