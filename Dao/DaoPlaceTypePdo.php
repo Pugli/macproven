@@ -103,5 +103,33 @@
                 throw $ex;
             }            
         }
+
+        public function checkPlaceTypeById ($idPlaceType){
+            try
+            {
+                $placeType = null;
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE id_placetype = :id_placetype";
+
+                $parameters["id_placetype"] = $idPlaceType;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                foreach ($resultSet as $row)
+                {
+                    $placeType = new PlaceType();
+                    $placeType->setDescription($row["description"]);
+                    $placeType->setId($row["id_placetype"]);
+                }
+                            
+                return $placeType;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
     }
 ?>

@@ -1,10 +1,15 @@
 <?php
     namespace Model;
 
+    use Model\Calendar as Calendar;
+    use Model\PlaceType as PlaceType;
+
     class EventSeat{
         private $quantityAvailable;
         private $price;
         private $remainder;
+        private $calendar;
+        private $placeType;
         private $id;
 
         public function setId($id)
@@ -17,7 +22,7 @@
             return $this->id;
         }
 
-        public function setQuantityAvialable($quantityAvailable)
+        public function setQuantityAvailable($quantityAvailable)
         {
             $this->quantityAvailable = $quantityAvailable;
         }
@@ -45,6 +50,26 @@
         public function getRemainder()
         {
             return $this->remainder;
+        }
+
+        public function setCalendar(Calendar $calendar)
+        {
+            $this->calendar = $calendar;
+        }
+
+        public function getCalendar()
+        {
+            return $this->calendar;
+        }
+
+        public function setPlaceType(PlaceType $placeType)
+        {
+            $this->placeType = $placeType;
+        }
+
+        public function getPlaceType()
+        {
+            return $this->placeType;
         }
     }
 ?>

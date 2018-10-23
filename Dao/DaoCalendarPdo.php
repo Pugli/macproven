@@ -90,12 +90,12 @@
                 {
                     $calendar = new Calendar();
                     $calendar->setId($row["id_calendar"]);
-                    $calendar->setDate($row["dateEvent"]);
+                    $calendar->setDate($row["dateevent"]);
                     $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
                     $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
                     $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));
                 }
-                return $category;
+                return $calendar;
             }
             catch(Exception $ex)
             {

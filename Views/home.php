@@ -19,4 +19,8 @@
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="Lista de Calendarios" onclick="location='<?php echo FRONT_ROOT?>Calendar'">
     <input class="btn btn-success ml-3" type="submit" value="Añadir un Calendario" onclick="location='<?php echo FRONT_ROOT?>Calendar/showAddCalendar'"/>
+    <br><br>
+    <input class="btn btn-success ml-3" type="submit" value="Lista de Plaza-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat'">
+    <input class="btn btn-success ml-3" type="submit" value="Añadir un Plaz-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat/showAddEventSeat'"/>
+
 </div>
