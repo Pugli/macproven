@@ -11,6 +11,7 @@
 
         private $connection;
         private $tableName = "eventseats";
+        private $tableNameCalendar = "calendars";
         private $daoCalendar;
         private $daoPlaceType;
 
@@ -69,6 +70,47 @@
             }
 
 
+        }
+
+        public function delete($idEventSeat)
+        {
+            try
+            {
+                $query = "DELETE FROM ".$this->tableName." WHERE id_eventseat = :id_eventseat";
+            
+                $parameters["id_eventseat"] = $idEventSeat;
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);   
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            } 
+        }
+
+        public function quantityAvailable($idCalendar){
+            try{
+
+                $query = "SELECT SUM(".$this->tableName.".quantity) AS QUANTITY FROM ".$this->tableName." INNER JOIN ".$this->tableNameCalendar." ON ".$this->tableName.".fk_id_calendar = ".$this->tableNameCalendar.".id_calendar WHERE ".$this->tableNameCalendar.".id_calendar = :id_calendar";
+
+                $parameters["id_calendar"] = $idCalendar;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query, $parameters);
+
+                foreach($resultSet as $row){
+                    $quantity = $row["QUANTITY"];
+                }
+
+                return $quantity;
+
+
+            }catch(Exception $ex){
+                throw $ex;
+            }
         }
 
         
