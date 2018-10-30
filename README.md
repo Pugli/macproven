@@ -11,3 +11,4 @@ Tp Final del 4to cuatrimestre
 
 Ver porque el primer calendario lo agrega por duplicado.
 Router para que no deje mandar fruta url.
+Constantes de querys.
