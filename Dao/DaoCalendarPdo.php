@@ -5,25 +5,30 @@
     use Model\EventPlace as EventPlace;
     use Model\Event as Event;
     use Model\Calendar as Calendar;
+    use Model\Category as Category;
     use Dao\IDaoCalendar as IDaoCalendar;
     use \Exception as Exception;
-    use Dao\Connection as Connection;
+    /* use Dao\Connection as Connection;
     use Dao\DaoArtistPdo as DaoArtistPdo;
     use Dao\DaoEventPdo as DaoEventPdo;
-    use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
+    use Dao\DaoEventPlacePdo as DaoEventPlacePdo; */
     
     class DaoCalendarPdo implements IDaoCalendar{
         private $connection;
         private $tableName = "calendars";
-        private $daoArtist;
+        private $tableNameEventPlace = "eventplaces";
+        private $tableNameCategory = "categories";
+        private $tableNameEvent = "events";
+        private $tableNameArtist = "artists";
+        /* private $daoArtist;
         private $daoEvent;
-        private $daoEventPlace;
+        private $daoEventPlace; */
 
         public function __construct()
         {
-            $this->daoArtist = new DaoArtistPdo();
+            /* $this->daoArtist = new DaoArtistPdo();
             $this->daoEvent = new DaoEventPdo();
-            $this->daoEventPlace = new DaoEventPlacePdo();
+            $this->daoEventPlace = new DaoEventPlacePdo(); */
         }
 
         public function add(Calendar $calendar)
@@ -49,20 +54,52 @@
             try{
                 $calendarList = array();
 
-                $query = "SELECT * FROM " . $this->tableName;
+                $query = "SELECT a.name AS nameArtist,
+                ep.quantity AS eventPlaceQuantity,
+                ep.name AS nameEventPlace,
+                e.title AS titleEvent,
+                cl.id_calendar AS idCalendar,
+                cl.dateevent AS dateEventCalendar,
+                ct.category AS nameCategory
+                FROM " . $this->tableName . " AS cl
+                INNER JOIN " . $this->tableNameEventPlace . " AS ep
+                    ON cl.fk_id_eventplace = ep.id_eventplace
+                INNER JOIN " . $this->tableNameEvent . " AS e
+                    ON cl.fk_id_event = e.id_event
+                INNER JOIN " . $this->tableNameCategory . " AS ct
+                    ON e.fk_category = ct.id_category
+                INNER JOIN " . $this->tableNameArtist . " AS a
+                    ON cl.fk_id_artist = a.id_artist;";
 
                 $this->connection = Connection::GetInstance();
 
                 $resultSet = $this->connection->Execute($query);
 
+                $i = 0;
+
                 foreach ($resultSet as $row){
+
+                    $artist = new Artist();
+                    $artist->setName($row["nameArtist"]);
+
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setQuantity($row["eventPlaceQuantity"]);
+                    $eventPlace->setName($row["nameEventPlace"]);
+
+                    $category = new Category();
+                    $category->setDescription($row["nameCategory"]);
+
+                    $event = new Event();
+                    $event->setTitle($row["titleEvent"]);
+                    $event->setCategory($category);
+
                     $calendar = new Calendar();
-                    $calendar->setId($row["id_calendar"]);
-                    $calendar->setDate($row["dateevent"]);
-                    $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
-                    $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
-                    $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));
-                     
+                    $calendar->setId($row["idCalendar"]);
+                    $calendar->setDate($row["dateEventCalendar"]);
+                    $calendar->setArtist($artist);
+                    $calendar->setEventPlace($eventPlace);
+                    $calendar->setEvent($event);                   
+                    
                     array_push($calendarList, $calendar);
                 }
 
@@ -78,7 +115,23 @@
             {
                 $calendar = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE id_calendar = :calendar";
+                $query = "SELECT a.name AS nameArtist,
+                ep.quantity AS eventPlaceQuantity,
+                ep.name AS nameEventPlace,
+                e.title AS titleEvent,
+                cl.id_calendar AS idCalendar,
+                cl.dateevent AS dateEventCalendar,
+                ct.category AS nameCategory
+                FROM ". $this->tableName . " AS cl
+                INNER JOIN " . $this->tableNameEventPlace . " AS ep
+                    ON cl.fk_id_eventplace = ep.id_eventplace
+                INNER JOIN " . $this->tableNameEvent . " AS e
+                    ON cl.fk_id_event = e.id_event
+                INNER JOIN " . $this->tableNameCategory . " AS ct
+                    ON e.fk_category = ct.id_category
+                INNER JOIN " . $this->tableNameArtist . " AS a
+                    ON cl.fk_id_artist = a.id_artist 
+                WHERE id_calendar = :calendar";
 
                 $parameters["calendar"] = $calendarId;
 
@@ -88,12 +141,26 @@
                 
                 foreach ($resultSet as $row)
                 {
+                    $artist = new Artist();
+                    $artist->setName($row["nameArtist"]);
+
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setQuantity($row["eventPlaceQuantity"]);
+                    $eventPlace->setName($row["nameEventPlace"]);
+
+                    $category = new Category();
+                    $category->setDescription($row["nameCategory"]);
+
+                    $event = new Event();
+                    $event->setTitle($row["titleEvent"]);
+                    $event->setCategory($category);
+
                     $calendar = new Calendar();
-                    $calendar->setId($row["id_calendar"]);
-                    $calendar->setDate($row["dateevent"]);
-                    $calendar->setArtist($this->daoArtist->checkArtistById($row["fk_id_artist"]));
-                    $calendar->setEvent($this->daoEvent->checkEventById($row["fk_id_event"]));
-                    $calendar->setEventPlace($this->daoEventPlace->checkEventPlaceById($row["fk_id_eventplace"]));
+                    $calendar->setId($row["idCalendar"]);
+                    $calendar->setDate($row["dateEventCalendar"]);
+                    $calendar->setArtist($artist);
+                    $calendar->setEventPlace($eventPlace);
+                    $calendar->setEvent($event);
                 }
                 return $calendar;
             }
