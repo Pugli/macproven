@@ -14,3 +14,4 @@ Ver porque el primer calendario lo agrega por duplicado.
 Checkear la repeticion de la localidad en plaza evento.
 Borrar eliminar, o controlar el cascade.
 Router para que no deje mandar fruta url.
+Constantes de querys(crear archivo para no mandar choclo en los select de los dao).
