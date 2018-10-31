@@ -153,6 +153,79 @@
                 throw $ex;
             }            
         }
+
+        public function checkEventForDateDao($date)
+        {
+            $arrayEvent = array();
+            try{
+                $query = "SELECT e.title as titulo ,e.id_event as id,ca.category as categoria, ca.id_category as idC FROM events AS e
+                INNER JOIN calendars AS c ON c.fk_id_event=e.id_event 
+                INNER JOIN categories AS ca ON ca.id_category=e.FK_CATEGORY
+                WHERE c.dateevent=:date;";
+                 
+                
+                $parameters["date"]=$date;
+
+                $this->connection = Connection::GetInstance();
+    
+                $resultSet=$this->connection->Execute($query, $parameters);
+
+                
+
+                foreach($resultSet as $row){
+                    $category = new Category();
+                    $category->setId($row["idC"]);
+                    $category->setDescription($row["categoria"]);
+                    $event = new Event();
+                    $event->setTitle($row["titulo"]);
+                    $event->setId($row["id"]);
+                    $event->setCategory($category);
+
+                    array_push($arrayEvent,$event);
+
+                }
+                return $arrayEvent;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+
+        public function checkEventForCategoryDao($id)
+        {
+            $arrayEvent = array();
+            try{
+                $query = "SELECT e.title AS titulo,e.id_event AS id,c.category AS categoria,  c.id_category as idC FROM events AS e 
+                INNER JOIN categories AS c ON e.FK_CATEGORY=c.id_category 
+                INNER JOIN calendars AS cal ON e.id_event=cal.fk_id_event
+                WHERE c.id_category=:id";
+                 
+                
+                $parameters["id"]=$id;
+
+                $this->connection = Connection::GetInstance();
+    
+                $resultSet=$this->connection->Execute($query, $parameters);
+
+                
+
+                foreach($resultSet as $row){
+                    $category = new Category();
+                    $category->setId($row["idC"]);
+                    $category->setDescription($row["categoria"]);
+                    $event = new Event();
+                    $event->setTitle($row["titulo"]);
+                    $event->setId($row["id"]);
+                    $event->setCategory($category);
+                    
+                    array_push($arrayEvent,$event);
+                }
+                return $arrayEvent;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
     }
     
 
