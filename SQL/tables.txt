@@ -71,7 +71,7 @@ create table artistsXCalendars(
     primary key (pfk_id_artist, pfk_id_calendar)
 );
 
-// INSERTS
+-- INSERTS
 
 INSERT INTO ARTISTS (name) VALUES 
 ("Charly Garcia"),
