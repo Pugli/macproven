@@ -36,7 +36,6 @@ class ControllerCalendar{
 
         public function addCalendar($date,$artists,$placeId,$eventId){
             $flag = 0;
-            var_dump($artists);
             foreach($artists as $i){
                 if($this->daoArtist->checkArtistById($i) == null){
                     $flag = 1;

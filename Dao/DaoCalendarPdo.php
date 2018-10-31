@@ -26,7 +26,6 @@
                 $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event)";
                 $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
-                //$parameters["fk_id_artist"] =  $calendar->getArtist()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
     
                 $this->connection = Connection::GetInstance();
@@ -95,7 +94,7 @@
                     
                     $artistListName = $this->connection->Execute($query, $parameters);
                     $artistList = array();
-
+ 
                     foreach ($artistListName as $name){
                         $artist = new Artist();
                         $artist->setName($name['name']);
