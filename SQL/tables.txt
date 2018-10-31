@@ -66,9 +66,9 @@ CREATE TABLE admins (
 create table artistsXCalendars(
     pfk_id_calendar int not null,
     pfk_id_artist int not null,
+    primary key (pfk_id_artist, pfk_id_calendar),
     foreign key (pfk_id_calendar) references calendars (id_calendar),
-    foreign key (pfk_id_artist) references artists (id_artist),
-    primary key (pfk_id_artist, pfk_id_calendar)
+    foreign key (pfk_id_artist) references artists (id_artist)    
 );
 
 -- INSERTS
