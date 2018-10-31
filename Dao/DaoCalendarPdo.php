@@ -33,15 +33,18 @@
     
                 $this->connection->ExecuteNonQuery($query, $parameters);
 
+                $lastId = $this->connection->getLastId();
+
                 $artistList = $calendar->getArtist();
 
                 foreach($artistList as $artist){
+                    $parameters = array();
                     
                     $query = "INSERT INTO " . $this->tableNameArtistXCalendars . " (pfk_id_calendar, pfk_id_artist) VALUES (:pfk_id_calendar, :pfk_id_artist);";
-                    $parameters2["pfk_id_calendar"] = $this->connection->getLastId();
-                    $parameters2['pfk_id_artist'] = $artist->getId();
+                    $parameters["pfk_id_calendar"] = $lastId;
+                    $parameters['pfk_id_artist'] = $artist->getId();
     
-                    $this->connection->ExecuteNonQuery($query, $parameters2);
+                    $this->connection->ExecuteNonQuery($query, $parameters);
                 } 
             }
             catch(Exception $ex){
@@ -90,10 +93,17 @@
                     WHERE ac.pfk_id_calendar = :idCalendar;";                    
                     $parameters['idCalendar'] = $row["idCalendar"];
                     
-                    $artists = $this->connection->Execute($query, $parameters);
+                    $artistListName = $this->connection->Execute($query, $parameters);
+                    $artistList = array();
+
+                    foreach ($artistListName as $name){
+                        $artist = new Artist();
+                        $artist->setName($name['name']);
+                        array_push($artistList, $artist);
+                    }
                     
                     $calendar = new Calendar();
-                    foreach($artists as $artist){
+                    foreach($artistList as $artist){
                         $calendar->addArtist($artist);
                     }
                     $calendar->setId($row["idCalendar"]);
