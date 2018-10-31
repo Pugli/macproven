@@ -43,11 +43,11 @@ CREATE TABLE admins (
  CREATE TABLE calendars(
      id_calendar int auto_increment,
      dateevent date,
-     fk_id_artist int not null,
+     -- fk_id_artist int not null,
      fk_id_event int not null,
      fk_id_eventplace int not null,
      primary key (id_calendar),
-     foreign key (fk_id_artist) references artists (id_artist),
+     -- foreign key (fk_id_artist) references artists (id_artist),
      foreign key (fk_id_event) references events (id_event),
      foreign key (fk_id_eventplace) references eventplaces (id_eventplace)
  );
@@ -65,19 +65,10 @@ CREATE TABLE admins (
  );
 
 
-select a.name as nameArtist,
-    ep.quantity as eventPlaceQuantity,
-    ep.name as nameEventPlace,
-    e.title as titleEvent,
-    cl.id_calendar as idCalendar,
-    cl.dateevent as dateEventCalendar,
-    ct.category as nameCategory
-    from calendars as cl
-    inner join eventplaces as ep
-        on cl.fk_id_eventplace = ep.id_eventplace
-    inner join events as e
-        on cl.fk_id_event = e.id_event
-    inner join categories as ct
-        on e.fk_category = ct.id_category
-    inner join artists as a
-        on cl.fk_id_artist = a.id_artist;
+create table artistsXCalendars(
+    pfk_id_calendar int not null,
+    pfk_id_artist int not null,
+    foreign key (pfk_id_calendar) references calendars (id_calendar),
+    foreign key (pfk_id_artist) references artists (id_artist),
+    primary key (pfk_id_artist, pfk_id_calendar)
+);

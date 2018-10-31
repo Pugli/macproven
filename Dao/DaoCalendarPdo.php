@@ -8,6 +8,7 @@
     use Model\Category as Category;
     use Dao\IDaoCalendar as IDaoCalendar;
     use \Exception as Exception;
+
     use Dao\Connection as Connection;
     
     class DaoCalendarPdo implements IDaoCalendar{
@@ -17,20 +18,28 @@
         private $tableNameCategory = "categories";
         private $tableNameEvent = "events";
         private $tableNameArtist = "artists";
-       
+        private $tableNameArtistXCalendars = "artistsXCalendars";       
 
         public function add(Calendar $calendar)
         {
             try{
-                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_artist, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_artist, :fk_id_event)";
+                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event)";
                 $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
-                $parameters["fk_id_artist"] =  $calendar->getArtist()->getId();
+                //$parameters["fk_id_artist"] =  $calendar->getArtist()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
     
                 $this->connection = Connection::GetInstance();
     
                 $this->connection->ExecuteNonQuery($query, $parameters);
+
+                
+
+                $query = "INSERT INTO " . $this->tableNameArtistXCalendars . " (pfk_id_calendar, pfk_id_artist) VALUES (:pfk_id_calendar, :pfk_id_artist);";
+                $parameters2["pfk_id_calendar"] = $this->connection->getPdo()->lastInsertId();
+                $parameters2['pfk_id_artist'] = $calendar->getArtist()->getId();
+
+                $this->connection->ExecuteNonQuery($query, $parameters2);
             }
             catch(Exception $ex){
                 throw $ex;
