@@ -31,6 +31,15 @@
                                     ?>
                                         <tr>
                                             <td><?php echo $Calendar->getId()?></td>
+                                            <?php $artistList = $Calendar->getArtist()?>
+                                            <td>
+                                            <select name="eventId">
+                                            <?php 
+                                                foreach ($artistList as $artist){?>
+                                                    <option><?php echo $artist->getName()?></option>
+                                            <?php }?>
+                                            </select>
+                                            </td>
                                             <td><?php echo $Calendar->getArtist()->getName()?></td>
                                             <td><?php echo $Calendar->getEvent()->getTitle()?></td>
                                             <td><?php echo $Calendar->getEventPlace()->getName()?></td>
