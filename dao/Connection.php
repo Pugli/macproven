@@ -23,6 +23,11 @@
             }
         }
 
+        public function getLastId()
+        {
+            return $this->pdo->lastInsertId();
+        }
+
         public static function GetInstance()
         {
             if(self::$instance == null)

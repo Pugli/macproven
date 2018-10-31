@@ -34,13 +34,20 @@ class ControllerCalendar{
             include_once VIEWS_PATH.'addCalendar.php';
         }
 
-        public function addCalendar($date,$artistId,$placeId,$eventId){
-            
-            if($this->daoArtist->checkArtistById($artistId) != null && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
+        public function addCalendar($date,$artists,$placeId,$eventId){
+            $flag = 0;
+            foreach($artists as $i){
+                if($this->daoArtist->checkArtistById($i) == null){
+                    $flag = 1;
+                }
+            }
+            if( $flag == 0 && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
                 $newCalendar = new Calendar();
                 $newCalendar->setDate($date);
                 $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
-                $newCalendar->setArtist($this->daoArtist->checkArtistById($artistId));
+                foreach($artists as $i){
+                    $newCalendar->addArtist($this->daoArtist->checkArtistById($i));
+                }
                 $newCalendar->setEvent($this->daoEvent->checkEventById($eventId));
                 $this->daoCalendar->add($newCalendar);
                 echo "<script> if(alert('Nuevo Calendario Ingresado'));</script>";

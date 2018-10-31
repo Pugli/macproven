@@ -43,11 +43,9 @@ CREATE TABLE admins (
  CREATE TABLE calendars(
      id_calendar int auto_increment,
      dateevent date,
-     fk_id_artist int not null,
      fk_id_event int not null,
      fk_id_eventplace int not null,
      primary key (id_calendar),
-     foreign key (fk_id_artist) references artists (id_artist),
      foreign key (fk_id_event) references events (id_event),
      foreign key (fk_id_eventplace) references eventplaces (id_eventplace)
  );
@@ -65,19 +63,60 @@ CREATE TABLE admins (
  );
 
 
-select a.name as nameArtist,
-    ep.quantity as eventPlaceQuantity,
-    ep.name as nameEventPlace,
-    e.title as titleEvent,
-    cl.id_calendar as idCalendar,
-    cl.dateevent as dateEventCalendar,
-    ct.category as nameCategory
-    from calendars as cl
-    inner join eventplaces as ep
-        on cl.fk_id_eventplace = ep.id_eventplace
-    inner join events as e
-        on cl.fk_id_event = e.id_event
-    inner join categories as ct
-        on e.fk_category = ct.id_category
-    inner join artists as a
-        on cl.fk_id_artist = a.id_artist;
+create table artistsXCalendars(
+    pfk_id_calendar int not null,
+    pfk_id_artist int not null,
+    primary key (pfk_id_artist, pfk_id_calendar),
+    foreign key (pfk_id_calendar) references calendars (id_calendar),
+    foreign key (pfk_id_artist) references artists (id_artist)    
+);
+
+-- INSERTS
+
+INSERT INTO ARTISTS (name) VALUES 
+("Charly Garcia"),
+("Shakira"),
+("Luis Fonsi"),
+("Dama$ Grati$"),
+("Evanescense"),
+("Axel"),
+("Jeniffer Lopez"),
+("Linkin Park"),
+("Callejeros"),
+("La Vela Puerca");
+
+INSERT INTO CATEGORIES (CATEGORY) VALUES
+("Recital"),
+("Boxeo"),
+("Festival de musica"),
+("Comedia Musical"),
+("Teatro");
+
+INSERT INTO EVENTS (FK_CATEGORY,TITLE) VALUES
+(1,"Shakira en Argentina"),
+(1,"La vela puerca Gira BSAS"),
+(1,"Dama$ Grati$ en Bookan"),
+(3,"Tomorrowland Rio 2019"),
+(4,"High School Musical 5 Live LA"),
+(3,"Lollapalooza"),
+(5,"La mascara de hierro");
+
+INSERT INTO EVENTPLACES (QUANTITY,NAME) VALUES
+(65000,"Monumental"),
+(52000,"Velez Sarfield"),
+(9000,"Luna Park"),
+(3200,"Gran Rex"),
+(11000,"Polideportivo Islas Malvinas"),
+(80000,"Estadio Maracaná"),
+(600,"Abbey Road");
+
+INSERT INTO PLACETYPE (DESCRIPTION) VALUES
+("General"),
+("Platea"),
+("Palco"),
+("VIP"),
+("Campo");
+
+
+
+
