@@ -4,7 +4,7 @@
     <title>Consultar por categoria</title>
 </head>
 <body>
-    <form action="<?php echo FRONT_ROOT; ?>/calendar/checkEventForCategory" method="POST">
+    <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForCategory" method="POST">
     <br>
     <tr>
     

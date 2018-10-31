@@ -4,7 +4,7 @@
     <title>Consultar por fecha</title>
 </head>
 <body>
-    <form action="<?php echo FRONT_ROOT; ?>/calendar/checkEventForDate" method="POST">
+    <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForDate" method="POST">
     <br>
     <tr>
         <td>seleccione fecha: <input type="date" name="date"/></td>
