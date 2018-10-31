@@ -11,8 +11,6 @@
         private $connection;
         private $tableName = "EVENTS";
         private $tableNameCategory = "CATEGORIES";
-        private $daoCategory;
-
 
         public function add(Event $event)
         {

@@ -8,11 +8,8 @@
     use Model\Category as Category;
     use Dao\IDaoCalendar as IDaoCalendar;
     use \Exception as Exception;
-    use \PDO as PDO;
+
     use Dao\Connection as Connection;
-    /*use Dao\DaoArtistPdo as DaoArtistPdo;
-    use Dao\DaoEventPdo as DaoEventPdo;
-    use Dao\DaoEventPlacePdo as DaoEventPlacePdo; */
     
     class DaoCalendarPdo implements IDaoCalendar{
         private $connection;
@@ -21,17 +18,7 @@
         private $tableNameCategory = "categories";
         private $tableNameEvent = "events";
         private $tableNameArtist = "artists";
-        private $tableNameArtistXCalendars = "artistsXCalendars";
-        /* private $daoArtist;
-        private $daoEvent;
-        private $daoEventPlace; */
-
-        public function __construct()
-        {
-            /* $this->daoArtist = new DaoArtistPdo();
-            $this->daoEvent = new DaoEventPdo();
-            $this->daoEventPlace = new DaoEventPlacePdo(); */
-        }
+        private $tableNameArtistXCalendars = "artistsXCalendars";       
 
         public function add(Calendar $calendar)
         {
@@ -123,6 +110,7 @@
                 $calendar = null;
 
                 $query = "SELECT a.name AS nameArtist,
+                ep.id_eventPlace AS eventPlaceId,
                 ep.quantity AS eventPlaceQuantity,
                 ep.name AS nameEventPlace,
                 e.title AS titleEvent,
@@ -152,6 +140,7 @@
                     $artist->setName($row["nameArtist"]);
 
                     $eventPlace = new EventPlace();
+                    $eventPlace->setId($row["eventPlaceId"]);
                     $eventPlace->setQuantity($row["eventPlaceQuantity"]);
                     $eventPlace->setName($row["nameEventPlace"]);
 
