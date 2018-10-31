@@ -22,21 +22,26 @@
 </head>
 <body>
     <form action="<?php echo FRONT_ROOT; ?>/Calendar/addCalendar" method="POST">
-    <br>
+    
     <tr>
+    
         <td>Fecha: <input type="date" name="date"/></td>
+        
         <td>Artista: 
-            <select name="artistId">
+            <br>
                 <?php 
                 foreach ($artistsList as $artist){?>
-                    <option value="<?php echo $artist->getId()?>"><?php echo $artist->getName()?></option>
+                
+                <input type="checkbox" name="artist" value="<?php echo $artist->getId()?>"><?php echo $artist->getName()?>
+                   <br> 
                 <?php }?>
-            </select>
+            
         </td>
         <td>Lugar: 
             <select name="placeId">
                 <?php 
                 foreach ($eventPlaceList as $eventPlace){?>
+                <br>
                     <option value="<?php echo $eventPlace->getId()?>"><?php echo $eventPlace->getName()?></option>
                 <?php }?>
             </select>
