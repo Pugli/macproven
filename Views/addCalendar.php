@@ -32,7 +32,7 @@
                 <?php 
                 foreach ($artistsList as $artist){?>
                 
-                <input type="checkbox" name="artist" value="<?php echo $artist->getId()?>"><?php echo $artist->getName()?>
+                <input type="checkbox" name="artists[]" value="<?php echo $artist->getId()?>"><?php echo $artist->getName()?>
                    <br> 
                 <?php }?>
             

@@ -34,9 +34,10 @@ class ControllerCalendar{
             include_once VIEWS_PATH.'addCalendar.php';
         }
 
-        public function addCalendar($date,$arrayArtistId,$placeId,$eventId){
+        public function addCalendar($date,$artists,$placeId,$eventId){
             $flag = 0;
-            foreach($arrayArtistId as $i){
+            var_dump($artists);
+            foreach($artists as $i){
                 if($this->daoArtist->checkArtistById($i) == null){
                     $flag = 1;
                 }
@@ -45,7 +46,7 @@ class ControllerCalendar{
                 $newCalendar = new Calendar();
                 $newCalendar->setDate($date);
                 $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
-                foreach($arrayArtistId as $i){
+                foreach($artists as $i){
                     $newCalendar->addArtist($this->daoArtist->checkArtistById($i));
                 }
                 $newCalendar->setEvent($this->daoEvent->checkEventById($eventId));

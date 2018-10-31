@@ -90,7 +90,7 @@
                     WHERE ac.pfk_id_calendar = :idCalendar;";                    
                     $parameters['idCalendar'] = $row["idCalendar"];
                     
-                    $artists = $this->connection->Execute($query);
+                    $artists = $this->connection->Execute($query, $parameters);
                     
                     $calendar = new Calendar();
                     foreach($artists as $artist){
