@@ -64,8 +64,7 @@
             try{
                 $calendarList = array();
 
-                $query = "SELECT a.name AS nameArtist,
-                ep.quantity AS eventPlaceQuantity,
+                $query = "SELECT ep.quantity AS eventPlaceQuantity,
                 ep.name AS nameEventPlace,
                 e.title AS titleEvent,
                 cl.id_calendar AS idCalendar,
@@ -77,9 +76,7 @@
                 INNER JOIN " . $this->tableNameEvent . " AS e
                     ON cl.fk_id_event = e.id_event
                 INNER JOIN " . $this->tableNameCategory . " AS ct
-                    ON e.fk_category = ct.id_category
-                INNER JOIN " . $this->tableNameArtist . " AS a
-                    ON cl.fk_id_artist = a.id_artist;";
+                    ON e.fk_category = ct.id_category;";
 
                 $this->connection = Connection::GetInstance();
 
