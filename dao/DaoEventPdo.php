@@ -5,16 +5,12 @@
     use dao\IDaoEventPdo as IDaoEventPdo;
     use \Exception as Exception;
     use Dao\Connection as Connection;
-    use dao\DaoCategoryPdo as DaoCategoryPdo;
+    use Model\Category as Category;
 
     class DaoEventPdo implements IDaoEventPdo{
         private $connection;
         private $tableName = "EVENTS";
-        private $daoCategory;
-
-        public function __construct(){
-            $this->daoCategory = new DaoCategoryPdo;
-        }
+        private $tableNameCategory = "CATEGORIES";
 
         public function add(Event $event)
         {
@@ -40,7 +36,7 @@
             {
                 $eventList = array();
 
-                $query = "SELECT * FROM ".$this->tableName;
+                $query = "SELECT title, id_event, category FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
 
                 $this->connection = Connection::GetInstance();
 
@@ -49,9 +45,13 @@
                 foreach ($resultSet as $row)
                 {                
                     $event = new Event();
-                    $event->setTitle($row["TITLE"]);
-                    $event->setId($row['ID_EVENT']);
-                    $event->setCategory($this->daoCategory->checkCategoryById($row['FK_CATEGORY']));
+                    $event->setTitle($row["title"]);
+                    $event->setId($row['id_event']);
+
+                    $category = new Category();
+                    $category->setDescription($row["category"]);
+                    
+                    $event->setCategory($category);
 
                     array_push($eventList, $event);
                 }
@@ -70,9 +70,11 @@
             {
                 $event = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE TITLE = :title";
+                $query = "SELECT * FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON
+                ".$this->tableName.".FK_CATEGORY = ".$this->tableNameCategory.".ID_CATEGORY 
+                WHERE TITLE = :eventname";
 
-                $parameters["title"] = $eventname;
+                $parameters["eventname"] = $eventname;
 
                 $this->connection = Connection::GetInstance();
 
@@ -80,10 +82,15 @@
                 
                 foreach ($resultSet as $row)
                 {
+                    $category = new Category();
+                    $category->setId($row['ID_CATEGORY']);
+                    $category->setDescription($row['CATEGORY']);
+
                     $event = new Event();
                     $event->setTitle($row["TITLE"]);
                     $event->setId($row["ID_EVENT"]);
-                    $event->setCategory($this->daoCategory->checkCategoryById($row['FK_CATEGORY']));
+                    $event->setCategory($category);
+                    
                 }
                 return $event;
             }
@@ -99,7 +106,9 @@
             {
                 $event = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE ID_EVENT = :id";
+                $query = "SELECT * FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON
+                ".$this->tableName.".FK_CATEGORY = ".$this->tableNameCategory.".ID_CATEGORY 
+                WHERE ID_EVENT = :id";
 
                 $parameters["id"] = $id;
 
@@ -109,10 +118,15 @@
                 
                 foreach ($resultSet as $row)
                 {
+                    $category = new Category();
+                    $category->setId($row['id_category']);
+                    $category->setDescription($row['category']);
+
                     $event = new Event();
                     $event->setTitle($row["TITLE"]);
                     $event->setId($row["ID_EVENT"]);
-                    $event->setCategory($this->daoCategory->checkCategoryById($row['FK_CATEGORY']));
+                    $event->setCategory($category);
+                    
                 }
                 return $event;
             }

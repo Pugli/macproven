@@ -32,8 +32,6 @@
 
         public function addArtist($artist){
 
-           /* $newArtist = new Artist();
-            $newArtist->setName($artist); ---Esto va???*/
 
             if ($this->DaoArtist->checkArtist($artist) == null){
 
