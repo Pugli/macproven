@@ -33,13 +33,16 @@
     
                 $this->connection->ExecuteNonQuery($query, $parameters);
 
-                
+                $artistList = $calendar->getArtist();
 
-                $query = "INSERT INTO " . $this->tableNameArtistXCalendars . " (pfk_id_calendar, pfk_id_artist) VALUES (:pfk_id_calendar, :pfk_id_artist);";
-                $parameters2["pfk_id_calendar"] = $this->connection->getPdo()->lastInsertId();
-                $parameters2['pfk_id_artist'] = $calendar->getArtist()->getId();
-
-                $this->connection->ExecuteNonQuery($query, $parameters2);
+                foreach($artistList as $artist){
+                    
+                    $query = "INSERT INTO " . $this->tableNameArtistXCalendars . " (pfk_id_calendar, pfk_id_artist) VALUES (:pfk_id_calendar, :pfk_id_artist);";
+                    $parameters2["pfk_id_calendar"] = $this->connection->getLastId();
+                    $parameters2['pfk_id_artist'] = $artist->getId();
+    
+                    $this->connection->ExecuteNonQuery($query, $parameters2);
+                } 
             }
             catch(Exception $ex){
                 throw $ex;
@@ -69,12 +72,7 @@
 
                 $resultSet = $this->connection->Execute($query);
 
-                $i = 0;
-
                 foreach ($resultSet as $row){
-
-                    $artist = new Artist();
-                    $artist->setName($row["nameArtist"]);
 
                     $eventPlace = new EventPlace();
                     $eventPlace->setQuantity($row["eventPlaceQuantity"]);
@@ -87,16 +85,24 @@
                     $event->setTitle($row["titleEvent"]);
                     $event->setCategory($category);
 
+                    $query = "SELECT a.name FROM " . $this->tableNameArtistXCalendars . " AS ac
+                    INNER JOIN " . $this->tableNameArtist . " AS a ON ac.pfk_id_artist = a.id_artist
+                    WHERE ac.pfk_id_calendar = :idCalendar;";                    
+                    $parameters['idCalendar'] = $row["idCalendar"];
+                    
+                    $artists = $this->connection->Execute($query);
+                    
                     $calendar = new Calendar();
+                    foreach($artists as $artist){
+                        $calendar->addArtist($artist);
+                    }
                     $calendar->setId($row["idCalendar"]);
                     $calendar->setDate($row["dateEventCalendar"]);
-                    $calendar->setArtist($artist);
                     $calendar->setEventPlace($eventPlace);
-                    $calendar->setEvent($event);                   
+                    $calendar->setEvent($event);
                     
                     array_push($calendarList, $calendar);
                 }
-
                 return $calendarList;
             }
             catch(Exception $ex){
@@ -151,10 +157,19 @@
                     $event->setTitle($row["titleEvent"]);
                     $event->setCategory($category);
 
+                    $query = "SELECT a.name FROM " . $this->tableNameArtistXCalendars . " AS ac
+                    INNER JOIN " . $this->tableNameArtist . " AS a ON ac.pfk_id_artist = a.id_artist
+                    WHERE ac.pfk_id_calendar = :idCalendar;";                    
+                    $parameters['idCalendar'] = $row["idCalendar"];
+                    
+                    $artists = $this->connection->Execute($query);
+
                     $calendar = new Calendar();
+                    foreach($artists as $artist){
+                        $calendar->addArtist($artist);
+                    }
                     $calendar->setId($row["idCalendar"]);
                     $calendar->setDate($row["dateEventCalendar"]);
-                    $calendar->setArtist($artist);
                     $calendar->setEventPlace($eventPlace);
                     $calendar->setEvent($event);
                 }
