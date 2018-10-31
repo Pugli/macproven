@@ -23,9 +23,9 @@
             }
         }
 
-        public function getPDO()
+        public function getLastId()
         {
-            return $this->pdo;
+            return $this->pdo->lastInsertId();
         }
 
         public static function GetInstance()

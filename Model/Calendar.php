@@ -9,7 +9,7 @@
         private $date;
         private $id;
         private $eventPlace;
-        private $artist;
+        private $artist = array();
         private $event;
 
         public function setEvent(Event $event)
@@ -22,9 +22,9 @@
             return $this->event;
         }
 
-        public function setArtist(Artist $artist)
+        public function addArtist(Artist $artist)
         {
-            $this->artist = $artist;
+            array_push($this->artist, $artist);
         }
 
         public function getArtist()
