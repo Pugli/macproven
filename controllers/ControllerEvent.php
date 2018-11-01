@@ -49,6 +49,42 @@
         public function getAll(){
             return $this->daoEvent->getAll();
         }
+
+        public function showCheckEventForDate()
+        {
+            include_once VIEWS_PATH."CheckEventForDate.php";
+        }
+
+        public function checkEventForDate($date)
+        {
+           if(($arrayEvent=$this->daoEvent->checkEventForDateDao($date)) != null){
+            include_once VIEWS_PATH."listCheckEventForDate.php";
+            }
+           else{
+            echo "<script> if(alert('No existe el evento'));</script>";
+            include_once VIEWS_PATH .'Home.php';
+            } 
+
+        }
+
+        public function showCheckEventForCategory()
+        {
+            $arrayCategory = $this->daoCategory->getAll();
+            include_once VIEWS_PATH."CheckEventForCategory.php";
+        }
+
+        public function checkEventForCategory($id)
+        {
+            
+           if(($arrayEvent=$this->daoEvent->checkEventForCategoryDao($id)) != null){
+            include_once VIEWS_PATH."listCheckEventForCategory.php";
+            }
+           else{
+            echo "<script> if(alert('No existe el evento'));</script>";
+            include_once VIEWS_PATH .'Home.php';
+        } 
+
+        }
     }
 
 
