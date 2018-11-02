@@ -18,7 +18,31 @@
         private $tableNameCategory = "categories";
         private $tableNameEvent = "events";
         private $tableNameArtist = "artists";
-        private $tableNameArtistXCalendars = "artistsXCalendars";       
+        private $tableNameArtistXCalendars = "artistsXCalendars";
+
+        public function generalQuery()
+        {
+            return "SELECT ep.quantity AS quantityEventPlace,
+            ep.name AS nameEventPlace,
+            ep.id_eventPlace AS idEventPlace,
+            e.title AS titleEvent,
+            cl.id_calendar AS idCalendar,
+            cl.dateevent AS dateEventCalendar,
+            ct.category AS nameCategory,
+            a.name AS nameArtist 
+            FROM " . $this->tableNameArtistXCalendars . " AS ac
+            INNER JOIN " . $this->tableName . " AS cl
+                ON ac.pfk_id_calendar = cl.id_calendar
+            INNER JOIN " . $this->tableNameArtist . " AS a
+                ON ac.pfk_id_artist = a.id_artist
+            INNER JOIN " . $this->tableNameEventPlace . " AS ep
+                ON cl.fk_id_eventplace = ep.id_eventPlace
+            INNER JOIN " . $this->tableNameEvent . " AS e
+                ON cl.fk_id_event = e.id_event
+            INNER JOIN " . $this->tableNameCategory . " AS ct
+                ON e.fk_category = ct.id_category
+            ORDER BY ac.pfk_id_calendar;";
+        }
 
         public function add(Calendar $calendar)
         {
@@ -51,67 +75,58 @@
             }
         }
 
+        private function generateCalendar($resultSet)
+        {
+            $calendarList = array();
+            $lastId;
+
+            foreach ($resultSet as $row){
+
+                $idCalendar = ($row["idCalendar"]);               
+
+                if($calendarList == null || $lastId != $idCalendar){
+                    $lastId = $row["idCalendar"];
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setName($row['nameEventPlace']);
+                    $eventPlace->setQuantity($row['quantityEventPlace']);
+
+                    $category = new Category();
+                    $category->setDescription($row['nameCategory']);
+
+                    $event = new Event();
+                    $event->setTitle($row['titleEvent']);
+                    $event->setCategory($category);
+
+                    $calendar = new Calendar();
+                    $calendar->setId($row['idCalendar']);
+                    $calendar->setDate($row['dateEventCalendar']);
+                    $calendar->setEvent($event);
+                    $calendar->setEventPlace($eventPlace);
+
+                    array_push($calendarList, $calendar);
+                }
+                
+                $artist = new Artist();
+                $artist->setName($row['nameArtist']);
+
+                $calendarList[$idCalendar-1]->addArtist($artist);
+            }
+            return $calendarList;
+        }
+
         public function getAll()
         {
             try{
                 $calendarList = array();
 
-                $query = "SELECT ep.quantity AS eventPlaceQuantity,
-                ep.name AS nameEventPlace,
-                e.title AS titleEvent,
-                cl.id_calendar AS idCalendar,
-                cl.dateevent AS dateEventCalendar,
-                ct.category AS nameCategory
-                FROM " . $this->tableName . " AS cl
-                INNER JOIN " . $this->tableNameEventPlace . " AS ep
-                    ON cl.fk_id_eventplace = ep.id_eventplace
-                INNER JOIN " . $this->tableNameEvent . " AS e
-                    ON cl.fk_id_event = e.id_event
-                INNER JOIN " . $this->tableNameCategory . " AS ct
-                    ON e.fk_category = ct.id_category;";
+                $query = $this->generalQuery();
 
                 $this->connection = Connection::GetInstance();
 
                 $resultSet = $this->connection->Execute($query);
 
-                foreach ($resultSet as $row){
+                $calendarList = $this->generateCalendar($resultSet);
 
-                    $eventPlace = new EventPlace();
-                    $eventPlace->setQuantity($row["eventPlaceQuantity"]);
-                    $eventPlace->setName($row["nameEventPlace"]);
-
-                    $category = new Category();
-                    $category->setDescription($row["nameCategory"]);
-
-                    $event = new Event();
-                    $event->setTitle($row["titleEvent"]);
-                    $event->setCategory($category);
-
-                    $query = "SELECT a.name FROM " . $this->tableNameArtistXCalendars . " AS ac
-                    INNER JOIN " . $this->tableNameArtist . " AS a ON ac.pfk_id_artist = a.id_artist
-                    WHERE ac.pfk_id_calendar = :idCalendar;";                    
-                    $parameters['idCalendar'] = $row["idCalendar"];
-                    
-                    $artistListName = $this->connection->Execute($query, $parameters);
-                    $artistList = array();
- 
-                    foreach ($artistListName as $name){
-                        $artist = new Artist();
-                        $artist->setName($name['name']);
-                        array_push($artistList, $artist);
-                    }
-                    
-                    $calendar = new Calendar();
-                    foreach($artistList as $artist){
-                        $calendar->addArtist($artist);
-                    }
-                    $calendar->setId($row["idCalendar"]);
-                    $calendar->setDate($row["dateEventCalendar"]);
-                    $calendar->setEventPlace($eventPlace);
-                    $calendar->setEvent($event);
-                    
-                    array_push($calendarList, $calendar);
-                }
                 return $calendarList;
             }
             catch(Exception $ex){
@@ -124,24 +139,7 @@
             {
                 $calendar = null;
 
-                $query = "SELECT a.name AS nameArtist,
-                ep.id_eventPlace AS eventPlaceId,
-                ep.quantity AS eventPlaceQuantity,
-                ep.name AS nameEventPlace,
-                e.title AS titleEvent,
-                cl.id_calendar AS idCalendar,
-                cl.dateevent AS dateEventCalendar,
-                ct.category AS nameCategory
-                FROM ". $this->tableName . " AS cl
-                INNER JOIN " . $this->tableNameEventPlace . " AS ep
-                    ON cl.fk_id_eventplace = ep.id_eventplace
-                INNER JOIN " . $this->tableNameEvent . " AS e
-                    ON cl.fk_id_event = e.id_event
-                INNER JOIN " . $this->tableNameCategory . " AS ct
-                    ON e.fk_category = ct.id_category
-                INNER JOIN " . $this->tableNameArtist . " AS a
-                    ON cl.fk_id_artist = a.id_artist 
-                WHERE id_calendar = :calendar";
+                $query = $this->generalQuery() . " WHERE id_calendar = :calendar";
 
                 $parameters["calendar"] = $calendarId;
 
@@ -149,40 +147,9 @@
 
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
-                foreach ($resultSet as $row)
-                {
-                    $artist = new Artist();
-                    $artist->setName($row["nameArtist"]);
+                $calendarList = $this->generateCalendar($resultSet);
 
-                    $eventPlace = new EventPlace();
-                    $eventPlace->setId($row["eventPlaceId"]);
-                    $eventPlace->setQuantity($row["eventPlaceQuantity"]);
-                    $eventPlace->setName($row["nameEventPlace"]);
-
-                    $category = new Category();
-                    $category->setDescription($row["nameCategory"]);
-
-                    $event = new Event();
-                    $event->setTitle($row["titleEvent"]);
-                    $event->setCategory($category);
-
-                    $query = "SELECT a.name FROM " . $this->tableNameArtistXCalendars . " AS ac
-                    INNER JOIN " . $this->tableNameArtist . " AS a ON ac.pfk_id_artist = a.id_artist
-                    WHERE ac.pfk_id_calendar = :idCalendar;";                    
-                    $parameters['idCalendar'] = $row["idCalendar"];
-                    
-                    $artists = $this->connection->Execute($query);
-
-                    $calendar = new Calendar();
-                    foreach($artists as $artist){
-                        $calendar->addArtist($artist);
-                    }
-                    $calendar->setId($row["idCalendar"]);
-                    $calendar->setDate($row["dateEventCalendar"]);
-                    $calendar->setEventPlace($eventPlace);
-                    $calendar->setEvent($event);
-                }
-                return $calendar;
+                return $calendarList[0];
             }
             catch(Exception $ex)
             {
