@@ -40,8 +40,8 @@
             INNER JOIN " . $this->tableNameEvent . " AS e
                 ON cl.fk_id_event = e.id_event
             INNER JOIN " . $this->tableNameCategory . " AS ct
-                ON e.fk_category = ct.id_category
-            ORDER BY ac.pfk_id_calendar";
+                ON e.fk_category = ct.id_category";
+            //ORDER BY ac.pfk_id_calendar";
         }
 
         public function add(Calendar $calendar)
@@ -89,6 +89,7 @@
                     $eventPlace = new EventPlace();
                     $eventPlace->setName($row['nameEventPlace']);
                     $eventPlace->setQuantity($row['quantityEventPlace']);
+                    $eventPlace->setId($row['idEventPlace']);
 
                     $category = new Category();
                     $category->setDescription($row['nameCategory']);
@@ -119,7 +120,7 @@
             try{
                 $calendarList = array();
 
-                $query = $this->generalQuery();
+                $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar";
 
                 $this->connection = Connection::GetInstance();
 

@@ -35,7 +35,8 @@
         public function addEventSeat($calendarId,$placeTypeId,$quantity,$price){
             
             if($this->daoCalendar->checkCalendarById($calendarId) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId) != null){
-
+                var_dump($this->daoCalendar->checkCalendarById($calendarId));
+                echo " hola";
                 if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId)->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId))) >= $quantity){
 
                     $newEventSeat = new EventSeat;

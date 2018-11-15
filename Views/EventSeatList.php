@@ -35,7 +35,14 @@
                                             <td><?php echo $eventSeat->getId()?></td>
                                             <td><?php echo $eventSeat->getCalendar()->getDate()?></td>
                                             <td><?php echo $eventSeat->getCalendar()->getEvent()->getTitle()?></td>
-                                            <td><?php echo $eventSeat->getCalendar()->getArtist()->getName()?></td>
+                                            <td>
+                                            <select>
+                                            <?php 
+                                                foreach ($eventSeat->getCalendar()->getArtist() as $artist){?>
+                                                    <option><?php echo $artist->getName();?></option>
+                                            <?php }?>
+                                            </select>
+                                            </td>
                                             <td><?php echo $eventSeat->getPlaceType()->getDescription()?></td>
                                             <td><?php echo $eventSeat->getQuantityAvailable()?></td>
                                             <td><?php echo $eventSeat->getRemainder()?></td>
@@ -50,11 +57,11 @@
           </div>
      </section>
 
-     <section id="eliminar">
+     <!-- <section id="eliminar">
           <div class="container">
                <h2 class="mb-4">Eliminar Plaza-Evento</h2>
 
-               <form method="post" action="<?php echo FRONT_ROOT ?>EventSeat/delete" class="form-inline bg-light-alpha p-5">
+               <form method="post" action="<?php //echo FRONT_ROOT ?>EventSeat/delete" class="form-inline bg-light-alpha p-5">
                     <div class="form-group text-white">
                          <label for="">Id</label>
                          <input type="text" name="idEventSeat" value="" class="form-control ml-3">
@@ -62,4 +69,4 @@
                     <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
                </form>
           </div>
-     </section>
+     </section> -->
