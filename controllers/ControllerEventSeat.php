@@ -65,6 +65,11 @@
         public function getAll(){
             return $this->daoEventSeat->getAll();
         }
+
+        public function query()
+        {
+            echo $this->daoEventSeat->generalQuery();
+        }
     }
 
     
