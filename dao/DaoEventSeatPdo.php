@@ -59,14 +59,14 @@
             cl.dateevent AS dateEventCalendar,
             ct.category AS nameCategory,
             a.name AS nameArtist 
-            FROM " . $this->tableNameArtistXCalendars . " AS ac
+            FROM " . $this->tableNameArtistsXCalendars . " AS ac
             INNER JOIN " . $this->tableNameCalendars . " AS cl
                 ON ac.pfk_id_calendar = cl.id_calendar
-            INNER JOIN " . $this->tableNameArtist . " AS a
+            INNER JOIN " . $this->tableNameArtists . " AS a
                 ON ac.pfk_id_artist = a.id_artist
-            INNER JOIN " . $this->tableNameEventPlace . " AS ep
+            INNER JOIN " . $this->tableNameEventPlaces . " AS ep
                 ON cl.fk_id_eventplace = ep.id_eventPlace
-            INNER JOIN " . $this->tableNameEvent . " AS e
+            INNER JOIN " . $this->tableNameEvents . " AS e
                 ON cl.fk_id_event = e.id_event
             INNER JOIN " . $this->tableNameCategory . " AS ct
                 ON e.fk_category = ct.id_category
