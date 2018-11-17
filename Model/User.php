@@ -5,6 +5,8 @@
     {
         private $email;
         private $password;
+        private $isAdmin;
+        private $purchase = array();
 
         public function setEmail($email)
         {
@@ -22,6 +24,24 @@
         public function getPassword()
         {
             return $this->password;
+        }
+
+        public function setIsAdmin($isAdmin)
+        {
+            $this->isAdmin = $isAdmin;
+        }
+        public function getIsAdmin()
+        {
+            return $this->isAdmin;
+        }
+
+        public function setPurchase(Purchase $purchase)
+        {
+            array_push($this->purchase, $purchase);
+        }
+        public function getPurchase()
+        {
+            return $this->purchase;
         }
     }
 ?>
