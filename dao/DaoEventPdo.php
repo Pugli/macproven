@@ -12,6 +12,31 @@
         private $tableName = "EVENTS";
         private $tableNameCategory = "CATEGORIES";
 
+        public function generalQuery()
+        {
+            return "SELECT title, id_event, category FROM " . $this->tableName . 
+                                " INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
+        }
+
+        public function generate($resultSet)
+        {
+            $eventList = array();
+            foreach ($resultSet as $row)
+                {                
+                    $event = new Event();
+                    $event->setTitle($row["title"]);
+                    $event->setId($row['id_event']);
+
+                    $category = new Category();
+                    $category->setDescription($row["category"]);
+                    
+                    $event->setCategory($category);
+
+                    array_push($eventList, $event);
+                }
+            return $eventList;
+        }
+
         public function add(Event $event)
         {
             try
@@ -36,25 +61,13 @@
             {
                 $eventList = array();
 
-                $query = "SELECT title, id_event, category FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
+                $query = $this->generalQuery();
 
                 $this->connection = Connection::GetInstance();
 
                 $resultSet = $this->connection->Execute($query);
                 
-                foreach ($resultSet as $row)
-                {                
-                    $event = new Event();
-                    $event->setTitle($row["title"]);
-                    $event->setId($row['id_event']);
-
-                    $category = new Category();
-                    $category->setDescription($row["category"]);
-                    
-                    $event->setCategory($category);
-
-                    array_push($eventList, $event);
-                }
+                $eventList = $this->generate($resultSet);
 
                 return $eventList;
             }
@@ -70,9 +83,7 @@
             {
                 $event = null;
 
-                $query = "SELECT * FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON
-                ".$this->tableName.".FK_CATEGORY = ".$this->tableNameCategory.".ID_CATEGORY 
-                WHERE TITLE = :eventname";
+                $query = $this->generalQuery() . " WHERE TITLE = :eventname";
 
                 $parameters["eventname"] = $eventname;
 
@@ -80,19 +91,8 @@
 
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
-                foreach ($resultSet as $row)
-                {
-                    $category = new Category();
-                    $category->setId($row['ID_CATEGORY']);
-                    $category->setDescription($row['CATEGORY']);
-
-                    $event = new Event();
-                    $event->setTitle($row["TITLE"]);
-                    $event->setId($row["ID_EVENT"]);
-                    $event->setCategory($category);
-                    
-                }
-                return $event;
+                $eventList = $this->generate($resultSet);
+                return $eventList[0];
             }
             catch(Exception $ex)
             {
@@ -106,29 +106,16 @@
             {
                 $event = null;
 
-                $query = "SELECT * FROM ".$this->tableName." INNER JOIN ".$this->tableNameCategory." ON
-                ".$this->tableName.".FK_CATEGORY = ".$this->tableNameCategory.".ID_CATEGORY 
-                WHERE ID_EVENT = :id";
+                $query = $this->generalQuery() . " WHERE ID_EVENT = :id";
 
                 $parameters["id"] = $id;
 
                 $this->connection = Connection::GetInstance();
-
+                
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
-                foreach ($resultSet as $row)
-                {
-                    $category = new Category();
-                    $category->setId($row['id_category']);
-                    $category->setDescription($row['category']);
-
-                    $event = new Event();
-                    $event->setTitle($row["TITLE"]);
-                    $event->setId($row["ID_EVENT"]);
-                    $event->setCategory($category);
-                    
-                }
-                return $event;
+                $eventList = $this->generate($resultSet);
+                return $eventList[0];
             }
             catch(Exception $ex)
             {
@@ -173,9 +160,11 @@
                 
 
                 foreach($resultSet as $row){
+
                     $category = new Category();
                     $category->setId($row["idC"]);
                     $category->setDescription($row["categoria"]);
+
                     $event = new Event();
                     $event->setTitle($row["titulo"]);
                     $event->setId($row["id"]);

@@ -7,6 +7,7 @@
     use Model\Artist as Artist;
     use Model\EventPlace as EventPlace;
     use Model\Event as Event;
+    use Model\Category as Category;
     use dao\Connection as Connection;
     use \Exception as Exception;
 
@@ -19,6 +20,92 @@
         private $tableNameEvents = "EVENTS";
         private $tableNameEventPlaces = "EVENTPLACES";
         private $tableNamePlaceType = "PLACETYPE";
+        private $tableNameArtistsXCalendars = "artistsXCalendars";
+        private $tableNameCategory = "categories";
+
+        public function generalQuery()
+        {
+            return "SELECT ep.quantity AS quantityEventPlace,
+            ep.name AS nameEventPlace,
+            es.id_eventSeat AS idEventSeat,
+            es.quantity AS quantityEventSeat,
+            es.price AS priceEventSeat,
+            es.remainder AS remainderEventSeat,
+            ep.id_eventPlace AS idEventPlace,
+            e.title AS titleEvent,
+            cl.id_calendar AS idCalendar,
+            cl.dateevent AS dateEventCalendar,
+            ct.category AS nameCategory,
+            pt.description AS descriptionPlaceType,
+            a.name AS nameArtist 
+            FROM " . $this->tableNameArtistsXCalendars . " AS ac
+            INNER JOIN " . $this->tableNameCalendars . " AS cl
+                ON ac.pfk_id_calendar = cl.id_calendar
+            INNER JOIN " . $this->tableNameArtists . " AS a
+                ON ac.pfk_id_artist = a.id_artist
+            INNER JOIN " . $this->tableNameEventPlaces . " AS ep
+                ON cl.fk_id_eventplace = ep.id_eventPlace
+            INNER JOIN " . $this->tableNameEvents . " AS e
+                ON cl.fk_id_event = e.id_event
+            INNER JOIN " . $this->tableNameCategory . " AS ct
+                ON e.fk_category = ct.id_category
+            INNER JOIN " . $this->tableNameEventSeats . " AS es
+                ON es.fk_id_calendar = cl.id_calendar
+            INNER JOIN " . $this->tableNamePlaceType . " AS pt
+                ON es.fk_id_placeType = pt.id_placetype
+            ORDER BY ac.pfk_id_calendar";
+        }
+
+        private function generateEventSeat($resultSet)
+        {
+            
+            $eventSeatList = array();
+            $lastId = 0;
+
+            foreach ($resultSet as $row){
+
+                $idCalendar = ($row["idCalendar"]);               
+
+                if($lastId != $idCalendar){
+                    $lastId = $row["idCalendar"];
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setName($row['nameEventPlace']);
+                    $eventPlace->setQuantity($row['quantityEventPlace']);
+
+                    $category = new Category();
+                    $category->setDescription($row['nameCategory']);
+
+                    $event = new Event();
+                    $event->setTitle($row['titleEvent']);
+                    $event->setCategory($category);
+
+                    $calendar = new Calendar();
+                    $calendar->setId($row['idCalendar']);//
+                    $calendar->setDate($row['dateEventCalendar']);
+                    $calendar->setEvent($event);
+                    $calendar->setEventPlace($eventPlace);
+
+                    $placeType = new PlaceType();
+                    $placeType->setDescription($row['descriptionPlaceType']);
+
+                    $eventSeat = new EventSeat;
+                    $eventSeat->setId($row["idEventSeat"]);
+                    $eventSeat->setRemainder($row["remainderEventSeat"]);
+                    $eventSeat->setQuantityAvailable($row["quantityEventSeat"]);
+                    $eventSeat->setPrice($row["priceEventSeat"]);
+                    $eventSeat->setCalendar($calendar);
+                    $eventSeat->setPlaceType($placeType);
+
+                    array_push($eventSeatList, $eventSeat);
+                }
+                $artist = new Artist();
+                $artist->setName($row['nameArtist']);
+
+                $calendarResult = $eventSeatList[(count($eventSeatList)) - 1]->getCalendar();
+                $calendarResult->addArtist($artist);
+            }            
+            return $eventSeatList;
+        }
 
         public function add(EventSeat $eventSeat){
             try{
@@ -44,32 +131,15 @@
                 
                 $eventSeatList = array();
 
-                $query = "SELECT ES.ID_EVENTSEAT AS EVENTSEAT,
-                ES.PRICE AS PRICE,
-                ES.QUANTITY AS QUANTITY,
-                ES.REMAINDER AS REMAINDER,
-                C.DATEEVENT AS DATEEVENT,
-                A.NAME AS ARTIST,
-                EV.TITLE AS EVENTNAME,
-                EP.NAME AS EVENTPLACE,
-                PT.DESCRIPTION AS PLACETYPE
-                FROM ".$this->tableNameEventSeats." ES
-                INNER JOIN ".$this->tableNameCalendars." C
-                ON ES.FK_ID_CALENDAR = C.ID_CALENDAR
-                INNER JOIN ".$this->tableNameArtists." A
-                ON C.FK_ID_ARTIST = A.ID_ARTIST
-                INNER JOIN ".$this->tableNameEvents." EV
-                ON C.FK_ID_EVENT = EV.ID_EVENT
-                INNER JOIN ".$this->tableNameEventPlaces."  EP
-                ON C.FK_ID_EVENTPLACE = EP.ID_EVENTPLACE
-                INNER JOIN ".$this->tableNamePlaceType." PT
-                ON ES.FK_ID_PLACETYPE = PT.ID_PLACETYPE";
+                $query = $this->generalQuery();
 
                 $this->connection = Connection::getInstance();
 
                 $resultSet = $this->connection->Execute($query);
 
-                foreach ($resultSet as $row){
+                $eventSeatList = $this->generateEventSeat($resultSet);
+
+                /* foreach ($resultSet as $row){
                     $artist = new Artist();
                     $artist->setName($row["ARTIST"]);
 
@@ -97,7 +167,7 @@
                     $eventSeat->setPlaceType($placeType);
 
                     array_push($eventSeatList,$eventSeat);
-                }
+                } */
 
                 return $eventSeatList;
 

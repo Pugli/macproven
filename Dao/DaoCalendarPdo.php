@@ -20,7 +20,7 @@
         private $tableNameArtist = "artists";
         private $tableNameArtistXCalendars = "artistsXCalendars";
 
-        public function generalQuery()
+        private function generalQuery()
         {
             return "SELECT ep.quantity AS quantityEventPlace,
             ep.name AS nameEventPlace,
@@ -40,8 +40,8 @@
             INNER JOIN " . $this->tableNameEvent . " AS e
                 ON cl.fk_id_event = e.id_event
             INNER JOIN " . $this->tableNameCategory . " AS ct
-                ON e.fk_category = ct.id_category
-            ORDER BY ac.pfk_id_calendar;";
+                ON e.fk_category = ct.id_category";
+            //ORDER BY ac.pfk_id_calendar";
         }
 
         public function add(Calendar $calendar)
@@ -78,17 +78,18 @@
         private function generateCalendar($resultSet)
         {
             $calendarList = array();
-            $lastId;
+            $lastId = 0;
 
             foreach ($resultSet as $row){
 
                 $idCalendar = ($row["idCalendar"]);               
 
-                if($calendarList == null || $lastId != $idCalendar){
+                if($lastId != $idCalendar){
                     $lastId = $row["idCalendar"];
                     $eventPlace = new EventPlace();
                     $eventPlace->setName($row['nameEventPlace']);
                     $eventPlace->setQuantity($row['quantityEventPlace']);
+                    $eventPlace->setId($row['idEventPlace']);
 
                     $category = new Category();
                     $category->setDescription($row['nameCategory']);
@@ -105,12 +106,12 @@
 
                     array_push($calendarList, $calendar);
                 }
-                
                 $artist = new Artist();
                 $artist->setName($row['nameArtist']);
 
-                $calendarList[$idCalendar-1]->addArtist($artist);
-            }
+                $calendarResult = $calendarList[(count($calendarList)) - 1];
+                $calendarResult->addArtist($artist);
+            }            
             return $calendarList;
         }
 
@@ -119,7 +120,7 @@
             try{
                 $calendarList = array();
 
-                $query = $this->generalQuery();
+                $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar";
 
                 $this->connection = Connection::GetInstance();
 
