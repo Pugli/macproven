@@ -7,6 +7,26 @@
         private $password;
         private $isAdmin;
         private $purchase = array();
+        private $nickName;
+        private $idUser;
+
+        public function setIdUser($userId)
+        {
+            $this->userId = $userId;
+        }
+        public function getIdUser()
+        {
+            return $this->userId;
+        }
+
+        public function setNickName($nickName)
+        {
+            $this->nickName = $nickName;
+        }
+        public function getNickName()
+        {
+            return $this->nickName;
+        }
 
         public function setEmail($email)
         {
