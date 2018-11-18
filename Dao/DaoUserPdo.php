@@ -108,11 +108,13 @@
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = $this->generate($resultSet)[0];
+            $row = reset($resultSet);
+
+            $user = new User();
+            
+            $user = $this->generate($row);
 
             return $user;
         }
-
-        //getPurchasesFromUser($idUser) 
     }
 ?>
