@@ -76,7 +76,7 @@ CREATE TABLE USERS
   email varchar(50) not null,
   password varchar(50) not null,
   nickName varchar(50) not null,
-  isAdmin bit DEFAULT 0,
+  isAdmin BOOLEAN,
   PRIMARY KEY (id_user)
 );
 

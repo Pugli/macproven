@@ -22,7 +22,7 @@
             if(!empty($email) && !empty($password)){
 
                 $user = $this->userDao->getUserByEmail($email);
-                if ($user != null && $user->getPassword() == $password){
+                if ($user->getPassword() == $password){
                     $_SESSION["userLogged"] = $user;
                     include_once VIEWS_PATH."home.php";
                 }else{
