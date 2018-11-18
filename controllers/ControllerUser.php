@@ -9,12 +9,31 @@
     class ControllerUser{
 
         private $userDao;
-
-        public function __construct(){
-
+      
+        public function __construct()
+        {
             $this->userDao = new DaoUserPdo;
             //$this->purchaseDao = new DaoPurchasePdo;
+        }
+        
+        public function showLogin()
+        {
+            require_once VIEWS_PATH."login.php";
+        }
 
+        public function showAddUser()
+        {
+            include_once VIEWS_PATH."addUser.php";
+        }
+
+        public function showListUsers()
+        {
+            include_once VIEWS_PATH."userList.php";
+        }
+
+        public function showHomeView()
+        {
+            require_once VIEWS_PATH."home.php";
         }
 
         public function showLoginView()
@@ -27,36 +46,38 @@
             if(!empty($email) && !empty($password)){
 
                 $user = $this->userDao->getUserByEmail($email);
-                if ($user->getPassword() == $password){
+                if ($user != null && $user->getPassword() == $password){
                     $_SESSION["userLogged"] = $user;
-                    include_once VIEWS_PATH."index.php";
+                    $this->showHomeView();
                 }else{
                     echo "Credenciales Incorrectas";
-                    include_once VIEWS_PATH."login.php";
+                    $this->showLogin();
                 }
-            }else{
+            }
+            else{
                 echo "Credenciales Incorrectas";
-                include_once VIEWS_PATH."login.php";
+                $this->showLogin();
             }
         }
-
-        public function addUser($email,$password,$nickName,$isActive){
-            $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
-
-            if($user != null && $user->getIsAdmin() == 1){
+        
+        public function addUser($email,$password,$nickName,$isAdmin){
+            echo $isAdmin;
+            $userLogged = $this->isUserLogged();
+          
+            if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 $user = new User;
-                $user->setNickName($nickname);
-                $user->isActive($isActive);
+                $user->setNickName($nickName);
+                $user->setIsAdmin($isAdmin);
                 $user->setEmail($email);
                 $user->setPassword($password);
 
                 $this->userDao->add($user);
-                require_once VIEWS_PATH."index.php";
+                $this->showHomeView();
             }
         }
-
+        
         public function getAll(){
-            $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
+            $userLogged = $this->isUserLogged();
 
             if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 return $this->userDao->getAll();
@@ -64,22 +85,25 @@
         }
 
         public function getPurchasesFromUser($idUser){
-            $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
-
+            $userLogged = $this->isUserLogged();
+          
             if($userLogged != null && $userLogged->getIsAdmin() == 1){
-            
                 $purchases = $this->purchaseDao->getPurchasesFromUser($idUser);
                 $user = $this->userDao->getUserById($idUser);
-                foreach ($purchases as $purchase){
+                foreach ($purchases as $purchase)
+                {
                     $user->setPurchase($purchase);
-                }
-            
+                }            
             }
-
             return $user;
-
         }
-
+        
+        private function isUserLogged()
+        {
+            if(isset($_SESSION['userLogged']))
+                return $_SESSION['userLogged'];
+            else
+                return null;
+        }
     }
-
 ?>

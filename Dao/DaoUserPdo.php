@@ -30,7 +30,6 @@
             $user->setPassword($row['password']);
             $user->setNickName($row['nickName']);
             $user->setIsAdmin($row['isAdmin']);
-
             return $user;
         }
 
@@ -38,16 +37,18 @@
         {
             try
             {
-                $query = "INSERT INTO " . $this->tableName . " (id_user, email, password, nickName, isAdmin) VALUES (:idUser, :email, :password, :nickName,  :isAdmin)";
+                $query = "INSERT INTO " . $this->tableName . " (id_user, email, password, nickName, isAdmin) VALUES (:idUser, :email, :password, :nickName, :isAdmin)";
     
-                $parameters['id_user'] = $user->getIdUser();
+                $parameters['idUser'] = $user->getIdUser();
                 $parameters['email'] = $user->getEmail();
                 $parameters['password'] = $user->getPassword();
                 $parameters['nickName'] = $user->getNickName();
                 $parameters['isAdmin'] = $user->getIsAdmin();
+
+                //Llega un 0 (cliente) como parametro, pero en la bd lo ingresa como 1 y figura administrador
     
                 $this->connection = Connection::GetInstance();
-                
+  
                 $this->connection->ExecuteNonQuery($query, $parameters);
             }
             catch (Exception $ex)
@@ -96,6 +97,7 @@
             $user = $this->generate($row);
 
             return $user;
+           
         }
 
         public function getUserById($id)

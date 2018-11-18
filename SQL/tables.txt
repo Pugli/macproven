@@ -71,6 +71,43 @@ create table artistsXCalendars(
     foreign key (pfk_id_artist) references artists (id_artist)    
 );
 
+CREATE TABLE USERS
+( id_user int auto_increment,
+  email varchar(50) not null,
+  password varchar(50) not null,
+  nickName varchar(50) not null,
+  isAdmin bit DEFAULT 0,
+  PRIMARY KEY (id_user)
+);
+
+CREATE TABLE PURCHASES
+( id_purchase int auto_increment,
+fk_id_user int not null,
+datePurchase date,
+PRIMARY KEY(id_purchase),
+FOREIGN KEY(fk_id_user) REFERENCES USERS(id_user)
+);
+
+
+CREATE TABLE purchaseLines (
+id_purchaseLine int AUTO_INCREMENT,
+fk_id_purchase int not null,
+fk_id_eventseat int not null,
+quantity int not null,
+price int not null,
+PRIMARY KEY(id_purchaseLine),
+FOREIGN KEY(fk_id_purchase) REFERENCES PURCHASES(id_purchase),
+FOREIGN KEY(fk_id_eventseat) REFERENCES eventseats(id_eventseat)
+)
+
+CREATE TABLE TICKETS (
+num int AUTO_INCREMENT,
+qr int not null,
+fk_id_purchaseLine int not null,
+PRIMARY KEY(num),
+FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)
+)
+
 -- INSERTS
 
 INSERT INTO ARTISTS (name) VALUES 
@@ -117,44 +154,9 @@ INSERT INTO PLACETYPE (DESCRIPTION) VALUES
 ("VIP"),
 ("Campo");
 
-CREATE TABLE USERS
-( id_user int auto_increment,
-  email varchar(50) not null,
-  password varchar(50) not null,
-  nickName varchar(50) not null,
-  isAdmin bit DEFAULT 0,
-  PRIMARY KEY (id_user)
-);
+INSERT INTO USERS(email,password,nickName,isAdmin) VALUES
+ ("admin@gmail.com","12345","admin","1");
 
-CREATE TABLE PURCHASES
-( id_purchase int auto_increment,
-fk_id_user int not null,
-datePurchase date,
-PRIMARY KEY(id_purchase),
-FOREIGN KEY(fk_id_user) REFERENCES USERS(id_user)
-);
-
-
-CREATE TABLE purchaseLines (
-id_purchaseLine int AUTO_INCREMENT,
-fk_id_purchase int not null,
-fk_id_eventseat int not null,
-quantity int not null,
-price int not null,
-PRIMARY KEY(id_purchaseLine),
-FOREIGN KEY(fk_id_purchase) REFERENCES PURCHASES(id_purchase),
-FOREIGN KEY(fk_id_eventseat) REFERENCES eventseats(id_eventseat)
-)
-
-CREATE TABLE TICKETS (
-num int AUTO_INCREMENT,
-qr int not null,
-fk_id_purchaseLine int not null,
-PRIMARY KEY(num),
-FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)
-)
-
-INSERT INTO USERS(email,password,nickName,isAdmin) values ("admin@gmail.com","12345","admin","1");
 
 
 
