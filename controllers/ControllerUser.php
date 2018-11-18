@@ -1,10 +1,10 @@
 <?php
 
-    namespace Controller;
+    namespace controllers;
 
     use Model\User as User;
     use dao\DaoUserPdo as DaoUserPdo;
-    use dao\DaoPurchasePdo as DaoPurchasePdo;
+    //use dao\DaoPurchasePdo as DaoPurchasePdo;
 
     class ControllerUser{
 
@@ -13,8 +13,13 @@
         public function __construct(){
 
             $this->userDao = new DaoUserPdo;
-            $this->purchaseDao = new DaoPurchasePdo;
+            //$this->purchaseDao = new DaoPurchasePdo;
 
+        }
+
+        public function showLoginView()
+        {
+            include_once VIEWS_PATH."login.php";
         }
 
         public function login($email,$password){
@@ -76,8 +81,5 @@
         }
 
     }
-
-
-
 
 ?>

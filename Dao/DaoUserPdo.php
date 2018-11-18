@@ -19,34 +19,24 @@
                         password,
                         nickName,
                         isAdmin
-                        /* id_purchase AS idPurchase,
-                        fk_id_user,
-                        datePurchase, */
                     FROM "
-                    . $this->tableNamePurchase;
+                    . $this->tableName;
                     /* " INNER JOIN "
                     . $this->tableNamePurchase .
                     "ON
                         fk_id_user = id_user;"; */
         }
 
-        public function generate($resultSet)
+        public function generate($row)
         {
-            $userList = array();
+            $user = new User();
+            $user->setIdUser($row['id_user']);
+            $user->setEmail($row['email']);
+            $user->setPassword($row['password']);
+            $user->setNickName($row['nickName']);
+            $user->setIsAdmin($row['isAdmin']);
 
-            foreach($resultSet as $row)
-            {
-                $user = new User();
-                $user->setIdUser($row['id_user']);
-                $user->setEmail($row['email']);
-                $user->setPassword($row['password']);
-                $user->setNickName($row['nickName']);
-                $user->setIsAdmin($row['isAdmin']);
-
-                array_push($userList, $user);
-            }
-
-            return $userList;
+            return $user;
         }
 
         public function add(User $user)
@@ -79,7 +69,14 @@
 
             $resultSet = $this->connection->Execute($query);
 
-            $userList = $this->generate($resultSet);
+            $userList = array();
+
+            foreach ($resultSet as $row)
+            {
+                $user = $this->generate($row);
+
+                array_push($userList, $user);
+            }
 
             return $userList;
 
@@ -91,11 +88,17 @@
 
             $parameters['email'] = $email;
 
+            echo $query;
+
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = $this->generate($resultSet)[0];
+            $row = reset($resultSet);
+
+            $user = new User();
+            
+            $user = $this->generate($row);
 
             return $user;
         }
