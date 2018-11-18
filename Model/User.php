@@ -12,11 +12,11 @@
 
         public function setIdUser($userId)
         {
-            $this->userId = $userId;
+            $this->idUser = $userId;
         }
         public function getIdUser()
         {
-            return $this->userId;
+            return $this->idUser;
         }
 
         public function setNickName($nickName)

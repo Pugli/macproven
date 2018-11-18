@@ -13,7 +13,7 @@
             </div>
             <div class="form-group">
                     <label for="">Contraseña</label>
-                    <input type="text" name="pass" class="form-control form-control-lg" placeholder="Ingresar constraseña">
+                    <input type="password" name="pass" class="form-control form-control-lg" placeholder="Ingresar constraseña">
             </div>
             <button class="btn btn-dark btn-block btn-lg" type="submit">
                     Iniciar Sesión

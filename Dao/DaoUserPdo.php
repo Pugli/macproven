@@ -23,7 +23,7 @@
                         fk_id_user,
                         datePurchase, */
                     FROM "
-                    . $this->tableNamePurchase;
+                    . $this->tableName;
                     /* " INNER JOIN "
                     . $this->tableNamePurchase .
                     "ON
@@ -37,7 +37,7 @@
             foreach($resultSet as $row)
             {
                 $user = new User();
-                $user->setIdUser($row['id_user']);
+                $user->setIdUser($row['idUser']);
                 $user->setEmail($row['email']);
                 $user->setPassword($row['password']);
                 $user->setNickName($row['nickName']);
@@ -53,16 +53,18 @@
         {
             try
             {
-                $query = "INSERT INTO " . $this->tableName . " (id_user, email, password, nickName, isAdmin) VALUES (:idUser, :email, :password, :nickName,  :isAdmin)";
+                $query = "INSERT INTO " . $this->tableName . " (id_user, email, password, nickName, isAdmin) VALUES (:idUser, :email, :password, :nickName, :isAdmin)";
     
-                $parameters['id_user'] = $user->getIdUser();
+                $parameters['idUser'] = $user->getIdUser();
                 $parameters['email'] = $user->getEmail();
                 $parameters['password'] = $user->getPassword();
                 $parameters['nickName'] = $user->getNickName();
                 $parameters['isAdmin'] = $user->getIsAdmin();
+
+                //Llega un 0 (cliente) como parametro, pero en la bd lo ingresa como 1 y figura administrador
     
                 $this->connection = Connection::GetInstance();
-                
+  
                 $this->connection->ExecuteNonQuery($query, $parameters);
             }
             catch (Exception $ex)
@@ -95,9 +97,19 @@
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = $this->generate($resultSet)[0];
+            $user = new User();
+
+            foreach($resultSet as $row)
+            {
+                $user->setIdUser($row['idUser']);
+                $user->setEmail($row['email']);
+                $user->setPassword($row['password']);
+                $user->setNickName($row['nickName']);
+                $user->setIsAdmin($row['isAdmin']);
+            }
 
             return $user;
+           
         }
 
         public function getUserById($id)
@@ -110,9 +122,19 @@
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = $this->generate($resultSet)[0];
+            $user = new User();
+
+            foreach($resultSet as $row)
+            {
+                $user->setIdUser($row['id_user']);
+                $user->setEmail($row['email']);
+                $user->setPassword($row['password']);
+                $user->setNickName($row['nickName']);
+                $user->setIsAdmin($row['isAdmin']);
+            }
 
             return $user;
+
         }
 
         //getPurchasesFromUser($idUser) 
