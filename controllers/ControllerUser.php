@@ -43,7 +43,7 @@
         public function addUser($email,$password,$nickName,$isActive){
             $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
 
-            if($user != null && $user->isAdmin() == 1){
+            if($user != null && $user->getIsAdmin() == 1){
                 $user = new User;
                 $user->setNickName($nickname);
                 $user->isActive($isActive);
@@ -58,7 +58,7 @@
         public function getAll(){
             $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
 
-            if($userLogged != null && $userLogged->isAdmin() == 1){
+            if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 return $this->userDao->getAll();
             }
         }
@@ -66,7 +66,7 @@
         public function getPurchasesFromUser($idUser){
             $userLogged = (isset($_SESSION["userLogged"]) ? $_SESSION["userLogged"] : null);
 
-            if($userLogged != null && $userLogged->isAdmin() == 1){
+            if($userLogged != null && $userLogged->getIsAdmin() == 1){
             
                 $purchases = $this->purchaseDao->getPurchasesFromUser($idUser);
                 $user = $this->userDao->getUserById($idUser);

@@ -9,22 +9,17 @@
     {
         private $connection;
         private $tableName = 'users';
-        //private $tableNamePurchase = 'purchases';
 
         public function generalQuery()
         {
             return "SELECT 
-                        id_user AS idUser,
+                        id_user,
                         email,
                         password,
                         nickName,
                         isAdmin
                     FROM "
                     . $this->tableName;
-                    /* " INNER JOIN "
-                    . $this->tableNamePurchase .
-                    "ON
-                        fk_id_user = id_user;"; */
         }
 
         public function generate($row)
