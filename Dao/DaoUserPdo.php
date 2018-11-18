@@ -5,7 +5,7 @@
     use Model\User as User;
     use dao\Connection as Connection;
 
-    class  DaoUserPdo
+    class DaoUserPdo implements
     {
         private $connection;
         private $tableName = 'users';
