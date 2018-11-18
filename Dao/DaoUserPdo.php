@@ -9,44 +9,28 @@
     {
         private $connection;
         private $tableName = 'users';
-        //private $tableNamePurchase = 'purchases';
 
         public function generalQuery()
         {
             return "SELECT 
-                        id_user AS idUser,
+                        id_user,
                         email,
                         password,
                         nickName,
                         isAdmin
-                        /* id_purchase AS idPurchase,
-                        fk_id_user,
-                        datePurchase, */
                     FROM "
                     . $this->tableName;
-                    /* " INNER JOIN "
-                    . $this->tableNamePurchase .
-                    "ON
-                        fk_id_user = id_user;"; */
         }
 
-        public function generate($resultSet)
+        public function generate($row)
         {
-            $userList = array();
-
-            foreach($resultSet as $row)
-            {
-                $user = new User();
-                $user->setIdUser($row['idUser']);
-                $user->setEmail($row['email']);
-                $user->setPassword($row['password']);
-                $user->setNickName($row['nickName']);
-                $user->setIsAdmin($row['isAdmin']);
-
-                array_push($userList, $user);
-            }
-
-            return $userList;
+            $user = new User();
+            $user->setIdUser($row['id_user']);
+            $user->setEmail($row['email']);
+            $user->setPassword($row['password']);
+            $user->setNickName($row['nickName']);
+            $user->setIsAdmin($row['isAdmin']);
+            return $user;
         }
 
         public function add(User $user)
@@ -81,7 +65,14 @@
 
             $resultSet = $this->connection->Execute($query);
 
-            $userList = $this->generate($resultSet);
+            $userList = array();
+
+            foreach ($resultSet as $row)
+            {
+                $user = $this->generate($row);
+
+                array_push($userList, $user);
+            }
 
             return $userList;
 
@@ -93,20 +84,17 @@
 
             $parameters['email'] = $email;
 
+            echo $query;
+
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = new User();
+            $row = reset($resultSet);
 
-            foreach($resultSet as $row)
-            {
-                $user->setIdUser($row['idUser']);
-                $user->setEmail($row['email']);
-                $user->setPassword($row['password']);
-                $user->setNickName($row['nickName']);
-                $user->setIsAdmin($row['isAdmin']);
-            }
+            $user = new User();
+            
+            $user = $this->generate($row);
 
             return $user;
            
@@ -122,21 +110,13 @@
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            $user = new User();
+            $row = reset($resultSet);
 
-            foreach($resultSet as $row)
-            {
-                $user->setIdUser($row['id_user']);
-                $user->setEmail($row['email']);
-                $user->setPassword($row['password']);
-                $user->setNickName($row['nickName']);
-                $user->setIsAdmin($row['isAdmin']);
-            }
+            $user = new User();
+            
+            $user = $this->generate($row);
 
             return $user;
-
         }
-
-        //getPurchasesFromUser($idUser) 
     }
 ?>
