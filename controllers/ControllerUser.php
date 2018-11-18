@@ -4,13 +4,12 @@
 
     use Model\User as User;
     use dao\DaoUserPdo as DaoUserPdo;
-    use dao\DaoPurchasePdo as DaoPurchasePdo;
+    //use dao\DaoPurchasePdo as DaoPurchasePdo;
 
     class ControllerUser{
 
         private $userDao;
-        private $userLogged;
-
+      
         public function __construct()
         {
             $this->userDao = new DaoUserPdo;
@@ -37,6 +36,11 @@
             require_once VIEWS_PATH."home.php";
         }
 
+        public function showLoginView()
+        {
+            include_once VIEWS_PATH."login.php";
+        }
+
         public function login($email,$password){
 
             if(!empty($email) && !empty($password)){
@@ -59,7 +63,7 @@
         public function addUser($email,$password,$nickName,$isAdmin){
             echo $isAdmin;
             $userLogged = $this->isUserLogged();
-
+          
             if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 $user = new User;
                 $user->setNickName($nickName);
@@ -82,9 +86,8 @@
 
         public function getPurchasesFromUser($idUser){
             $userLogged = $this->isUserLogged();
-
-            if($userLogged != null && $userLogged->isAdmin() == 1)
-            {            
+          
+            if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 $purchases = $this->purchaseDao->getPurchasesFromUser($idUser);
                 $user = $this->userDao->getUserById($idUser);
                 foreach ($purchases as $purchase)
@@ -93,7 +96,6 @@
                 }            
             }
             return $user;
-
         }
         
         private function isUserLogged()
@@ -104,8 +106,4 @@
                 return null;
         }
     }
-
-    
-
-
 ?>
