@@ -6,15 +6,22 @@
     class DaoPurchasePdo implements IDaoPurchasePdo
     {
         private $connection;
+        private $tableName = 'purchases';
 
-        public function generalQuery(Type $var = nul)
+        public function generalQuery()
         {
-            # code...
+            
         }
 
         public function add(Purchase $purchase)
         {
-            
+            $purchaseLines = $purchase->getPurchaseLines();
+            foreach ($purchaseLines as $purchaseLine)
+            {
+
+            }
+            $query = "INSERT INTO " . $this->tableName . " (";
+            //cleinte/ con un array linea de compra
         }
     }
 ?>
