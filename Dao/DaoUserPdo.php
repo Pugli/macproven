@@ -5,7 +5,7 @@
     use Model\User as User;
     use dao\Connection as Connection;
 
-    class DaoUserPdo implements
+    class DaoUserPdo implements IDaoUser
     {
         private $connection;
         private $tableName = 'users';
@@ -45,8 +45,6 @@
                 $parameters['nickName'] = $user->getNickName();
                 $parameters['isAdmin'] = $user->getIsAdmin();
 
-                //Llega un 0 (cliente) como parametro, pero en la bd lo ingresa como 1 y figura administrador
-    
                 $this->connection = Connection::GetInstance();
   
                 $this->connection->ExecuteNonQuery($query, $parameters);
