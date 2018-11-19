@@ -33,19 +33,19 @@
             $currentPurchaseLines = $this->daoCurrentPurchase->getAll();
             $tickets = array();
             foreach($currentPurchaseLines as $purchaseLine){
-                $purchaseLine->setPurchase($purchase);
-                $this->daoPurchaseLine->add($purchase);
-                $tickets = generateTickets($tickets,$purchaseLine);
+                $this->daoPurchaseLine->add($purchase,$purchase->getId());
+                $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
+                $tickets = generateTickets($tickets,$purchaseLineWithId);
             }
             return $tickets;
 
         }
 
-        private function generateTickets($tickets,$purchaseLine){
+        private function generateTickets($tickets,$purchaseLineWithId){
 
-            for($i=0; i<$purchaseLine->getQuantity();i++){
+            for($i=0; i<$purchaseLineWithId->getQuantity();$i++){
                 $ticket = new Ticket();
-                $ticket->setPurchaseLine($purchaseLine);
+                $ticket->setPurchaseLine($purchaseLineWithId);
                 $this->daoTicket->add($ticket);
                 array_push($tickets,$ticket);
             }
