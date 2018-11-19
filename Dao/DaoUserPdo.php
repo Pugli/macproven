@@ -82,8 +82,6 @@
 
             $parameters['email'] = $email;
 
-            echo $query;
-
             $this->connection = Connection::GetInstance();
 
             $resultSet = $this->connection->Execute($query, $parameters);

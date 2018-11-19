@@ -106,7 +106,7 @@ qr int not null,
 fk_id_purchaseLine int not null,
 PRIMARY KEY(num),
 FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)
-)
+);
 
 -- INSERTS
 
