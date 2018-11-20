@@ -11,7 +11,7 @@
         private $daoEventSeat;
 
         public function __construct(){
-            $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
+           // $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
             $this->daoEventSeat = new DaoEventSeatPdo;
         }
 
@@ -29,6 +29,11 @@
 
         public function getCurrentPurchaseLines(){
             return $this->daoCurrentPurchase->getAll();
+        }
+
+        public function showBuyPurchaseLine($eventSeatId){
+            $eventSeat = $this->daoEventSeat->getEventSeatById($eventSeatId);
+            require_once VIEWS_PATH."buyEventSeat.php";
         }
 
 

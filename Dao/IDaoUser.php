@@ -3,7 +3,7 @@
 
     use Model\User as User;
 
-    interface IDaoUserPdo{
+    interface IDaoUser{
         public function add(User $user);
         public function getAll();
     }

@@ -6,7 +6,7 @@
     interface IDaoEventSeatPdo{
         public function add(EventSeat $eventSeat);
         public function getAll();
-        public function delete($IdEventSeat);
+        public function getEventSeatById($idEventSeat);
     }
 
 

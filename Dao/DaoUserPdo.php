@@ -4,6 +4,7 @@
     use Model\Purchase as Purchase;
     use Model\User as User;
     use dao\Connection as Connection;
+    use dao\IDaoUser as IDaoUser;
 
     class DaoUserPdo implements IDaoUser
     {
@@ -25,7 +26,7 @@
         public function generate($row)
         {
             $user = new User();
-            $user->setIdUser($row['id_user']);
+            $user->setId($row['id_user']);
             $user->setEmail($row['email']);
             $user->setPassword($row['password']);
             $user->setNickName($row['nickName']);

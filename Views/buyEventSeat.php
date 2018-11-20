@@ -1,0 +1,43 @@
+
+<main class="py-5">
+     <section id="listado" class="mb-5">
+          <div class="container">
+               <h2 class="mb-4">Listado de Plaza-Evento</h2>
+               <table class="table bg-light-alpha">
+                    <thead>
+                        <th>X</th>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>Evento</th>
+                        <th>Artista</th>
+                        <th>Localidad</th>
+                        <th>Remanente</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                    <form action="<?php echo FRONT_ROOT; ?>/PurchaseLine/addPurchaseLineOnCart" method="POST">
+                         <tr>
+                             <td> <input type="radio" name="id" value="<?php echo $eventSeat->getId()?>" required></td>
+                             <td><?php echo $eventSeat->getId()?></td>
+                             <td><?php echo $eventSeat->getCalendar()->getDate()?></td>
+                             <td><?php echo $eventSeat->getCalendar()->getEvent()->getTitle()?></td>
+                             <td>
+                            <select>
+                                <?php 
+                                    foreach ($eventSeat->getCalendar()->getArtist() as $artist){?>
+                                        <option><?php echo $artist->getName();?></option>
+                                    <?php }?>
+                            </select>
+                            </td>
+                             <td><?php echo $eventSeat->getPlaceType()->getDescription()?></td>
+                             <td><?php echo $eventSeat->getRemainder()?></td>
+                             <td><?php echo $eventSeat->getPrice()?></td>
+                            <td> <input type="number" name="quantity" min="0" max="10"> </td>
+                            <td><input type="submit" value="Comprar"></td>                 
+                    </form>                   
+                             </tr>
+                    </tbody>
+               </table>
+          </div>
+     </section>

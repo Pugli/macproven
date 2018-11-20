@@ -36,7 +36,7 @@
 
             $tickets = array();
             foreach($currentPurchaseLines as $purchaseLine){
-                $this->daoPurchaseLine->add($purchase,$purchase->getId());
+                $this->daoPurchaseLine->add($purchaseLine,$purchase->getId());
                 $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
                 $tickets = generateTickets($tickets,$purchaseLineWithId);
             }
@@ -56,8 +56,20 @@
         }
 
         private function getPurchasesFromClient(){
+
             $client = $_SESSION["userLogged"];
-            return $this->daoPurchase->getPurchasesByClient($client->getId());
+
+            $purchases =  $this->daoPurchase->getPurchasesByClient($client->getId());
+
+            foreach($purchases as $purchase){
+                $purchaseLines = $this->daoPurchaseLine->getPurchaseLinesByPurchase($purchase->getId());
+                foreach($purchaseLines as $purchaseLine){
+                    $purchase->addPurchaseLine($purchaseLine);
+                }
+            }
+
+            return $purchases;
+            
         }
 
         
