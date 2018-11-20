@@ -101,10 +101,10 @@ FOREIGN KEY(fk_id_eventseat) REFERENCES eventseats(id_eventseat)
 )
 
 CREATE TABLE TICKETS (
-num int AUTO_INCREMENT,
-qr int not null,
+id_ticket int AUTO_INCREMENT,
+qr int,
 fk_id_purchaseLine int not null,
-PRIMARY KEY(num),
+PRIMARY KEY(id_ticket),
 FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)
 );
 

@@ -2,7 +2,7 @@
 
     namespace Model;
 
-    class PurchaseLine(){
+    class PurchaseLine{
 
         private $id;
         private $quantity;

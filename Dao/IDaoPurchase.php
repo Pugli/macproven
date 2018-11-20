@@ -1,5 +1,7 @@
 <?php
     namespace dao;
+
+    use Model\Purchase as Purchase;
     
     interface IDaoPurchase
     {
