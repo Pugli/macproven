@@ -11,7 +11,7 @@
         private $daoEventSeat;
 
         public function __construct(){
-           // $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
+            $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
             $this->daoEventSeat = new DaoEventSeatPdo;
         }
 

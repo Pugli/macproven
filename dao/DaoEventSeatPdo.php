@@ -182,7 +182,7 @@
         {
             try
             {
-                $query = $this->generalQuery() . " WHERE idEventSeat = :id_eventseat";
+                $query = $this->generalQuery() . " WHERE es.id_eventSeat = :id_eventseat";
             
                 $parameters["id_eventseat"] = $idEventSeat;
 

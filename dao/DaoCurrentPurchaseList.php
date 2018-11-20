@@ -3,7 +3,7 @@
 
     use Model\PurchaseLine as PurchaseLine;
 
-    class DaoCurrentPurchase
+    class DaoCurrentPurchaseList
     {
         private $currentPurchase;
 
@@ -11,7 +11,7 @@
             if(!isset($_SESSION['currentPurchase'])){
                 $_SESSION['currentPurchase'] = $this->currentPurchase = array();
             }
-            $this->artistList = &$_SESSION['currentPurchase'];
+            $this->currentPurchase = &$_SESSION['currentPurchase'];
         }
 
         public function lastId()
