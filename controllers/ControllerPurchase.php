@@ -1,6 +1,6 @@
 <?php
 
-    namespace controller;
+    namespace controllers;
 
     use Model\Purhcase as Purchase;
     use Model\PurchaseLine as PurchaseLine;
@@ -28,9 +28,12 @@
 
             $purchase = new Purchase;
             $purchase->setClient($_SESSION["userLogged"]);
-            $this->daoPurchase->add($purchase);
-            $purchase = $this->daoPurchase->getLastPurchase();
+
+            $idLastPurchaseInsert = $this->daoPurchase->add($purchase);
+            $purchase = $this->daoPurchase->getPurchaseById($idLastPurchaseInsert);
+
             $currentPurchaseLines = $this->daoCurrentPurchase->getAll();
+
             $tickets = array();
             foreach($currentPurchaseLines as $purchaseLine){
                 $this->daoPurchaseLine->add($purchase,$purchase->getId());
@@ -50,6 +53,11 @@
                 array_push($tickets,$ticket);
             }
             return $tickets;
+        }
+
+        private function getPurchasesFromClient(){
+            $client = $_SESSION["userLogged"];
+            return $this->daoPurchase->getPurchasesByClient($client->getId());
         }
 
         

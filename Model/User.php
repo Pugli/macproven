@@ -10,11 +10,11 @@
         private $nickName;
         private $idUser;
 
-        public function setIdUser($userId)
+        public function setId($userId)
         {
             $this->idUser = $userId;
         }
-        public function getIdUser()
+        public function getId()
         {
             return $this->idUser;
         }

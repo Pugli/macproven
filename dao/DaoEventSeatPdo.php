@@ -179,17 +179,25 @@
 
         }
 
-        public function delete($idEventSeat)
+        public function getEventSeatById($idEventSeat)
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_eventseat = :id_eventseat";
+                $query = $this->generalQuery() . " WHERE idEventSeat = :id_eventseat"
             
                 $parameters["id_eventseat"] = $idEventSeat;
 
                 $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters);   
+                $resultSet = $this->connection->Execute($query, $parameters);
+                
+                $eventSeatList = array();
+
+                $eventSeatList = $this->generateEventSeat($resultSet);
+
+                $eventSeat = reset($eventSeatList);
+
+                return $eventSeat;
             }
             catch(Exception $ex)
             {
