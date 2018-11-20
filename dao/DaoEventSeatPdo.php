@@ -52,8 +52,7 @@
             INNER JOIN " . $this->tableNameEventSeats . " AS es
                 ON es.fk_id_calendar = cl.id_calendar
             INNER JOIN " . $this->tableNamePlaceType . " AS pt
-                ON es.fk_id_placeType = pt.id_placetype
-            ORDER BY ac.pfk_id_calendar";
+                ON es.fk_id_placeType = pt.id_placetype";
         }
 
         private function generateEventSeat($resultSet)
@@ -131,7 +130,7 @@
                 
                 $eventSeatList = array();
 
-                $query = $this->generalQuery();
+                $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar";
 
                 $this->connection = Connection::getInstance();
 
