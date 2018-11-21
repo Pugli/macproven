@@ -25,5 +25,6 @@
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="consultar por fecha" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForDate'"/>
     <input class="btn btn-success ml-3" type="submit" value="consultar por categoria" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForCategory'"/>
-
+    <br><br>
+    <input class="btn btn-success ml-3" type="submit" value="consultar por artista" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForArtist'"/>
 </div>

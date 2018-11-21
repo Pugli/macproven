@@ -4,14 +4,17 @@
     use Model\Event as Event;
     use dao\DaoEventPdo as DaoEventPdo;
     use dao\DaoCategoryPdo as DaoCategoryPdo;
+    use dao\DaoArtistPdo as DaoArtistPdo;
 
     class ControllerEvent{
         private $daoEvent;
         private $daoCategory;
+        private $daoArtist;
 
         public function __construct(){
             $this->daoEvent = new DaoEventPdo;
             $this->daoCategory = new DaoCategoryPdo;
+            $this->daoArtist = new DaoArtistPdo;
         }
 
         public function index(){
@@ -85,6 +88,23 @@
         } 
 
         }
+        public function showCheckEventForArtist()
+        {
+            $arrayArtist = $this->daoArtist->getAll();
+            
+            include_once VIEWS_PATH."CheckEventForArtist.php";
+        }
+        public function checkEventForArtist($id)
+        {
+            
+           if(($arrayEvent=$this->daoEvent->checkEventForArtistDao($id)) != null){
+            include_once VIEWS_PATH."listCheckEventForCategory.php";
+            }
+           else{
+            echo "<script> if(alert('No existe el evento'));</script>";
+            include_once VIEWS_PATH .'Home.php';
+        } 
+    }
     }
 
 
