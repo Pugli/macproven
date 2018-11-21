@@ -41,6 +41,13 @@
             return $this->eventSeat;
         }
 
+        public function getTotal(){
+            $total = ($this->quantity) * ($this->price);
+            return $total;
+            
+        }
+
+
     }
 
 ?>

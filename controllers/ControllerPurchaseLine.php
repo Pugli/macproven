@@ -25,6 +25,11 @@
             $purchaseLine->setQuantity($quantity);
 
             $this->daoCurrentPurchase->add($purchaseLine);
+            echo "<script> if(alert('Su compra se ha añadido al carrito!'));</script>";
+        }
+
+        public function showCurrentPurchaseLines(){
+            include_once VIEWS_PATH.'viewCurrentCart.php';
         }
 
         public function getCurrentPurchaseLines(){

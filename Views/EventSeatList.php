@@ -48,7 +48,7 @@
                                             <?php if (isset($_SESSION["userLogged"])){?><td><?php echo $eventSeat->getQuantityAvailable();?></td><?php }?>
                                             <td><?php echo $eventSeat->getRemainder()?></td>
                                             <td><?php echo $eventSeat->getPrice()?></td>
-                                            <?php if (isset($_SESSION["userLogged"])){?><td> <a href="<?php echo FRONT_ROOT?> PurchaseLine/showBuyPurchaseLine/<?php echo $eventSeat->getId(); ?>">Comprar</a><?php }?>
+                                            <?php if (isset($_SESSION["userLogged"])){?><td> <a href="<?php echo FRONT_ROOT?> PurchaseLine/showBuyPurchaseLine/<?php echo $eventSeat->getId(); ?>" class="btn btn-info ml-3">Comprar</a><?php }?>
                                         </tr>
                                     <?php
                                 }

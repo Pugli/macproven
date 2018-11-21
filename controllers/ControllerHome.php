@@ -9,10 +9,6 @@
         	include_once VIEWS_PATH .'Home.php';
         }
 
-        public function logout(){
-            session_destroy();
-            include_once VIEWS_PATH . 'Home.php';
-        }
 
         public function login(){
             include_once VIEWS_PATH."login.php";

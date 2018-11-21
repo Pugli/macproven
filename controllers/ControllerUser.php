@@ -33,7 +33,7 @@
 
         public function showHomeView()
         {
-            require_once VIEWS_PATH."home.php";
+            header('Location: ../Home');
         }
 
         public function showLoginView()
@@ -104,6 +104,11 @@
                 return $_SESSION['userLogged'];
             else
                 return null;
+        }
+
+        public function logout(){
+            session_destroy();
+            header('Location: ../Home');
         }
     }
 ?>

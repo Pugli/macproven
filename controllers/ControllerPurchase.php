@@ -2,7 +2,7 @@
 
     namespace controllers;
 
-    use Model\Purhcase as Purchase;
+    use Model\Purchase as Purchase;
     use Model\PurchaseLine as PurchaseLine;
     use Model\Ticket as Ticket;
     use dao\DaoPurchasePdo as DaoPurchasePdo;
@@ -18,10 +18,10 @@
         private $daoCurrentPurchase;
 
         public function __construct(){
-            $this->$daoPurchase = new DaoPurchasePdo;
-            $this->$daoPurchaseLine = new DaoPurchaseLinePdo;
-            $this->$daoTicket = new DaoTicketPdo;
-            $this->$daoCurrentPurchase = new DaoCurrentPurchaseList;
+            $this->daoPurchase = new DaoPurchasePdo;
+            $this->daoPurchaseLine = new DaoPurchaseLinePdo;
+            $this->daoTicket = new DaoTicketPdo;
+            $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
         }
 
         public function addPurchase(){
@@ -38,7 +38,7 @@
             foreach($currentPurchaseLines as $purchaseLine){
                 $this->daoPurchaseLine->add($purchaseLine,$purchase->getId());
                 $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
-                $tickets = generateTickets($tickets,$purchaseLineWithId);
+                $tickets = $this->generateTickets($tickets,$purchaseLineWithId);
             }
             return $tickets;
 
@@ -46,7 +46,7 @@
 
         private function generateTickets($tickets,$purchaseLineWithId){
 
-            for($i=0; i<$purchaseLineWithId->getQuantity();$i++){
+            for($i=0; $i<$purchaseLineWithId->getQuantity();$i++){
                 $ticket = new Ticket();
                 $ticket->setPurchaseLine($purchaseLineWithId);
                 $this->daoTicket->add($ticket);

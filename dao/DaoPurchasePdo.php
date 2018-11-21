@@ -14,13 +14,13 @@
 
         public function generalQuery()
         {
-            return "SELECT p.id_purchase as idPurchase, p.datePurchase FROM " . $this->tableName;
+            return "SELECT p.id_purchase as idPurchase, p.datePurchase FROM " . $this->tableName. " p";
         }
 
         public function generate($row)
         {
             $purchase = new Purchase();
-            $purchase->setDate($row['dataPurchase']);
+            $purchase->setDate($row['datePurchase']);
             $purchase->setId($row['idPurchase']);
 
             return $purchase;
@@ -30,7 +30,7 @@
         {
             $query = 'INSERT INTO ' . $this->tableName . " (fk_id_user, datePurchase) VALUES (:fk_id_user, now());";
 
-            $parameters['fk_id_user'] = $purchase->getClient()->getIdUser();
+            $parameters['fk_id_user'] = $purchase->getClient()->getId();
 
             $this->connection = Connection::GetInstance();
 

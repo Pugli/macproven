@@ -1,12 +1,21 @@
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
      <span class="navbar-text">
-          <strong> <a href="<?php echo FRONT_ROOT ?>Home">MacProven</a>
+          <strong> <a href="<?php echo FRONT_ROOT; ?>Home">MacProven</a>
           </strong>
      </span>
      <ul class="navbar-nav ml-auto">
-     <li class="nav-item">
+         <?php if(isset($_SESSION['userLogged'])){?>
           <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT ?>Home/Logout">Cerrar sesión</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>PurchaseLine/showCurrentPurchaseLines">Mi carrito</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Purchase/addPurchase">Confirmar Compra</a>
+          </li>
+          <li class="nav-item">   
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>User/Logout">Cerrar sesión</a>
+                <?php } else{?>
+                    <a class="nav-link" href="<?php echo FRONT_ROOT; ?>User/showLogin">Login</a>
+                <?php } ?>
           </li>
      </ul>
 </nav>

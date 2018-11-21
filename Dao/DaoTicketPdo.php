@@ -14,9 +14,9 @@
 
         public function add(Ticket $ticket)
         {
-            $query = "INSERT INTO " . $this->tableNameUser . " (fk_id_purchaseLine) VALUES (:idPurchaseLine)";
+            $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine) VALUES (:idPurchaseLine)";
 
-            $parameters['idPurchaseLine'] = $ticket->getPurchaseLine();
+            $parameters['idPurchaseLine'] = $ticket->getPurchaseLine()->getId();
 
             $this->connection = Connection::GetInstance();
 

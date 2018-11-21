@@ -5,7 +5,7 @@
                <h2 class="mb-4">Listado de Plaza-Evento</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                        <th>X</th>
+                        <th></th>
                         <th>Id</th>
                         <th>Fecha</th>
                         <th>Evento</th>
@@ -13,12 +13,12 @@
                         <th>Localidad</th>
                         <th>Remanente</th>
                         <th>Precio</th>
-                        <th></th>
+                        <th>Cantidad</th>
                     </thead>
                     <tbody>
                     <form action="<?php echo FRONT_ROOT; ?>/PurchaseLine/addPurchaseLineOnCart" method="POST">
                          <tr>
-                             <td> <input type="radio" name="id" value="<?php echo $eventSeat->getId()?>" required></td>
+                             <td> <input type="hidden" name="id" value="<?php echo $eventSeat->getId()?>"></td>
                              <td><?php echo $eventSeat->getId()?></td>
                              <td><?php echo $eventSeat->getCalendar()->getDate()?></td>
                              <td><?php echo $eventSeat->getCalendar()->getEvent()->getTitle()?></td>
@@ -33,7 +33,7 @@
                              <td><?php echo $eventSeat->getPlaceType()->getDescription()?></td>
                              <td><?php echo $eventSeat->getRemainder()?></td>
                              <td><?php echo $eventSeat->getPrice()?></td>
-                            <td> <input type="number" name="quantity" min="0" max="10"> </td>
+                            <td> <input type="number" name="quantity" min="1" max="10"> </td>
                             <td><input type="submit" value="Comprar"></td>                 
                     </form>                   
                              </tr>
