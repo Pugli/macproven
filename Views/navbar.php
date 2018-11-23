@@ -57,7 +57,7 @@
                                 <div class='d-flex'>
                                     <button type='submit' class='btn btn-dark'>Ingresar</button>
                             </form>
-                                    <a class='nav-link btn btn-dark ml-1' href='<?php echo FRONT_ROOT ?>register/showRegisterView'>Registrarse</a>
+                                    <a class='nav-link btn btn-dark ml-1' href='<?php echo FRONT_ROOT ?>User/showAddUser'>Registrarse</a>
                                 </div>
                               <div>
                                 <a href=''> <img id='facebookLogin' src='<?PHP echo IMG_PATH ?>Register/facebookLogin.png'></a>
@@ -68,7 +68,7 @@
                 </div>
             </button>
             <?php } else { ?>
-                <a class="nav-link btn btn-light ml-1" href="<?php echo FRONT_ROOT ?>login/logout">Cerrar Sesión</a>
+                <a class="nav-link btn btn-light ml-1" href="<?php echo FRONT_ROOT ?>User/logout">Cerrar Sesión</a>
             <?php } ?>
         </div>
     </nav>

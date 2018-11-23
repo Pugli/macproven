@@ -5,7 +5,7 @@ define("FRONT_ROOT", "/macproven/");
 define("VIEWS_PATH", "Views/");
 define("CSS_PATH", FRONT_ROOT.VIEWS_PATH . "css/");
 define("JS_PATH", FRONT_ROOT.VIEWS_PATH . "js/");
-define("IMG_PATH", FRONT_ROOT.VIEWS_PATH."Img/");
+define("IMG_PATH", FRONT_ROOT.VIEWS_PATH."img/");
 
 define("DB_HOST", "localhost");
 define("DB_NAME", "macproven");

@@ -21,7 +21,7 @@
 
         public function showAddUser()
         {
-            include_once VIEWS_PATH."addUser.php";
+            include_once VIEWS_PATH."register.php";
         }
 
         public function showListUsers()
