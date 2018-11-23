@@ -38,9 +38,8 @@
         {
             try
             {
-                $query = "INSERT INTO " . $this->tableName . " (id_user, email, password, nickName, isAdmin) VALUES (:idUser, :email, :password, :nickName, :isAdmin)";
-    
-                $parameters['idUser'] = $user->getIdUser();
+                $query = "INSERT INTO " . $this->tableName . " (email, password, nickName, isAdmin) VALUES (:email, :password, :nickName, :isAdmin)";
+                
                 $parameters['email'] = $user->getEmail();
                 $parameters['password'] = $user->getPassword();
                 $parameters['nickName'] = $user->getNickName();
