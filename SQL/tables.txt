@@ -55,7 +55,7 @@ create table eventPlaces(
      id_eventseat int auto_increment,
      price int not null,
      quantity int not null,
-     remainder int not null,
+     remaind int not null,
      fk_id_calendar int not null,
      isActive BOOLEAN DEFAULT 1,
      fk_id_placetype int not null,

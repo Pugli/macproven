@@ -30,7 +30,7 @@
             es.id_eventSeat AS idEventSeat,
             es.quantity AS quantityEventSeat,
             es.price AS priceEventSeat,
-            es.remainder AS remainderEventSeat,
+            es.remaind AS remaindEventSeat,
             ep.id_eventPlace AS idEventPlace,
             e.title AS titleEvent,
             cl.id_calendar AS idCalendar,
@@ -95,7 +95,7 @@
 
                     $eventSeat = new EventSeat;
                     $eventSeat->setId($row["idEventSeat"]);
-                    $eventSeat->setRemainder($row["remainderEventSeat"]);
+                    $eventSeat->setRemaind($row["remaindEventSeat"]);
                     $eventSeat->setQuantityAvailable($row["quantityEventSeat"]);
                     $eventSeat->setPrice($row["priceEventSeat"]);
                     $eventSeat->setCalendar($calendar);
@@ -114,10 +114,10 @@
 
         public function add(EventSeat $eventSeat){
             try{
-                $query = "INSERT INTO ".$this->tableNameEventSeats." (quantity, price, remainder, fk_id_calendar, fk_id_placetype) VALUES (:quantity, :price, :remainder, :fk_id_calendar, :fk_id_placetype)";
+                $query = "INSERT INTO ".$this->tableNameEventSeats." (quantity, price, remaind, fk_id_calendar, fk_id_placetype) VALUES (:quantity, :price, :remaind, :fk_id_calendar, :fk_id_placetype)";
                 $parameters["quantity"] = $eventSeat->getQuantityAvailable();
                 $parameters["price"] = $eventSeat->getPrice();
-                $parameters["remainder"] = $eventSeat->getRemainder();
+                $parameters["remaind"] = $eventSeat->getRemaind();
                 $parameters["fk_id_calendar"] = $eventSeat->getCalendar()->getId();
                 $parameters["fk_id_placetype"] = $eventSeat->getPlaceType()->getId();
 

@@ -31,7 +31,7 @@
                             </select>
                             </td>
                              <td><?php echo $eventSeat->getPlaceType()->getDescription()?></td>
-                             <td><?php echo $eventSeat->getRemainder()?></td>
+                             <td><?php echo $eventSeat->getRemaind()?></td>
                              <td><?php echo $eventSeat->getPrice()?></td>
                             <td> <input type="number" name="quantity" min="1" max="10"> </td>
                             <td><input type="submit" value="Comprar"></td>                 

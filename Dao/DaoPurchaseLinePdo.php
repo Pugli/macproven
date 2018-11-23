@@ -81,7 +81,7 @@
 
                     $eventSeat = new EventSeat;
                     $eventSeat->setId($row["idEventSeat"]);
-                    $eventSeat->setRemainder($row["remainderEventSeat"]);
+                    $eventSeat->setRemaind($row["remaindEventSeat"]);
                     $eventSeat->setQuantityAvailable($row["quantityEventSeat"]);
                     $eventSeat->setPrice($row["priceEventSeat"]);
                     $eventSeat->setCalendar($calendar);
@@ -111,7 +111,7 @@
             es.id_eventSeat AS idEventSeat,
             es.quantity AS quantityEventSeat,
             es.price AS priceEventSeat,
-            es.remainder AS remainderEventSeat,
+            es.remaind AS remaindEventSeat,
             ep.id_eventPlace AS idEventPlace,
             e.title AS titleEvent,
             cl.id_calendar AS idCalendar,

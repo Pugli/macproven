@@ -7,7 +7,7 @@
     class EventSeat{
         private $quantityAvailable;
         private $price;
-        private $remainder;
+        private $remaind;
         private $calendar;
         private $placeType;
         private $id; private $active;
@@ -50,14 +50,14 @@
             return $this->price;
         }
 
-        public function setRemainder($remainder)
+        public function setRemaind($remaind)
         {
-            $this->remainder = $remainder;
+            $this->remaind = $remaind;
         }
 
-        public function getRemainder()
+        public function getRemaind()
         {
-            return $this->remainder;
+            return $this->remaind;
         }
 
         public function setCalendar(Calendar $calendar)

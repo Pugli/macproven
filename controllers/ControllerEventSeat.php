@@ -44,7 +44,7 @@
                     $newEventSeat->setCalendar($this->daoCalendar->checkCalendarById($calendarId));
                     $newEventSeat->setPlaceType($this->daoPlaceType->checkPlaceTypeById($placeTypeId));
                     $newEventSeat->setQuantityAvailable($quantity);
-                    $newEventSeat->setRemainder($quantity);
+                    $newEventSeat->setRemaind($quantity);
                     $newEventSeat->setPrice($price);
 
                     $this->daoEventSeat->add($newEventSeat);
