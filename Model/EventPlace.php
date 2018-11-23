@@ -6,6 +6,15 @@
         private $name;
         private $quantity;
         private $id;
+        private $active;
+
+        public function getActive(){
+            return $this->active;
+        }
+
+        public function setActive(boolean $active){
+            $this->active = $active;
+        }
 
         public function setName($name)
         {

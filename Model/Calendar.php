@@ -11,6 +11,15 @@
         private $eventPlace;
         private $artist = array();
         private $event;
+        private $active;
+
+        public function getActive(){
+            return $this->active;
+        }
+
+        public function setActive(boolean $active){
+            $this->active = $active;
+        }
 
         public function setEvent(Event $event)
         {

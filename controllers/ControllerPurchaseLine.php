@@ -17,15 +17,18 @@
 
         public function addPurchaseLineOnCart($idEventSeat,$quantity){
 
-            $eventSeat = $this->daoEventSeat->getEventSeatById($idEventSeat);
+            if ($this->checkEventSeatOnCart($idEventSeat) != null){
 
-            $purchaseLine = new PurchaseLine;
-            $purchaseLine->setEventSeat($eventSeat);
-            $purchaseLine->setPrice($eventSeat->getPrice());
-            $purchaseLine->setQuantity($quantity);
+                $eventSeat = $this->daoEventSeat->getEventSeatById($idEventSeat);
 
-            $this->daoCurrentPurchase->add($purchaseLine);
-            echo "<script> if(alert('Su compra se ha añadido al carrito!'));</script>";
+                $purchaseLine = new PurchaseLine;
+                $purchaseLine->setEventSeat($eventSeat);
+                $purchaseLine->setPrice($eventSeat->getPrice());
+                $purchaseLine->setQuantity($quantity);
+
+                $this->daoCurrentPurchase->add($purchaseLine);
+                echo "<script> if(alert('Su compra se ha añadido al carrito!'));</script>";
+            }
         }
 
         public function showCurrentPurchaseLines(){

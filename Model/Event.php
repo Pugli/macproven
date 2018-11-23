@@ -7,6 +7,15 @@
         private $title;
         private $id;
         private $category;
+        private $active;
+
+        public function getActive(){
+            return $this->active;
+        }
+
+        public function setActive(boolean $active){
+            $this->active = $active;
+        }
 
         public function setId($id)
         {

@@ -10,7 +10,15 @@
         private $remainder;
         private $calendar;
         private $placeType;
-        private $id;
+        private $id; private $active;
+
+        public function getActive(){
+            return $this->active;
+        }
+
+        public function setActive(boolean $active){
+            $this->active = $active;
+        }
 
         public function setId($id)
         {

@@ -9,6 +9,15 @@
         private $purchase = array();
         private $nickName;
         private $idUser;
+        private $active;
+
+        public function getActive(){
+            return $this->active;
+        }
+
+        public function setActive(boolean $active){
+            $this->active = $active;
+        }
 
         public function setId($userId)
         {
