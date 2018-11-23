@@ -1,0 +1,27 @@
+.loginBack {
+    background: #293749;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.loginBox {
+    margin: 0px 100px 100px 450px;
+    padding: 50px 150px 50px 150px;
+    background-color: darkgray;
+    border-radius: 20px;
+    box-shadow: 3px 3px;
+}
+
+.title {
+    color: aliceblue;
+    margin: 100px 100px 30px 600px;
+}
+
+.btn-dark {
+    margin: 20px 110px 0px 110px;
+}
+
+.botono {
+    margin-left: 100px;
+    margin-top: 0px;
+}

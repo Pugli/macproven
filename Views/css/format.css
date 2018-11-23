@@ -1,0 +1,23 @@
+/*Lo primero, todo el cuerpo que ocupe el 100%*/
+html, body {    
+    height: 100%; 
+ }
+  
+ /*Lo segundo, el container, con algura mínima del 100% y un margen inferior negativo igual al alto que queramos darle al pie*/
+ #container {
+    min-height: 100%;
+    margin-bottom: -50px;
+    position: relative;
+ }
+  
+ /*Lo tercero, el pie con la altura deseada (igual al margen negativo de antes)*/
+ #footer {
+    height: 50px;
+    position: relative;
+ }
+  
+ /*Y terminamos con el clear, que ha de ser tan alto como el pie y "limpiar" todos los floats*/
+ .clear{
+    height: 50px;
+    clear: both;
+ }

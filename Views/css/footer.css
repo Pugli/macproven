@@ -1,0 +1,19 @@
+.pie {
+    background-color: #343a40 !important;;
+    width: 100%;
+    bottom: 0;
+    position: relative;
+}
+
+a:link{
+    text-decoration: none;
+    color: rgba(240, 248, 255, 0.507);
+}
+
+a:hover {
+    color: rgba(240, 248, 255, 0.507);
+}
+
+.line{
+    color: rgba(240, 248, 255, 0.507);
+}
