@@ -83,7 +83,7 @@ CREATE TABLE USERS
 CREATE TABLE PURCHASES
 ( id_purchase int auto_increment,
 fk_id_user int not null,
-datePurchase date,
+datePurchase datetime,
 PRIMARY KEY(id_purchase),
 FOREIGN KEY(fk_id_user) REFERENCES USERS(id_user)
 );
@@ -98,7 +98,7 @@ price int not null,
 PRIMARY KEY(id_purchaseLine),
 FOREIGN KEY(fk_id_purchase) REFERENCES PURCHASES(id_purchase),
 FOREIGN KEY(fk_id_eventseat) REFERENCES eventseats(id_eventseat)
-)
+);
 
 CREATE TABLE TICKETS (
 id_ticket int AUTO_INCREMENT,

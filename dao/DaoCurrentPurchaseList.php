@@ -37,5 +37,9 @@
         { 
             return $this->currentPurchase;
         }
+
+        public function reset(){
+            $this->currentPurchase = array();
+        }
     }
 ?>

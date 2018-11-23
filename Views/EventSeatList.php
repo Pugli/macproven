@@ -32,7 +32,7 @@
                                 foreach($eventSeatList as $eventSeat)
                                 {
                                     ?>
-                                        <tr>
+                                        <tr> 
                                             <td><?php echo $eventSeat->getId()?></td>
                                             <td><?php echo $eventSeat->getCalendar()->getDate()?></td>
                                             <td><?php echo $eventSeat->getCalendar()->getEvent()->getTitle()?></td>

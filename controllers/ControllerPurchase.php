@@ -25,24 +25,28 @@
         }
 
         public function addPurchase(){
-
-            $purchase = new Purchase;
-            $purchase->setClient($_SESSION["userLogged"]);
-
-            $idLastPurchaseInsert = $this->daoPurchase->add($purchase);
-            $purchase = $this->daoPurchase->getPurchaseById($idLastPurchaseInsert);
-
             $currentPurchaseLines = $this->daoCurrentPurchase->getAll();
+            
+            if(!empty($currentPurchaseLines)){
+                $purchase = new Purchase;
+                $purchase->setClient($_SESSION["userLogged"]);
 
-            $tickets = array();
-            foreach($currentPurchaseLines as $purchaseLine){
-                $this->daoPurchaseLine->add($purchaseLine,$purchase->getId());
-                $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
-                $tickets = $this->generateTickets($tickets,$purchaseLineWithId);
+                $idLastPurchaseInsert = $this->daoPurchase->add($purchase);
+                $purchase = $this->daoPurchase->getPurchaseById($idLastPurchaseInsert);
+
+                $tickets = array();
+                foreach($currentPurchaseLines as $purchaseLine){
+                    $this->daoPurchaseLine->add($purchaseLine,$purchase->getId());
+                    $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
+                    $tickets = $this->generateTickets($tickets,$purchaseLineWithId);
+                }
+                $this->daoCurrentPurchase->reset();
+                return $tickets;
+            }else{
+                echo "No hay compras en tu carrito";
             }
-            return $tickets;
-
-        }
+                include_once VIEWS_PATH."home.php";
+            }
 
         private function generateTickets($tickets,$purchaseLineWithId){
 

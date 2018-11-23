@@ -59,14 +59,20 @@
         {
             
             $eventSeatList = array();
-            $lastId = 0;
+            $lastIdCalendar = 0;
+            $lastIdEventSeat = 0;
 
             foreach ($resultSet as $row){
 
-                $idCalendar = ($row["idCalendar"]);               
+                $idCalendar = ($row["idCalendar"]);
+                $idEventSeat = ($row["idEventSeat"]);    
 
-                if($lastId != $idCalendar){
-                    $lastId = $row["idCalendar"];
+                if($lastIdEventSeat != $idEventSeat){
+
+                //if($lastIdCalendar != $idCalendar){
+                    
+                    $lastIdEventSeat = $row["idEventSeat"];
+                    //$lastIdCalendar = $row["idCalendar"];
                     $eventPlace = new EventPlace();
                     $eventPlace->setName($row['nameEventPlace']);
                     $eventPlace->setQuantity($row['quantityEventPlace']);
@@ -96,7 +102,7 @@
                     $eventSeat->setPlaceType($placeType);
 
                     array_push($eventSeatList, $eventSeat);
-                }
+                }//}
                 $artist = new Artist();
                 $artist->setName($row['nameArtist']);
 
@@ -130,7 +136,9 @@
                 
                 $eventSeatList = array();
 
-                $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar";
+                $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
+
+                echo $query;
 
                 $this->connection = Connection::getInstance();
 
