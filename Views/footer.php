@@ -17,7 +17,7 @@
             <p> | </p>
             <p class="pr-3 pl-3"> <a href="<?php echo FRONT_ROOT ?>home/privacy">Politica de privacidad</a></p>
             <p> | </p>
-            <p class="pr-3 pl-3"> <a href="<?php echo FRONT_ROOT ?>home/validar">EXTRANET</a></p>
+            <p class="pr-3 pl-3"> <a href="<?php echo FRONT_ROOT ?>user/showExtranet">EXTRANET</a></p>
         </div>
     </footer>
 </body>

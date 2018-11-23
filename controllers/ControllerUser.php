@@ -31,7 +31,8 @@
 
         public function showHomeView()
         {
-            header('Location: ../Home');
+            //header('Location:'.VIEWS_PATH.'index.php');
+            require_once(VIEWS_PATH."index.php");
         }
 
         public function showLoginView()
@@ -46,16 +47,17 @@
                 $user = $this->userDao->getUserByEmail($email);
                 if ($user->getPassword() == $password){
                     $_SESSION["userLogged"] = $user;
-                    $this->showHomeView();
+                    //$this->showHomeView();
                 }else{
                     echo "Credenciales Incorrectas";
-                    $this->showLogin();
+                    //$this->showHomeView();
                 }
             }
             else{
                 echo "Credenciales Incorrectas";
-                $this->showLogin();
+                //$this->showHomeView();
             }
+            $this->showHomeView();
         }
         
         public function addUser($nickName,$email,$password,$passwordConfirm,$isAdmin = ''){
@@ -114,6 +116,19 @@
                 return $_SESSION['userLogged'];
             else
                 return null;
+        }
+
+        public function showExtranet()
+        {
+            $userLogged = $this->isUserLogged();
+
+            if($userLogged->getIsAdmin() == 1){
+                require_once(VIEWS_PATH."extranetNav.php");
+            }
+            else
+            {
+                echo "<script> if(alert('No tiene los permisos necesarios'));</script>";
+            }
         }
 
         public function logout(){

@@ -6,7 +6,7 @@
 
         public function index() 
         {
-        	include_once VIEWS_PATH .'Home.php';
+        	include_once VIEWS_PATH .'index.php';
         }
 
 

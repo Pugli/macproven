@@ -16,7 +16,7 @@
 	session_start();
 
 	include_once VIEWS_PATH . 'header.php';
-	include_once VIEWS_PATH . 'nav.php';
+	//include_once VIEWS_PATH . 'nav.php';
 
 	Router::Route(new Request());
 

@@ -44,7 +44,7 @@
             ?>
                 <button id="login-form" type="button" class="nav-link btn btn-light ml-1" data-container="body" data-toggle="popover" data-placement="bottom" title="Inicio de Sesión"
                 data-content="
-                            <form action='<?php echo FRONT_ROOT ?>login/login' method='post'>
+                            <form action='<?php echo FRONT_ROOT ?>user/login' method='post'>
                                 
                                 <div class='form-group'>
                                     <label for='exampleInputEmail1'>Direccion de E-Mail</label>
