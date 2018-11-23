@@ -17,7 +17,7 @@
 
         public function addPurchaseLineOnCart($idEventSeat,$quantity){
 
-            if ($this->checkEventSeatOnCart($idEventSeat) != null){
+            if ($this->daoCurrentPurchase->upsertPurchaseLine($idEventSeat,$quantity) == 0){
 
                 $eventSeat = $this->daoEventSeat->getEventSeatById($idEventSeat);
 
@@ -29,6 +29,7 @@
                 $this->daoCurrentPurchase->add($purchaseLine);
                 echo "<script> if(alert('Su compra se ha añadido al carrito!'));</script>";
             }
+            require_once VIEWS_PATH.'viewCurrentCart.php';
         }
 
         public function showCurrentPurchaseLines(){

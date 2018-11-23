@@ -19,3 +19,9 @@ Constantes de querys(crear archivo para no mandar choclo en los select de los da
 
 casos de uso, diagrama de clases, 1 o 2 historias narrativas, (class model -> (click derecho)code engineering -> import source directory)
 phpMyAdmin genere el der
+
+PRE ENTREGA COSAS PENDIENTES:
+BAJAS LOGICAS;
+MODIFICAR EVENTOS;
+HACER CARGA DINAMICA, PLAZA EVENTO;
+REMAINDER;

@@ -39,7 +39,21 @@
         }
 
         public function reset(){
+
             $this->currentPurchase = array();
+
+        }
+
+        public function upsertPurchaseLine($idEventSeat,$quantity){
+            $flag = 0;
+            foreach ($this->currentPurchase as $currentPurchaseLine){
+                if($currentPurchaseLine->getEventSeat()->getId() == $idEventSeat){
+                    $currentPurchaseLine->setQuantity($quantity + $currentPurchaseLine->getQuantity());
+                    $flag = 1;
+                    break;
+                }
+            }
+            return $flag;
         }
     }
 ?>

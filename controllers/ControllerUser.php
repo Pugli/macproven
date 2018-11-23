@@ -4,7 +4,6 @@
 
     use Model\User as User;
     use dao\DaoUserPdo as DaoUserPdo;
-    //use dao\DaoPurchasePdo as DaoPurchasePdo;
 
     class ControllerUser{
 
@@ -13,7 +12,6 @@
         public function __construct()
         {
             $this->userDao = new DaoUserPdo;
-            //$this->purchaseDao = new DaoPurchasePdo;
         }
         
         public function showLogin()
@@ -60,19 +58,31 @@
             }
         }
         
-        public function addUser($email,$password,$nickName,$isAdmin){
-            echo $isAdmin;
-            $userLogged = $this->isUserLogged();
-          
-            if($userLogged != null && $userLogged->getIsAdmin() == 1){
-                $user = new User;
-                $user->setNickName($nickName);
-                $user->setIsAdmin($isAdmin);
-                $user->setEmail($email);
-                $user->setPassword($password);
+        public function addUser($nickName,$email,$password,$passwordConfirm,$isAdmin = ''){
 
-                $this->userDao->add($user);
-                $this->showHomeView();
+            if (!empty($nickName) && !empty($password) && !empty($email) && !empty($passwordConfirm) && $isAdmin != ''){
+                
+                $userByEmail = $this->userDao->getUserByEmail($email);
+
+                if($userByEmail->getEmail() == null){
+                    if ($password == $passwordConfirm){
+                    $user = new User;
+                    $user->setNickName($nickName);
+                    $user->setIsAdmin($isAdmin);
+                    $user->setEmail($email);
+                    $user->setPassword($password);
+
+                    $this->userDao->add($user);
+                    //$this->showHomeView();
+                    }else{
+                        echo "Las contraseñas no coinciden!";
+                    }
+                }else{            
+                    echo "El email ya existe!";
+                }
+                $this->showAddUser();
+            }else{
+                echo "Faltan Ingresar Datos";
             }
         }
         

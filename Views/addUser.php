@@ -9,7 +9,13 @@ include_once VIEWS_PATH."nav.php";
                <h2 class="mb-4">Agregar Usuario</h2>
 
                <form action="<?php echo FRONT_ROOT; ?>User/addUser" method="POST" class="bg-light-alpha p-5">
-                    <div class="row">
+                    <div class="">
+                    <div class="col-lg-4">
+                              <div class="form-group">
+                                   <label for="">Nombre de usuario</label>
+                                   <input type="text" name="nickname" value="" class="form-control">
+                              </div>
+                         </div>
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Email</label>
@@ -19,22 +25,26 @@ include_once VIEWS_PATH."nav.php";
                          <div class="col-lg-4">
                               <div class="form-group">
                                    <label for="">Contraseña</label>
-                                   <input type="text" name="password" value="" class="form-control">
+                                   <input type="password" name="password" value="" class="form-control">
                               </div>
                          </div>
                          <div class="col-lg-4">
                               <div class="form-group">
-                                   <label for="">Nombre de usuario</label>
-                                   <input type="text" name="nickname" value="" class="form-control">
+                                   <label for="">Confirmar Contraseña</label>
+                                   <input type="password" name="passwordConfirm" value="" class="form-control">
                               </div>
                          </div>
+                         <?php if (isset($_SESSION['userLogged'])){ ?>
                          <div class="col-lg-4">
-                              <div class="form-group">
+                         <div class="form-group">
                                    <label for="">Permiso: </label>
                                    <input type="radio" name="permission" value="0"> Cliente
                                    <input type="radio" name="permission" value="1"> Administrador
                               </div>
                          </div>
+                         <?php } else {
+                             ?> <input type="hidden" name="permission" value="0"> <?php
+                         } ?>
                     </div>
                     <button type="submit" name="button" class="btn btn-dark ml-auto d-block">Agregar</button>
                </form>
