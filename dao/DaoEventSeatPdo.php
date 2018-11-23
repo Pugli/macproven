@@ -146,45 +146,35 @@
 
                 $eventSeatList = $this->generateEventSeat($resultSet);
 
-                /* foreach ($resultSet as $row){
-                    $artist = new Artist();
-                    $artist->setName($row["ARTIST"]);
-
-                    $eventPlace = new EventPlace();
-                    $eventPlace->setName($row["EVENTPLACE"]);
-
-                    $event = new Event();
-                    $event->setTitle($row["EVENTNAME"]);
-
-                    $calendar = new Calendar();
-                    $calendar->setArtist($artist);
-                    $calendar->setDate($row['DATEEVENT']);
-                    $calendar->setEventPlace($eventPlace);
-                    $calendar->setEvent($event);
-
-                    $placeType = new PlaceType();
-                    $placeType->setDescription($row['PLACETYPE']);
-
-                    $eventSeat = new EventSeat;
-                    $eventSeat->setId($row["EVENTSEAT"]);
-                    $eventSeat->setRemainder($row["REMAINDER"]);
-                    $eventSeat->setQuantityAvailable($row["QUANTITY"]);
-                    $eventSeat->setPrice($row["PRICE"]);
-                    $eventSeat->setCalendar($calendar);
-                    $eventSeat->setPlaceType($placeType);
-
-                    array_push($eventSeatList,$eventSeat);
-                } */
-
                 return $eventSeatList;
-
 
             }catch (Exception $ex){
                 throw $ex;
             }
-
-
         }
+
+        public function getAllActives(){
+            try{
+                
+                $eventSeatList = array();
+
+                $query = $this->generalQuery() . " WHERE es.isActive = 1 ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
+
+                echo $query;
+
+                $this->connection = Connection::getInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                $eventSeatList = $this->generateEventSeat($resultSet);
+
+                return $eventSeatList;
+
+            }catch (Exception $ex){
+                throw $ex;
+            }
+        }
+
 
         public function getEventSeatById($idEventSeat)
         {
@@ -235,9 +225,17 @@
                 throw $ex;
             }
         }
+     
+        public function delete($idEventSeat)
+        {
+            $query = "UPDATE " . $this->tableNameEventSeats . " SET isActive = 0 WHERE id_eventseat = :idEventSeat";
 
-        
+            $parameters['idEventSeat'] = $idEventSeat;
 
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
     }
 
 

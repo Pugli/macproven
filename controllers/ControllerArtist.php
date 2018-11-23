@@ -53,6 +53,11 @@
             return $this->DaoArtist->getAll();
         }
 
+        public function getAllActives()
+        {
+            return $this->DaoArtist->getAllActives();
+        }
+
         public function delete($idArtist){
             $this->DaoArtist->delete($idArtist);
             $this->showArtistList();

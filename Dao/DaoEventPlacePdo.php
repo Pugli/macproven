@@ -59,11 +59,41 @@
             }
         }
 
+        public function getAllActives()
+        {
+            try
+            {
+                $eventPlaceList = array();
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE isActive = 1";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setQuantity($row["quantity"]);
+                    $eventPlace->setId($row['id_eventPlace']);
+                    $eventPlace->setName($row["name"]);
+
+                    array_push($eventPlaceList, $eventPlace);
+                }
+
+                return $eventPlaceList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function delete($idEventPlace)
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_eventplace = :idEventPlace";
+                $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_eventplace = :idEventPlace";
             
                 $parameters["idEventPlace"] = $idEventPlace;
 

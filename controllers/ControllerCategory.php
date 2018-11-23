@@ -55,6 +55,9 @@
             return $this->daoCategory->getAll();
         }
 
+        public function getAllActives(){
+            return $this->daoCategory->getAllActives();
+        }
     }
 
 ?>

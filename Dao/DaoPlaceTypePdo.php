@@ -57,6 +57,35 @@
             }
         }
 
+        public function getAllActives()
+        {
+            try
+            {
+                $TypePlaceList = array();
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE isActive = 1";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $PlaceType = new PlaceType();
+                    $PlaceType->setDescription($row["description"]);
+                    $PlaceType->setId($row['id_placetype']);
+
+                    array_push($TypePlaceList, $PlaceType);
+                }
+
+                return $TypePlaceList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function checkDescription($description)
         {
             try
@@ -90,7 +119,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_placetype = (:idPlaceType)";
+                $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_placetype = (:idPlaceType)";
             
                 $parameters["idPlaceType"] = $idPlaceType;
 

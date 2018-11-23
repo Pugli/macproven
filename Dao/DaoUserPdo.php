@@ -74,6 +74,26 @@
             }
 
             return $userList;
+        }
+
+        public function getAllActives()
+        {
+            $query = $this->generalQuery() . " WHERE isActive = 1";
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query);
+
+            $userList = array();
+
+            foreach ($resultSet as $row)
+            {
+                $user = $this->generate($row);
+
+                array_push($userList, $user);
+            }
+
+            return $userList;
 
         }
 
@@ -114,6 +134,17 @@
             $user = $this->generate($row);
 
             return $user;
+        }
+
+        public function delete($idUser)
+        {
+            $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_user = (:idUser)";
+            
+            $parameters["idUser"] = $idUser;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters); 
         }
     }
 ?>

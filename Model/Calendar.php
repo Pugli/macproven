@@ -17,7 +17,7 @@
             return $this->active;
         }
 
-        public function setActive(boolean $active){
+        public function setActive(Bool $active){
             $this->active = $active;
         }
 

@@ -58,6 +58,35 @@
             }
         }
 
+        public function getAllActives()
+        {
+            try
+            {
+                $categoryList = array();
+
+                $query = "SELECT * FROM ".$this->tableName." WHERE isActive = 1";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $category = new Category();
+                    $category->setDescription($row["category"]);
+                    $category->setId($row['id_category']);
+
+                    array_push($categoryList, $category);
+                }
+
+                return $categoryList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function checkCategory($categoryname)
         {
             try
@@ -118,7 +147,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_category = :idCategory";
+                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_category = :idCategory";
             
                 $parameters["idCategory"] = $idCategory;
 

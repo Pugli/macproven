@@ -4,7 +4,7 @@
 
     $controller = new ControllerArtist();
 
-    $artistList = $controller->getAll();
+    $artistList = $controller->getAllActives();
 ?>
 
 <main class="py-5">

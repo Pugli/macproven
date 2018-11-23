@@ -135,6 +135,26 @@
             }
         }
 
+        public function getAllActives()
+        {
+            try{
+                $calendarList = array();
+
+                $query = $this->generalQuery() . " WHERE cl.isActive = 1 ORDER BY ac.pfk_id_calendar";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+
+                $calendarList = $this->generateCalendar($resultSet);
+
+                return $calendarList;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+
         public function checkCalendarById($calendarId){
             try
             {
@@ -162,7 +182,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_calendar = :idCalendar";
+                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_calendar = :idCalendar ";
             
                 $parameters["idCalendar"] = $idCalendar;
 

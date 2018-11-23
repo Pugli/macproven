@@ -67,6 +67,10 @@ class ControllerCalendar{
         public function getAll(){
             return $this->daoCalendar->getAll();
         }
+
+        public function getAllActives(){
+            return $this->daoCalendar->getAllActives();
+        }
     }
 
 

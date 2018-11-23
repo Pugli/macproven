@@ -1,12 +1,14 @@
 CREATE TABLE ARTISTS(
     id_artist int auto_increment,
     name varchar(50) not null,
+    isActive BOOLEAN DEFAULT 1,
     primary key (id_artist)
 );
 
 CREATE TABLE CATEGORIES(
     id_category int auto_increment,
     category varchar(50) not null,
+    isActive BOOLEAN DEFAULT 1,
     primary key (id_category)
 );
 
@@ -14,7 +16,10 @@ CREATE TABLE CATEGORIES(
 CREATE TABLE EVENTS(
     ID_EVENT INT AUTO_INCREMENT,
     FK_CATEGORY INT,
+    imagePath varchar(100),
+    imageId int,
     TITLE VARCHAR (50),
+    isActive BOOLEAN DEFAULT 1,
     PRIMARY KEY (ID_EVENT),
     FOREIGN KEY (FK_CATEGORY) REFERENCES CATEGORIES (ID_CATEGORY)
 );
@@ -22,6 +27,7 @@ CREATE TABLE EVENTS(
 
 create table eventPlaces(
   quantity INT NOT NULL,
+  isActive BOOLEAN DEFAULT 1,
   id_eventPlace INT NOT NULL AUTO_INCREMENT,
   name varchar(50) not null,
   PRIMARY KEY (id_eventPlace)
@@ -29,21 +35,16 @@ create table eventPlaces(
 
   create table placetype(
       description varchar (50) NOT NULL,
+      isActive BOOLEAN DEFAULT 1,
       id_placetype int auto_increment,
       primary key (id_placetype)
   );
-  
-CREATE TABLE admins (
-	id_admin int not null auto_increment,
-	mail varchar(60) not null,
-	pass varchar(60) not null,
-	primary key (id_admin)
- );
 
  CREATE TABLE calendars(
      id_calendar int auto_increment,
      dateevent date,
      fk_id_event int not null,
+     isActive BOOLEAN DEFAULT 1,
      fk_id_eventplace int not null,
      primary key (id_calendar),
      foreign key (fk_id_event) references events (id_event),
@@ -56,6 +57,7 @@ CREATE TABLE admins (
      quantity int not null,
      remainder int not null,
      fk_id_calendar int not null,
+     isActive BOOLEAN DEFAULT 1,
      fk_id_placetype int not null,
      primary key (id_eventseat),
      foreign key (fk_id_calendar) references calendars (id_calendar),
@@ -76,6 +78,7 @@ CREATE TABLE USERS
   email varchar(50) not null,
   password varchar(50) not null,
   nickName varchar(50) not null,
+  isActive BOOLEAN DEFAULT 1,
   isAdmin BOOLEAN,
   PRIMARY KEY (id_user)
 );

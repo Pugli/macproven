@@ -7,7 +7,8 @@
 
     $controller = new ControllerCalendar();
 
-    $CalendarList = $controller->getAll();
+    $controller->delete(2);
+    $CalendarList = $controller->getAllActives();
 ?>
 
 <main class="py-5">

@@ -58,6 +58,35 @@
             }
         }
 
+        public function getAllActives()
+        {
+            try
+            {
+                $artistList = array();
+
+                $query = "SELECT * FROM ".$this->tableName. " WHERE isActive = 1";
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                foreach ($resultSet as $row)
+                {                
+                    $artist = new Artist();
+                    $artist->setName($row["name"]);
+                    $artist->setId($row['id_artist']);
+
+                    array_push($artistList, $artist);
+                }
+
+                return $artistList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
         public function checkArtist($name)
         {
             try
@@ -120,7 +149,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE id_artist = :idArtist";
+                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_artist = :idArtist";
             
                 $parameters["idArtist"] = $idArtist;
 
