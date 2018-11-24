@@ -196,6 +196,72 @@
             } 
         }
 
+        public function checkCalendarByArtist($idArtist) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
+        {
+            $query = "SELECT pfk_id_artist, dateevent FROM " . $this->tableNameArtistXCalendars . "
+                          INNER JOIN " . $this->tableName .
+                        " ON pfk_id_calendar = id_calendar
+                          WHERE pfk_id_artist = :id AND dateevent >= now()";
+
+            $parameters['id'] = $idArtist;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+
+            return $resultSet;
+        }
+
+        public function checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
+        {
+            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now()";
+
+            $parameters['id'] = $idEvent;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
+        }
+
+        public function checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
+        {
+            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now()";
+
+            $parameters['id'] = $idEventPlace;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
+        }
 
     }
 ?>

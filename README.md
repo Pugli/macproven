@@ -26,10 +26,7 @@ MODIFICAR EVENTOS;
 HACER CARGA DINAMICA, PLAZA EVENTO;
 REMAINDER;
 
-checkCalendarByArtist($idArtist)) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
-checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
-checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
-checkCalendarByPlaceType($idPlaceType) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
+checkEventSeatByPlaceType($idPlaceType) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
 checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
 checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
 checkPurchasesByEventSeat($eventSeatId) // Dao EventSeat // TRUE O FALSE --
