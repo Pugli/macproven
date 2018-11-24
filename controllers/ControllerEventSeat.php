@@ -33,27 +33,30 @@
         }
 
         public function addEventSeat($calendarId,$placeTypeId,$quantity,$price){
+
+            if ($this->daoEventSeat->getEventSeatByCalendarAndPlaceType($calendarId,$placeTypeId) == false){
             
-            if($this->daoCalendar->checkCalendarById($calendarId) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId) != null){
-                var_dump($this->daoCalendar->checkCalendarById($calendarId));
-                echo " hola";
-                if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId)->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId))) >= $quantity){
+                if($this->daoCalendar->checkCalendarById($calendarId) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId) != null){
+                    if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId)->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId))) >= $quantity){
 
-                    $newEventSeat = new EventSeat;
+                        $newEventSeat = new EventSeat;
 
-                    $newEventSeat->setCalendar($this->daoCalendar->checkCalendarById($calendarId));
-                    $newEventSeat->setPlaceType($this->daoPlaceType->checkPlaceTypeById($placeTypeId));
-                    $newEventSeat->setQuantityAvailable($quantity);
-                    $newEventSeat->setRemaind($quantity);
-                    $newEventSeat->setPrice($price);
+                        $newEventSeat->setCalendar($this->daoCalendar->checkCalendarById($calendarId));
+                        $newEventSeat->setPlaceType($this->daoPlaceType->checkPlaceTypeById($placeTypeId));
+                        $newEventSeat->setQuantityAvailable($quantity);
+                        $newEventSeat->setRemaind($quantity);
+                        $newEventSeat->setPrice($price);
 
-                    $this->daoEventSeat->add($newEventSeat);
-                    echo "<script> if(alert('Nuevo Plaza-Evento Ingresado')); </script>";
+                        $this->daoEventSeat->add($newEventSeat);
+                        echo "<script> if(alert('Nuevo Plaza-Evento Ingresado')); </script>";
+                    }else{
+                        echo "<script> if(alert('Cantidad Erronea de entradas')); </script>";
+                    }
                 }else{
-                    echo "<script> if(alert('Cantidad Erronea de entradas')); </script>";
+                    echo "<script> if(alert('No se pudo ingresar la Plaza-Evento')); </script>";
                 }
             }else{
-                echo "<script> if(alert('No se pudo ingresar la Plaza-Evento')); </script>";
+                echo "<script> if(alert('Ya hay entradas de este tipo para el calendario')); </script>";
             }
             $this->showEventSeatList();
         }

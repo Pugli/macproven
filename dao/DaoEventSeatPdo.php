@@ -225,6 +225,33 @@
                 throw $ex;
             }
         }
+
+        public function getEventSeatByCalendarAndPlaceType($idCalendar,$idPlaceType){
+            
+            /*$query = "SELECT * FROM ".$this->tableNameEventSeats." WHERE FK_ID_CALENDAR = :idCalendar && 
+            FK_ID_PLACETYPE = :idPlaceType";*/
+
+            $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar && 
+            FK_ID_PLACETYPE = :idPlaceType";
+
+            $parameters["idCalendar"] = $idCalendar;
+            $parameters["idPlaceType"] = $idPlaceType;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $eventSeatList = array();
+
+            $eventSeatList = $this->generateEventSeat($resultSet);
+
+            $eventSeat = reset($eventSeatList);
+
+            var_dump($eventSeat);
+            
+            return $eventSeat;
+
+        }
      
         public function delete($idEventSeat)
         {
