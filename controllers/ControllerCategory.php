@@ -49,14 +49,14 @@
             return $this->daoCategory->checkCategoryById($categoryId);
         }
 
-        public function delete($idCategory){
+       /*  public function delete($idCategory){
             if ($this->daoEvent->checkEventByCategory($idCategory) == false){
                 $this->daoCategory->delete($idCategory); 
             }else{
                 echo "<script> if(alert('No se puede eliminar la categoria: Hay eventos que la contienen'));</script>";
             }
             $this->showCategoryList();
-        }
+        } */
 
         public function getAll(){
             return $this->daoCategory->getAll();

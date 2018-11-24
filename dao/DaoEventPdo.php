@@ -14,7 +14,7 @@
 
         public function generalQuery()
         {
-            return "SELECT title, id_event, category FROM " . $this->tableName . 
+            return "SELECT title, id_event, category, imagePath FROM " . $this->tableName . 
                                 " INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
         }
 
@@ -26,6 +26,7 @@
                     $event = new Event();
                     $event->setTitle($row["title"]);
                     $event->setId($row['id_event']);
+                    $event->setNameImg($row['imagePath']);
 
                     $category = new Category();
                     $category->setDescription($row["category"]);
@@ -41,9 +42,10 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (title,fk_category) VALUES (:title, :category);";
+                $query = "INSERT INTO ".$this->tableName." (title,fk_category,imagePath) VALUES (:title, :category, :img);";
                 $parameters["title"] = $event->getTitle();
                 $parameters["category"] = $event->getCategory()->getId();
+                $parameters["img"] = $event->getNameImg();
 
                 $this->connection = Connection::GetInstance();
 
@@ -92,7 +94,7 @@
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
                 $eventList = $this->generate($resultSet);
-                return $eventList[0];
+                return reset($eventList);
             }
             catch(Exception $ex)
             {

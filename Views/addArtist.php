@@ -7,7 +7,7 @@
 <body>
     <form action="<?php echo FRONT_ROOT; ?>/Artist/addArtist" method="POST">
     <br>
-        Nombre: <input type="text" name="name"/>
+        Nombre: <input type="text" name="name"/> <br>
         <input type="submit" value="Enviar"/>
     </form>
 </body>

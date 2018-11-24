@@ -48,7 +48,7 @@ class controllerPlaceType{
         return $this->daoPlaceType->getAll();
     }
 
-    public function delete($idPlaceType)     
+ /*    public function delete($idPlaceType)     
     {
         if($this->daoCalendar->checkCalendarByPlaceType($idPlaceType) == false){
             $this->daoPlaceType->delete($idPlaceType);
@@ -57,5 +57,5 @@ class controllerPlaceType{
         }
         
         $this->showPlaceTypeList();
-    }
+    } */
 }
