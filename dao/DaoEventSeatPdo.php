@@ -30,7 +30,6 @@
             es.id_eventSeat AS idEventSeat,
             es.quantity AS quantityEventSeat,
             es.price AS priceEventSeat,
-            es.remaind AS remaindEventSeat,
             ep.id_eventPlace AS idEventPlace,
             e.title AS titleEvent,
             cl.id_calendar AS idCalendar,
@@ -95,7 +94,6 @@
 
                     $eventSeat = new EventSeat;
                     $eventSeat->setId($row["idEventSeat"]);
-                    $eventSeat->setRemaind($row["remaindEventSeat"]);
                     $eventSeat->setQuantityAvailable($row["quantityEventSeat"]);
                     $eventSeat->setPrice($row["priceEventSeat"]);
                     $eventSeat->setCalendar($calendar);
@@ -114,10 +112,9 @@
 
         public function add(EventSeat $eventSeat){
             try{
-                $query = "INSERT INTO ".$this->tableNameEventSeats." (quantity, price, remaind, fk_id_calendar, fk_id_placetype) VALUES (:quantity, :price, :remaind, :fk_id_calendar, :fk_id_placetype)";
+                $query = "INSERT INTO ".$this->tableNameEventSeats." (quantity, price, fk_id_calendar, fk_id_placetype) VALUES (:quantity, :price, :fk_id_calendar, :fk_id_placetype)";
                 $parameters["quantity"] = $eventSeat->getQuantityAvailable();
                 $parameters["price"] = $eventSeat->getPrice();
-                $parameters["remaind"] = $eventSeat->getRemaind();
                 $parameters["fk_id_calendar"] = $eventSeat->getCalendar()->getId();
                 $parameters["fk_id_placetype"] = $eventSeat->getPlaceType()->getId();
 
@@ -138,8 +135,6 @@
 
                 $query = $this->generalQuery() . " ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
 
-                echo $query;
-
                 $this->connection = Connection::getInstance();
 
                 $resultSet = $this->connection->Execute($query);
@@ -159,8 +154,6 @@
                 $eventSeatList = array();
 
                 $query = $this->generalQuery() . " WHERE es.isActive = 1 ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
-
-                echo $query;
 
                 $this->connection = Connection::getInstance();
 
@@ -246,8 +239,6 @@
             $eventSeatList = $this->generateEventSeat($resultSet);
 
             $eventSeat = reset($eventSeatList);
-
-            var_dump($eventSeat);
             
             return $eventSeat;
 

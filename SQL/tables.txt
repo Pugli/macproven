@@ -1,3 +1,7 @@
+create database macproven;
+
+use macproven;
+
 CREATE TABLE ARTISTS(
     id_artist int auto_increment,
     name varchar(50) not null,
@@ -55,7 +59,6 @@ create table eventPlaces(
      id_eventseat int auto_increment,
      price int not null,
      quantity int not null,
-     remaind int not null,
      fk_id_calendar int not null,
      isActive BOOLEAN DEFAULT 1,
      fk_id_placetype int not null,
@@ -159,6 +162,8 @@ INSERT INTO PLACETYPE (DESCRIPTION) VALUES
 
 INSERT INTO USERS(email,password,nickName,isAdmin) VALUES
  ("admin@gmail.com","12345","admin","1");
+
+
 
 
 
