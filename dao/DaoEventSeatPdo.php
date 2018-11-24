@@ -68,11 +68,8 @@
                 $idEventSeat = ($row["idEventSeat"]);    
 
                 if($lastIdEventSeat != $idEventSeat){
-
-                //if($lastIdCalendar != $idCalendar){
                     
                     $lastIdEventSeat = $row["idEventSeat"];
-                    //$lastIdCalendar = $row["idCalendar"];
                     $eventPlace = new EventPlace();
                     $eventPlace->setName($row['nameEventPlace']);
                     $eventPlace->setQuantity($row['quantityEventPlace']);
@@ -102,7 +99,7 @@
                     $eventSeat->setPlaceType($placeType);
 
                     array_push($eventSeatList, $eventSeat);
-                }//}
+                }
                 $artist = new Artist();
                 $artist->setName($row['nameArtist']);
 
@@ -227,9 +224,6 @@
         }
 
         public function getEventSeatByCalendarAndPlaceType($idCalendar,$idPlaceType){
-            
-            /*$query = "SELECT * FROM ".$this->tableNameEventSeats." WHERE FK_ID_CALENDAR = :idCalendar && 
-            FK_ID_PLACETYPE = :idPlaceType";*/
 
             $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar && 
             FK_ID_PLACETYPE = :idPlaceType";
@@ -246,8 +240,6 @@
             $eventSeatList = $this->generateEventSeat($resultSet);
 
             $eventSeat = reset($eventSeatList);
-
-            var_dump($eventSeat);
             
             return $eventSeat;
 

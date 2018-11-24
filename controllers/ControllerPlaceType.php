@@ -3,14 +3,17 @@ namespace controllers;
 
 use Dao\DaoPlaceTypePdo as DaoPlaceTypePdo;
 use Model\PlaceType as PlaceType;
+use dao\DaoCalendarPdo as DaoCalendarPdo;
 
 class controllerPlaceType{
 
     private $daoPlaceType;
+    private $daoCalendar;
 
     public function __construct()
     {
         $this->daoPlaceType = new DaoPlaceTypePdo;
+        $this->daoCalendar = new DaoCalendarPdo;
     }
 
     public function index(){
@@ -47,7 +50,12 @@ class controllerPlaceType{
 
     public function delete($idPlaceType)     
     {
-        $this->daoPlaceType->delete($idPlaceType);
+        if($this->daoCalendar->checkCalendarByPlaceType($idPlaceType) == false){
+            $this->daoPlaceType->delete($idPlaceType);
+        }else{
+            echo "<script> if(alert('No se puede eliminar el tipo de plaza. Hay fechas que las tienen asignadas.'));</script>";
+        }
+        
         $this->showPlaceTypeList();
     }
 }

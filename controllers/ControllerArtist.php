@@ -4,10 +4,12 @@
     use Model\Artist as Artist;
     use dao\DaoArtistList as DaoArtistList;
     use dao\DaoArtistPdo as DaoArtistPdo;
+    use dao\DaoCalendarPdo as DaoCalendarPdo;
 
     class ControllerArtist{
 
         private $DaoArtist;
+        private $daoCalendar;
         
         /**
          * To change the database just modify 
@@ -15,6 +17,7 @@
         */
         function __construct(){
             $this->DaoArtist = new DaoArtistPdo();
+            $this->daoCalendar = new DaoCalendarPdo();
         }
 
         public function index(){
@@ -59,8 +62,13 @@
         }
 
         public function delete($idArtist){
-            $this->DaoArtist->delete($idArtist);
-            $this->showArtistList();
+
+            if($this->daoCalendar->checkCalendarByArtist($idArtist) == false){
+                $this->DaoArtist->delete($idArtist);
+            }else{
+                echo "<script> if(alert('Imposible eliminar, Hay calendarios con este artista.'));</script>";
+            }
+            
         }
     }
 

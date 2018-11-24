@@ -4,14 +4,17 @@
     use Model\Event as Event;
     use dao\DaoEventPdo as DaoEventPdo;
     use dao\DaoCategoryPdo as DaoCategoryPdo;
+    use dao\DaoCalendarPdo as DaoCalendarPdo;
 
     class ControllerEvent{
         private $daoEvent;
         private $daoCategory;
+        private $daoCalendar;
 
         public function __construct(){
             $this->daoEvent = new DaoEventPdo;
             $this->daoCategory = new DaoCategoryPdo;
+            $this->daoCalendar = new DaoCalendarPdo;
         }
 
         public function index(){
@@ -41,8 +44,13 @@
            $this->showEventList();
         }
 
-        public function delete($id){
-            $this->daoEvent->delete($id);
+        public function delete($idEvent){
+
+            if($this->daoCalendar->checkCalendarsFutureByEvent($idEvent) == false){
+                $this->daoEvent->delete($idEvent);
+            }else{
+                echo "<script> if(alert('No es posible borrar el evento. Hay fechas futuras'));</script>";
+            }
             $this->showEventList();
         }
 

@@ -4,13 +4,16 @@
 
     use Model\Category as Category;
     use dao\DaoCategoryPdo as DaoCategoryPdo;
+    use dao\DaoEventPdo as DaoEventPdo;
 
     class ControllerCategory{
 
         private $daoCategory;
+        private $daoEvent;
 
         public function __construct(){
             $this->daoCategory = new DaoCategoryPdo;
+            $this->daoEvent = new DaoEventPdo;
         }
 
         public function index(){
@@ -47,7 +50,11 @@
         }
 
         public function delete($idCategory){
-            $this->daoCategory->delete($idCategory);
+            if ($this->daoEvent->checkEventByCategory($idCategory) == false){
+                $this->daoCategory->delete($idCategory); 
+            }else{
+                echo "<script> if(alert('No se puede eliminar la categoria: Hay eventos que la contienen'));</script>";
+            }
             $this->showCategoryList();
         }
 

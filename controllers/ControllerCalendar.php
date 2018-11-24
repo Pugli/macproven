@@ -60,7 +60,12 @@ class ControllerCalendar{
         }
 
         public function delete($calendarId){
-            $this->daoCalendar->delete($calendarId);
+            if($this->daoEventSeat->checkEventSeatByCalendar($calendarId) == false){
+                $this->daoCalendar->delete($calendarId);
+            }else{
+                echo "<script> if(alert('No es posible eliminar esta fecha. Hay entradas a la ventas'));</script>";
+            }
+            
             $this->showCalendarList();
         }
 

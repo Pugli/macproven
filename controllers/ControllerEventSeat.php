@@ -6,18 +6,21 @@
     use dao\DaoEventSeatPdo as DaoEventSeatPdo;
     use dao\DaoPlaceTypePdo as DaoPlaceTypePdo;
     use dao\DaoEventPlacePdo as DaoEventPlacePdo;
+    use dao\DaoPurchaseLinePdo as DaoPurchaseLinePdo; 
 
     class ControllerEventSeat {
         private $daoCalendar;
         private $daoEventSeat;
         private $daoPlaceType;
         private $daoEventPlace;
+        private $daoPurchaseLines;
 
         public function __construct(){
             $this->daoCalendar = new DaoCalendarPdo;
             $this->daoEventSeat = new DaoEventSeatPdo;
             $this->daoPlaceType = new DaoPlaceTypePdo;
             $this->daoEventPlace = new DaoEventPlacePdo;
+            $this->daoPurchaseLines = new DaoPurchaseLinePdo;
         }
 
         public function index(){
@@ -62,7 +65,12 @@
         }
 
         public function delete($eventSeatId){
-            $this->daoEventSeat->delete($eventSeatId);
+            if($this->daoPurchaseLines->checkPurchasesByEventSeat($eventSeatId)){
+                $this->daoEventSeat->delete($eventSeatId);
+            }else{
+                echo "<script> if(alert('Ya hay entradas vendidas. Imposible eliminar la plaza evento')); </script>";
+            }
+           
             $this->showEventSeatList();
         }
 

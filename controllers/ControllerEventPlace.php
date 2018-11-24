@@ -3,13 +3,16 @@
 
     use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
     use Model\EventPlace as EventPlace;
+    use dao\DaoCalendarPdo as DaoCalendarPdo;
 
     class ControllerEventPlace{
         private $daoEventPlaces;
+        private $daoCalendar;
 
         public function __construct()
         {
             $this->daoEventPlaces = new DaoEventPlacePdo();
+            $this->daoCalendar = new DaoCalendarPdo();
         }
 
         public function index()
@@ -44,7 +47,12 @@
         }
 
         public function delete($idEventPlace){
-            $this->daoEventPlaces->delete($idEventPlace);
+            if ($this->daoCalendar->checkCalendarByEventPlace($idEventPlace) == false){
+                $this->daoEventPlaces->delete($idEventPlace);
+            }else{
+                echo "<script> if(alert('No es posible eliminar el Lugar, Hay fechas posteriores en el mismo'));</script>";
+            }
+            
             $this->showEventPlaceList();
         }
 
