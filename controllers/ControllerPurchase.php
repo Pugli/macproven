@@ -74,11 +74,7 @@
 
             return $purchases;
             
-        }
-
-        
-
-
+        }    
     }
 
 

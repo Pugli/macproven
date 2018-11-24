@@ -11,6 +11,7 @@
         private $tableNamePurchase = 'purchases';
         private $tableNamePurchaseLine = 'purchaseLines';
         private $tableNameTicket = 'tickets';
+        private $tableNameEventSeats = "EVENTSEATS";
 
         public function add(Ticket $ticket)
         {
@@ -54,6 +55,28 @@
 
             return $ticketList;
 
+        }
+
+        public function ticketsSold($idEventSeat)
+        {
+            $query = "SELECT count(id_ticket) as quantityTickets FROM " . $this->tableNameEventSeats . 
+                        " INNER JOIN " . $this->tableNamePurchaseLine . 
+                        " ON id_eventseat = fk_id_eventseat
+                          INNER JOIN " . $this->tableNameTicket .
+                        " ON fk_id_purchaseLine = id_purchaseLine
+                          WHERE id_eventseat = :id";
+
+            $parameters['id'] = $idEventSeat;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $row = reset($resultSet);
+
+            $quantity = $row['quantityTickets'];
+
+            return $quantity;
         }
     }
 ?>
