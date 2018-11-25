@@ -29,9 +29,20 @@
             include_once VIEWS_PATH.'eventlist.php';
         }
 
-        public function addEvent($event,$categoryId){
+        public function addEvent($event,$categoryId,$file){
+            
            if (($this->daoEvent->checkEvent($event) == null) && ($this->daoCategory->checkCategoryById($categoryId) != null)){
+               
                $newEvent = new Event;
+
+               if(!empty($file)){
+                $newEventWithImg = $this->setImage($newEvent,$file);
+               }
+
+               if($newEventWithImg != null){
+                   $newEvent = $newEventWithImg;
+               }
+
                $newEvent->setTitle($event);
                $newEvent->setCategory($this->daoCategory->checkCategoryById($categoryId));
                $this->daoEvent->add($newEvent);
@@ -44,7 +55,7 @@
            $this->showEventList();
         }
 
-        public function delete($idEvent){
+       /*  public function delete($idEvent){
 
             if($this->daoCalendar->checkCalendarsFutureByEvent($idEvent) == false){
                 $this->daoEvent->delete($idEvent);
@@ -52,7 +63,7 @@
                 echo "<script> if(alert('No es posible borrar el evento. Hay fechas futuras'));</script>";
             }
             $this->showEventList();
-        }
+        } */
 
         public function getAll(){
             return $this->daoEvent->getAll();
@@ -69,7 +80,7 @@
             include_once VIEWS_PATH."listCheckEventForDate.php";
             }
            else{
-            echo "<script> if(alert('No existe el evento'));</script>";
+            echo "<script> if(alert('No existen eventos para esa fecha'));</script>";
             include_once VIEWS_PATH .'Home.php';
             } 
 
@@ -88,10 +99,40 @@
             include_once VIEWS_PATH."listCheckEventForCategory.php";
             }
            else{
-            echo "<script> if(alert('No existe el evento'));</script>";
+            echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
             include_once VIEWS_PATH .'Home.php';
-        } 
+            } 
 
+        }
+
+        private function setImage(Event $event,$file){
+            $fileName = $file["name"];
+            $tempFileName = $file["tmp_name"];
+            $type = $file["type"];
+            
+            $filePath = UPLOADS_PATH.basename($fileName);            
+
+            $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+            $imageSize = getimagesize($tempFileName);
+
+            if($imageSize !== false)
+            {
+                if (move_uploaded_file($tempFileName, $filePath))
+                {
+                    $event->setNameImg($fileName);
+                    return $event;
+                }
+                else
+                    echo "Error en la carga de la imagen";
+            }
+            else   
+                echo "El archivo no es una imagen";
+        }
+
+        public function getEventById($eventId){
+            $event = $this->daoEvent->checkEventById($eventId);
+            $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
         }
     }
 

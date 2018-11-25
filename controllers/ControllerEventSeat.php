@@ -7,6 +7,7 @@
     use dao\DaoPlaceTypePdo as DaoPlaceTypePdo;
     use dao\DaoEventPlacePdo as DaoEventPlacePdo;
     use dao\DaoPurchaseLinePdo as DaoPurchaseLinePdo; 
+    use dao\DaoTicketPdo as DaoTicketPdo;
 
     class ControllerEventSeat {
         private $daoCalendar;
@@ -14,6 +15,7 @@
         private $daoPlaceType;
         private $daoEventPlace;
         private $daoPurchaseLines;
+        private $daoTicket;
 
         public function __construct(){
             $this->daoCalendar = new DaoCalendarPdo;
@@ -21,6 +23,7 @@
             $this->daoPlaceType = new DaoPlaceTypePdo;
             $this->daoEventPlace = new DaoEventPlacePdo;
             $this->daoPurchaseLines = new DaoPurchaseLinePdo;
+            $this->daoTicket = new DaoTicketPdo;
         }
 
         public function index(){
@@ -64,7 +67,7 @@
             $this->showEventSeatList();
         }
 
-        public function delete($eventSeatId){
+       /*  public function delete($eventSeatId){
             if($this->daoPurchaseLines->checkPurchasesByEventSeat($eventSeatId)){
                 $this->daoEventSeat->delete($eventSeatId);
             }else{
@@ -72,15 +75,14 @@
             }
            
             $this->showEventSeatList();
-        }
+        } */
 
         public function getAll(){
-            return $this->daoEventSeat->getAll();
-        }
-
-        public function query()
-        {
-            echo $this->daoEventSeat->generalQuery();
+            $eventSeats = $this->daoEventSeat->getAll();
+            foreach($eventSeats as $eventSeat){
+                $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
+            }
+            return $eventSeats;
         }
     }
 

@@ -7,7 +7,6 @@
 
     $controller = new ControllerCalendar();
 
-    $controller->delete(2);
     $CalendarList = $controller->getAllActives();
 ?>
 

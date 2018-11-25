@@ -8,6 +8,7 @@
         private $id;
         private $category;
         private $active;
+        private $nameImg;
 
         public function getActive(){
             return $this->active;
@@ -46,6 +47,16 @@
         {
             return $this->category;
         }
+
+        public function getNameImg()
+        {
+            return $this->nameImg;
+        }
+
+        public function setnameImg($nameImg)
+        {
+            $this->nameImg = $nameImg;
+        }     
 
 
     }

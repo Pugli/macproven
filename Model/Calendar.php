@@ -12,6 +12,7 @@
         private $artist = array();
         private $event;
         private $active;
+        private $nameImg;
 
         public function getActive(){
             return $this->active;
@@ -70,5 +71,15 @@
         {
             return $this->date;
         }
+
+        public function getNameImg()
+        {
+            return $this->nameImg;
+        }
+
+        public function setnameImg($nameImg)
+        {
+            $this->nameImg = $nameImg;
+        }   
     }
 ?>

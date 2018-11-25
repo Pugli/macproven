@@ -61,7 +61,7 @@
             return $this->DaoArtist->getAllActives();
         }
 
-        public function delete($idArtist){
+        /* public function delete($idArtist){
 
             if($this->daoCalendar->checkCalendarByArtist($idArtist) == false){
                 $this->DaoArtist->delete($idArtist);
@@ -69,7 +69,7 @@
                 echo "<script> if(alert('Imposible eliminar, Hay calendarios con este artista.'));</script>";
             }
             
-        }
+        } */
     }
 
 ?>

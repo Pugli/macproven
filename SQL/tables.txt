@@ -21,7 +21,6 @@ CREATE TABLE EVENTS(
     ID_EVENT INT AUTO_INCREMENT,
     FK_CATEGORY INT,
     imagePath varchar(100),
-    imageId int,
     TITLE VARCHAR (50),
     isActive BOOLEAN DEFAULT 1,
     PRIMARY KEY (ID_EVENT),
@@ -49,6 +48,7 @@ create table eventPlaces(
      dateevent date,
      fk_id_event int not null,
      isActive BOOLEAN DEFAULT 1,
+     imagePath varchar(100),
      fk_id_eventplace int not null,
      primary key (id_calendar),
      foreign key (fk_id_event) references events (id_event),
@@ -120,7 +120,7 @@ INSERT INTO ARTISTS (name) VALUES
 ("Charly Garcia"),
 ("Shakira"),
 ("Luis Fonsi"),
-("Dama$ Grati$"),
+("Damas Gratis"),
 ("Evanescense"),
 ("Axel"),
 ("Jeniffer Lopez"),
@@ -135,14 +135,16 @@ INSERT INTO CATEGORIES (CATEGORY) VALUES
 ("Comedia Musical"),
 ("Teatro");
 
-INSERT INTO EVENTS (FK_CATEGORY,TITLE) VALUES
-(1,"Shakira en Argentina"),
-(1,"La vela puerca Gira BSAS"),
-(1,"Dama$ Grati$ en Bookan"),
-(3,"Tomorrowland Rio 2019"),
-(4,"High School Musical 5 Live LA"),
-(3,"Lollapalooza"),
-(5,"La mascara de hierro");
+INSERT INTO EVENTS (FK_CATEGORY,TITLE,imagePath) VALUES
+(1,"Shakira en Argentina","shakira.jpg"),
+(1,"La vela puerca Gira BSAS","laVela.jpg"),
+(1,"Rolling Stones","RollingStones.jpg"),
+(3,"Tomorrowland Rio 2019","tomorrowland.jpg"),
+(1,"Las pastillas del Abuelo","lpda.jpg"),
+(3,"Lollapalooza","lollapalooza.jpg"),
+(5,"Equus","equus.jpg"),
+(1,"Shakira Y Maluma","malumashakira.jpg"),
+(1,"Ulises Bueno","ulises.jpg");
 
 INSERT INTO EVENTPLACES (QUANTITY,NAME) VALUES
 (65000,"Monumental"),
@@ -161,7 +163,8 @@ INSERT INTO PLACETYPE (DESCRIPTION) VALUES
 ("Campo");
 
 INSERT INTO USERS(email,password,nickName,isAdmin) VALUES
- ("admin@gmail.com","12345","admin","1");
+ ("admin@gmail.com","12345","admin","1"),
+ ("client@gmail.com","12345","client","0");
 
 
 

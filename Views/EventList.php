@@ -30,6 +30,7 @@
                                             <td><?php echo $Event->getId() ?></td>
                                             <td><?php echo $Event->getTitle() ?></td>
                                             <td><?php echo $Event->getCategory()->getDescription() ?></td>
+                                            <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Event->getNameImg() ?>" width="30" height="30"></td>
                                         </tr>
                                     <?php
                                 }

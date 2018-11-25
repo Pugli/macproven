@@ -1,0 +1,23 @@
+.FirstImg {
+    background-color: rgba(0,0,0,0.8);
+    background-image:url(../../Uploads/carrolpda.jpg);
+     height: 500px;
+    max-width: 100%;
+    filter:brightness(0.4);
+}
+
+.SecondImg {
+    background-color: rgba(0,0,0,0.8);
+    background-image:url(../../Uploads/Carrolola.jpg);
+     height: 500px;
+     max-width: 100%;
+    filter:brightness(0.5);
+}
+
+.ThirdImg {
+    background-color: rgba(0,0,0,0.8);
+    background-image:url(../../Uploads/carroroling.jpg);
+    height: 500px;
+    max-width: 100%;
+    filter:brightness(0.8);
+}
