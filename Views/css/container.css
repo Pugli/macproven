@@ -1,0 +1,9 @@
+.containerImg {
+    height: 200px;
+    max-width: 300px;
+    border-radius: 5px;
+}
+
+.containerImg:hover {
+    filter:brightness(0.4);
+}

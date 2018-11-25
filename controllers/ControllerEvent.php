@@ -80,7 +80,7 @@
             include_once VIEWS_PATH."listCheckEventForDate.php";
             }
            else{
-            echo "<script> if(alert('No existe el evento'));</script>";
+            echo "<script> if(alert('No existen eventos para esa fecha'));</script>";
             include_once VIEWS_PATH .'Home.php';
             } 
 
@@ -99,7 +99,7 @@
             include_once VIEWS_PATH."listCheckEventForCategory.php";
             }
            else{
-            echo "<script> if(alert('No existe el evento'));</script>";
+            echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
             include_once VIEWS_PATH .'Home.php';
             } 
 
@@ -128,6 +128,11 @@
             }
             else   
                 echo "El archivo no es una imagen";
+        }
+
+        public function getEventById($eventId){
+            $event = $this->daoEvent->checkEventById($eventId);
+            $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
         }
     }
 

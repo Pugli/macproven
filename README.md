@@ -30,4 +30,5 @@ checkEventSeatByPlaceType($idPlaceType) // DAO Calendar // TRUE O FALSE -- AND F
 checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
 checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
 checkPurchasesByEventSeat($eventSeatId) // Dao EventSeat // TRUE O FALSE --
+getCalendarForEvent($eventId) // Dao Calendar // LAS FECHAS Y LOS ID DEL CALENDAR
 

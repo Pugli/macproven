@@ -14,6 +14,10 @@
             include_once VIEWS_PATH."login.php";
         }
 
+        public function prueba(){
+            include_once VIEWS_PATH."prueba.php";
+        }
+
     }
 
 

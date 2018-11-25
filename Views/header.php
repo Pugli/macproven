@@ -8,6 +8,7 @@
      <!-- Bootstrap CSS -->
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
      <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>estilos.css">
+     <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>carrousel.css">
 
      <title>MAC PROVEN</title>
 </head>
