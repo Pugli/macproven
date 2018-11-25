@@ -19,6 +19,8 @@
         private $tableNameEvent = "events";
         private $tableNameArtist = "artists";
         private $tableNameArtistXCalendars = "artistsXCalendars";
+        private $tableNameEventSeat = 'eventseats';
+        private $tableNamePurchaseLines = 'purchaselines';
 
         private function generalQuery()
         {
@@ -201,7 +203,7 @@
             $query = "SELECT pfk_id_artist, dateevent FROM " . $this->tableNameArtistXCalendars . "
                           INNER JOIN " . $this->tableName .
                         " ON pfk_id_calendar = id_calendar
-                          WHERE pfk_id_artist = :id AND dateevent >= now()";
+                          WHERE pfk_id_artist = :id AND dateevent >= now() AND isActive = 1";
 
             $parameters['id'] = $idArtist;
 
@@ -223,7 +225,7 @@
 
         public function checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now()";
+            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND isActive = 1";
 
             $parameters['id'] = $idEvent;
 
@@ -244,9 +246,33 @@
 
         public function checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now()";
+            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND isActive = 1";
 
             $parameters['id'] = $idEventPlace;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
+        }
+
+        public function checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
+        {
+            $query = "SELECT fk_id_eventseat FROM " . $this->tableNameEventSeat . " AS es 
+            INNER JOIN " . $this->tableNamePurchaseLines . " 
+            ON fk_id_eventseat = id_eventseat
+            WHERE es.isActive = 1 AND fk_id_calendar = :id"; 
+
+            $parameters['id'] = $calendarId;
 
             $this->connection = Connection::GetInstance();
 

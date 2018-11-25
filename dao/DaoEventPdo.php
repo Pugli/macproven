@@ -215,6 +215,27 @@
                 throw $ex;
             }
         }
+
+        public function checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
+        {
+            $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1 AND fk_id_category = :id";
+
+            $parameters['id'] = $idCategory;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
+        }
     }
     
 

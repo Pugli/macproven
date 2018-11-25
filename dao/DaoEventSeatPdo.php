@@ -22,7 +22,9 @@
         private $tableNamePlaceType = "PLACETYPE";
         private $tableNameArtistsXCalendars = "artistsXCalendars";
         private $tableNameCategory = "categories";
-
+        private $tableNamePurchase = 'purchases';
+        private $tableNamePurchaseLine = 'purchaseLines';
+        
         public function generalQuery()
         {
             return "SELECT ep.quantity AS quantityEventPlace,
@@ -248,6 +250,60 @@
 
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
+
+        public function checkEventSeatByPlaceType($idPlaceType)
+        {
+            $query = "SELECT * FROM " . $this->tableNameEventSeats . "
+             INNER JOIN " . $this->tableNameCalendars . " 
+             ON fk_id_calendar = id_calendar
+             WHERE isActive = 1 AND dateevent >= now() AND fk_id_placetype = :id";
+
+            $parameters['id'] = $idPlaceType;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+
+            return $resultSet;
+        }
+
+        public function checkPurchasesByEventSeat($eventSeatId) // Dao EventSeat // TRUE O FALSE --
+        {
+            $query = "SELECT id_purchase FROM " . $this->tableNameEventSeats . " 
+            INNER JOIN " . $this->tableNamePurchaseLine . " 
+            ON fk_id_eventseat = id_eventseat
+            INNER JOIN " . $this->tableNamePurchase . " 
+            ON fk_id_purchase = id_purchase
+            WHERE fk_id_eventseat = :id";
+
+            $parameters['id'] = $eventSeatId;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+
+            return $resultSet;
+        }
+
+        
     }
 
 
