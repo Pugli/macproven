@@ -160,5 +160,17 @@
                 throw $ex;
             }
         }
+
+        public function changeName($id, $name)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET name = :name WHERE id_placetype = :id';
+
+            $parameters['name'] = $name;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
     }
 ?>
