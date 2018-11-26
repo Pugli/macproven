@@ -303,6 +303,18 @@
             return $resultSet;
         }
 
+        public function changePrice($id, $price)
+        {
+            $query = 'UPDATE ' . $this->tableNameEventSeats . ' SET price = :price WHERE id_eventseat = :id';
+
+            $parameters['price'] = $price;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+
         
     }
 
