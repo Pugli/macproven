@@ -84,6 +84,23 @@
             }
             return $eventSeats;
         }
+
+        public function changePrice($id,$price)
+        {
+            try{
+            if($this->daoEventSeat->getEventSeatById($id) != null){
+            $this->daoEventSeat->changePrice($id,$price);
+            }
+            else{
+                echo "<script> if(alert('no existe esa plaza'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
+
     }
 
     
