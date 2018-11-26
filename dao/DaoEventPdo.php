@@ -151,15 +151,12 @@
                 INNER JOIN calendars AS c ON c.fk_id_event=e.id_event 
                 INNER JOIN categories AS ca ON ca.id_category=e.FK_CATEGORY
                 WHERE c.dateevent=:date;";
-                 
                 
                 $parameters["date"]=$date;
 
                 $this->connection = Connection::GetInstance();
     
                 $resultSet=$this->connection->Execute($query, $parameters);
-
-                
 
                 foreach($resultSet as $row){
 
@@ -237,6 +234,30 @@
                 $resultSet = false;
             }
             return $resultSet;
+        }
+
+        public function changeName($id, $name)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET title = :name WHERE id_event = :id';
+
+            $parameters['name'] = $name;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+
+        public function changeCategory($id, $idCategory)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET fk_id_category = :idCategory WHERE id_event = :id';
+
+            $parameters['idCategory'] = $idCategory;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
         }
     }
     

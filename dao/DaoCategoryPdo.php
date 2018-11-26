@@ -160,5 +160,17 @@
                 throw $ex;
             }            
         }
+
+        public function changeName($id, $name)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET category = :name WHERE id_category = :id';
+
+            $parameters['name'] = $name;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
     }
 ?>

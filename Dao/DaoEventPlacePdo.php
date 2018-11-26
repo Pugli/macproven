@@ -167,6 +167,30 @@
             }
         }
 
+        public function changeQuantity($id, $quantity)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET quantity = :quantity WHERE id_eventplace = :id';
+
+            $parameters['quantity'] = $quantity;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+
+        public function changeName($id, $name)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET name = :name WHERE id_eventplace = :id';
+
+            $parameters['name'] = $name;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
+
     }
 
 ?>

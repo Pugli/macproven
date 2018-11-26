@@ -289,5 +289,37 @@
             return $resultSet;
         }
 
+        public function getCalendarForEvent($eventId)
+        {
+            $query = $this->generalQuery() . ' WHERE e.id_event = :id AND dateevent >= now() AND cl.isActive = 1 ORDER BY ac.pfk_id_calendar';
+
+            echo $query;
+
+            $parameters['id'] = $eventId;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $calendarList = array();
+
+            $calendarList = $this->generateCalendar($resultSet);
+
+            var_dump($calendarList);
+
+            return $calendarList;
+        }
+
+        public function changeDate($id, $date)
+        {
+            $query = 'UPDATE ' . $this->tableName . ' SET dateevent = :date WHERE id_calendar = :id';
+
+            $parameters['date'] = $date;
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        }
     }
 ?>
