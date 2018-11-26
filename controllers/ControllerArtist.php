@@ -70,6 +70,22 @@
             }
             
         } */
+
+        public function changeName($id,$name)
+        {
+            try{
+            if($this->DaoArtist->checkArtistById($id) != null){
+            $this->daoArtist->changeName($id,$name);
+            }
+            else{
+                echo "<script> if(alert('no existe ese artista'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
     }
 
 ?>

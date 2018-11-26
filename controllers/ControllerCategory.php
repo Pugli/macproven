@@ -65,6 +65,22 @@
         public function getAllActives(){
             return $this->daoCategory->getAllActives();
         }
+
+        public function changeDescription($id,$description)
+        {
+            try{
+            if($this->daoCategory->checkCategoryById($id) != null){
+            $this->daoCategory->changeDescription($id,$description);
+            }
+            else{
+                echo "<script> if(alert('no existe esa categoria'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
     }
 
 ?>

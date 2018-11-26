@@ -76,6 +76,26 @@ class ControllerCalendar{
         public function getAllActives(){
             return $this->daoCalendar->getAllActives();
         }
+
+        public function changeDate($id,$date)
+        {
+        
+                try{
+                  
+                if($this->daoCalendar->checkCalendarById($id) != null){
+                    $this->daoCalendar->changeDate($id,$date);
+                }
+                else{
+                    echo "<script> if(alert('no existe ese calendario'));</script>";
+                }
+    
+            }
+                catch(Exception $ex){
+                    echo "<script> if(alert('algo fallo'));</script>";
+                }
+            
+        }
+
     }
 
 
