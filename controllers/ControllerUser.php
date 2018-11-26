@@ -75,7 +75,10 @@
                     $user->setPassword($password);
 
                     $this->userDao->add($user);
-                    //$this->showHomeView();
+
+                    $this->sendMail($user);
+
+                    $this->showHomeView();
                     }else{
                         echo "Las contraseñas no coinciden!";
                     }
@@ -134,6 +137,19 @@
         public function logout(){
             session_destroy();
             header('Location: ../Home');
+        }
+        public function sendMail($user)
+        {
+            $from = "aguspugli@hotmail.com";
+            $to = "pugli11@hotmail.com.ar";//$user->getEmail();
+            $subject = "Bienvenido a Macproven";
+            $message = "Usted se ha registrado en la pagina macProven";
+            $headers = 'From: '.$from."\r\n".'Reply-To: '.$from."\r\n".'X-Mailer: PHP/'.phpversion();
+            $bool=mail($to,$subject,$message, $headers);
+            if($bool==true)
+            echo "El mensaje a sido enviado";
+            else
+            echo "El mensaje no se envio";
         }
     }
 ?>
