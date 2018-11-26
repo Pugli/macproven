@@ -59,6 +59,37 @@
         public function getAll(){
             return $this->daoEventPlaces->getAll();
         }
+
+        public function changeQuantity($id,$quantity)
+        {
+            try{
+            if($this->daoEventPlaces->checkEventPlaceById($id) != null){
+            $this->daoEventPlaces->changeQuantity($id,$quantity);
+            }
+            else{
+                echo "<script> if(alert('no existe ese lugar'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
+        public function changeName($id,$name)
+        {
+            try{
+            if($this->daoEventPlaces->checkEventPlaceById($id) != null){
+            $this->daoEventPlaces->changeName($id,$name);
+            }
+            else{
+                echo "<script> if(alert('no existe ese lugar'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
     }
 
 ?>

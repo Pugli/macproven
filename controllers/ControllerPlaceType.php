@@ -58,4 +58,22 @@ class controllerPlaceType{
         
         $this->showPlaceTypeList();
     } */
+
+    public function changeDescription($id,$description)
+        {
+            try{
+            if($this->daoPlaceType->checkPlaceTypeById($id) != null){
+            $this->daoPlaceType->changeDescription($id,$description);
+            }
+            else{
+                echo "<script> if(alert('no existe ese sitio'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
 }
+
+?>

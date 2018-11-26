@@ -134,7 +134,45 @@
             $event = $this->daoEvent->checkEventById($eventId);
             $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
         }
+
+        public function changeTittle($id,$tittle)
+        {
+            try{
+            if($this->daoEvent->checkEventById($id) != null){
+            $this->daoEvent->changeTittle($id,$tittle);
+            }
+            else{
+                echo "<script> if(alert('no existe ese evento'));</script>";
+            }
+
+        }
+            catch(Exception $ex){
+                echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
+
+        public function changeCategory($id,$idC)
+        {
+        
+                try{
+                  
+                if($this->daoEvent->checkEventById($id) != null){
+                    $this->daoEvent->changeCategory($id,$idC);
+                }
+                else{
+                    echo "<script> if(alert('no existe ese evento'));</script>";
+                }
+    
+            }
+                catch(Exception $ex){
+                    echo "<script> if(alert('algo fallo'));</script>";
+                }
+            
+        }
+
     }
+
+    
 
 
 
