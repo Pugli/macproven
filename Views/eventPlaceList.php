@@ -4,7 +4,7 @@
 
     $controller = new ControllerEventPlace();
 
-    $eventPlaceList = $controller->getAll();
+    $eventPlaceList = $controller->getAllActives();
 ?>
 
 <main class="py-5">

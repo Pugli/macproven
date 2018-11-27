@@ -6,6 +6,7 @@
     use dao\DaoCategoryPdo as DaoCategoryPdo;
     use Dao\DaoArtistPdo as DaoArtistPdo;
     use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
+    use dao\DaoEventSeatPdo as DaoEventSeatPdo;
     use Dao\DaoEventPdo as DaoEventPdo;
 
 class ControllerCalendar{
@@ -14,12 +15,14 @@ class ControllerCalendar{
         private $daoCategory;
         private $daoPlace;
         private $daoEvent;
+        private $daoEventSeat;
 
         public function __construct(){
             $this->daoCalendar = new DaoCalendarPdo;
             $this->daoArtist = new DaoArtistPdo;
             $this->daoPlace = new DaoEventPlacePdo;
             $this->daoEvent = new DaoEventPdo;
+            $this->daoEventSeat = new DaoEventSeatPdo();
         }
 
         public function index(){
@@ -70,7 +73,7 @@ class ControllerCalendar{
         }
 
         public function delete($calendarId){
-            if($this->daoEventSeat->checkEventSeatByCalendar($calendarId) == false){
+            if($this->daoCalendar->checkEventSeatByCalendar($calendarId) == false){
                 $this->daoCalendar->delete($calendarId);
             }else{
                 echo "<script> if(alert('No es posible eliminar esta fecha. Hay entradas a la ventas'));</script>";

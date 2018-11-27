@@ -21,12 +21,9 @@
         private $tableNamePurchaseLine = 'purchaseLines';
         private $tableNameEventSeats = "EVENTSEATS";
         private $tableNameCalendars = "CALENDARS";
-        private $tableNameArtists = "ARTISTS";
         private $tableNameEvents = "EVENTS";
         private $tableNameEventPlaces = "EVENTPLACES";
         private $tableNamePlaceType = "PLACETYPE";
-        private $tableNameArtistsXCalendars = "artistsXCalendars";
-        private $tableNameCategory = "categories";
         private $tableNameUser = 'users';
 
         public function add(Ticket $ticket)

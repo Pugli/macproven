@@ -4,7 +4,7 @@
 
     $controller = new ControllerPlaceType();
 
-    $placeTypeList = $controller->getAll();
+    $placeTypeList = $controller->getAllActives();
 ?>
 
 <main class="py-5">

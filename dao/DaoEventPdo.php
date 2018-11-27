@@ -42,7 +42,7 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (title,fk_category,imagePath) VALUES (:title, :category, :img);";
+                $query = "INSERT INTO ".$this->tableName." (title, fk_category, imagePath) VALUES (:title, :category, :img);";
                 $parameters["title"] = $event->getTitle();
                 $parameters["category"] = $event->getCategory()->getId();
                 $parameters["img"] = $event->getNameImg();
