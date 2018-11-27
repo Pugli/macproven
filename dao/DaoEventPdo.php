@@ -15,7 +15,7 @@
         public function generalQuery()
         {
             return "SELECT title, id_event, category, imagePath FROM " . $this->tableName . 
-                                " INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
+                                " AS e INNER JOIN ".$this->tableNameCategory." ON fk_category = ".$this->tableNameCategory.".id_category";
         }
 
         public function generate($resultSet)
@@ -64,6 +64,28 @@
                 $eventList = array();
 
                 $query = $this->generalQuery();
+
+                $this->connection = Connection::GetInstance();
+
+                $resultSet = $this->connection->Execute($query);
+                
+                $eventList = $this->generate($resultSet);
+
+                return $eventList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
+
+        public function getAllActives()
+        {
+            try
+            {
+                $eventList = array();
+
+                $query = $this->generalQuery() . " WHERE e.isActive = 1;";
 
                 $this->connection = Connection::GetInstance();
 
@@ -129,7 +151,7 @@
         {
             try
             {
-                $query = "DELETE FROM ".$this->tableName." WHERE ID_EVENT = :idEvent";
+                $query = "UPDATE ". $this->tableName . " SET isActive = 0 WHERE ID_EVENT = :idEvent";
             
                 $parameters["idEvent"] = $idEvent;
 
@@ -187,6 +209,8 @@
                 INNER JOIN categories AS c ON e.FK_CATEGORY=c.id_category 
                 INNER JOIN calendars AS cal ON e.id_event=cal.fk_id_event
                 WHERE c.id_category=:id";
+
+                echo $query;
                  
                 
                 $parameters["id"]=$id;
@@ -217,7 +241,7 @@
 
         public function checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
         {
-            $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1 AND fk_id_category = :id";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1 AND fk_category = :id";
 
             $parameters['id'] = $idCategory;
 

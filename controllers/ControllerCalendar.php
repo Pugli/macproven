@@ -59,7 +59,7 @@ class ControllerCalendar{
            $this->showCalendarList();
         }
 
-      /*   public function delete($calendarId){
+        public function delete($calendarId){
             if($this->daoEventSeat->checkEventSeatByCalendar($calendarId) == false){
                 $this->daoCalendar->delete($calendarId);
             }else{
@@ -67,7 +67,7 @@ class ControllerCalendar{
             }
             
             $this->showCalendarList();
-        } */
+        }
 
         public function getAll(){
             return $this->daoCalendar->getAll();

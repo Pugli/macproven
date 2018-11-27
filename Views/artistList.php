@@ -15,8 +15,10 @@
                     <thead>
                          <th>Id</th>
                          <th>Nombre</th>
+                         <th>Modificar Nombre</th>
                     </thead>
                     <tbody>
+                    
                         <?php
                             if(isset($artistList))
                             {
@@ -26,11 +28,20 @@
                                         <tr>
                                             <td><?php echo $artist->getId() ?></td>
                                             <td><?php echo $artist->getName() ?></td>
+                                            <td>
+                                            <form method='post' action='<?php echo FRONT_ROOT ?>artist/changename'>
+                                             <input type='hidden' name='id' value="<?php echo $artist->getId(); ?>">
+                                             <input type='text' name='name'>
+                                             <input type='submit' name='button' value='Modificar'>
+                                             </form>
+                                            </td>
+
                                         </tr>
                                     <?php
                                 }
                             }
                         ?>
+                    
                     </tbody>
                </table>
           </div>

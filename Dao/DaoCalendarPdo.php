@@ -29,6 +29,7 @@
             ep.id_eventPlace AS idEventPlace,
             e.title AS titleEvent,
             cl.id_calendar AS idCalendar,
+            cl.imagePath,
             cl.dateevent AS dateEventCalendar,
             ct.category AS nameCategory,
             a.name AS nameArtist 
@@ -105,6 +106,7 @@
                     $calendar->setDate($row['dateEventCalendar']);
                     $calendar->setEvent($event);
                     $calendar->setEventPlace($eventPlace);
+                    $calendar->setnameImg($row['imagePath']);
 
                     array_push($calendarList, $calendar);
                 }
@@ -225,7 +227,7 @@
 
         public function checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " AS cl INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEvent;
 
