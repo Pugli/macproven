@@ -128,6 +128,17 @@
             }
         }
 
+        public function getEventSeatsByCalendar($calendarId){
+
+            $calendar = $this->daoCalendar->checkCalendarById($calendarId);
+            $eventSeats = $this->daoEventSeat->getEventSeatByCalendar($calendarId);
+            foreach($eventSeats as $eventSeat){
+                $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
+            }
+            include_once VIEWS_PATH.'showEventSeatsForCalendar.php';
+
+        }
+
         private function verifyIfNotNulls($calendarId,$placeTypeId,$quantity,$price){
             if (!empty($calendarId) && !empty($placeTypeId) && !empty($quantity) && !empty ($price)){
                 return true;
