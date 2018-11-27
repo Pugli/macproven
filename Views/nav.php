@@ -12,6 +12,9 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Ticket/showGetTicketsFromClient">Mis Tickets</a>
           </li>
           <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>event/showCheck">Consultas</a>
+          </li>
+          <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>PurchaseLine/showCurrentPurchaseLines">Mi carrito</a>
           </li>
           <li class="nav-item">

@@ -3,11 +3,11 @@
     use controllers\ControllerCalendar as ControllerCalendar;
     
     $placeType = new ControllerPlaceType;
-    $placeTypeList = $placeType->getAll();
+    $placeTypeList = $placeType->getAllActives();
 
     
     $calendar = new ControllerCalendar;
-    $calendarList = $calendar->getAll();
+    $calendarList = $calendar->getAllActives();
 
    
 ?>

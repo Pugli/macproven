@@ -117,16 +117,22 @@ FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)
 -- INSERTS
 
 INSERT INTO ARTISTS (name) VALUES 
-("Charly Garcia"),
+("Rolling Stones"),
 ("Shakira"),
-("Luis Fonsi"),
-("Damas Gratis"),
-("Evanescense"),
-("Axel"),
-("Jeniffer Lopez"),
-("Linkin Park"),
-("Callejeros"),
-("La Vela Puerca");
+("Las Pastillas Del Abuelo"),
+("Ulises Bueno"),
+("Peter Lanzani"),
+("Rafael Ferro"),
+("Maluma"),
+("Kendrick Lamar"),
+("Artick Monkeys"),
+("Lenny Kravitz"),
+("Post Malone"),
+("Sam Smith"),
+("David Guetta"),
+("Kalvin Harris"),
+("Martin Garrix"),
+("Sid Inc");
 
 INSERT INTO CATEGORIES (CATEGORY) VALUES
 ("Recital"),
@@ -139,7 +145,7 @@ INSERT INTO EVENTS (FK_CATEGORY,TITLE,imagePath) VALUES
 (1,"Shakira en Argentina","shakira.jpg"),
 (1,"La vela puerca Gira BSAS","laVela.jpg"),
 (1,"Rolling Stones","RollingStones.jpg"),
-(3,"Tomorrowland Rio 2019","tomorrowland.jpg"),
+(3,"Tomorrowland Rio 2018","tomorrowland.jpg"),
 (1,"Las pastillas del Abuelo","lpda.jpg"),
 (3,"Lollapalooza","lollapalooza.jpg"),
 (5,"Equus","equus.jpg"),
@@ -166,9 +172,44 @@ INSERT INTO USERS(email,password,nickName,isAdmin) VALUES
  ("admin@gmail.com","12345","admin","1"),
  ("client@gmail.com","12345","client","0");
 
+ INSERT INTO calendars(dateevent, fk_id_event, imagePath, fk_id_eventplace) VALUES
+ ('2019-01-01', 3, 'RollingStones.jpg', 1),
+ ('2019-01-18', 1, 'shakira.jpg', 3),
+ ('2019-01-25', 5, 'lpda.jpg', 7),
+ ('2019-02-10', 2, 'laVela.jpg', 4),
+ ('2019-01-18', 9, 'ulises.jpg', 2),
+ ('2019-01-23', 7, 'equus.jpg', 3),
+ ('2019-01-10', 9, 'malumashakira.jpg', 2),
+ ('2019-02-02', 6, 'lollapalooza.jpg', 5),
+ ('2019-02-03', 6, 'lollapalooza.jpg', 5),
+ ('2019-02-04', 6, 'lollapalooza.jpg', 5),
+ ('2018-11-13', 4, 'tomorrowland.jpg', 1);
 
+ INSERT INTO artistsXCalendars(pfk_id_calendar, pfk_id_artist) VALUES 
+ (1, 1),
+ (2, 2),
+ (3, 3),
+ (4, 10),
+ (5, 4),
+ (6, 5),
+ (6, 6),
+ (7, 2),
+ (7, 7),
+ (8, 12),
+ (8, 8),
+ (9, 9),
+ (9, 11),
+ (10, 10),
+ (11, 13),
+ (11, 14),
+ (11, 15),
+ (11, 16);
 
-
-
-
-
+INSERT INTO eventseats (price, quantity, fk_id_calendar, fk_id_placetype) VALUES
+(1, 500, 10000, 1, 1, 2),
+(2, 1000, 5000, 1, 1, 3),
+(3, 2000, 2500, 1, 1, 4),
+(4, 750, 40000, 1, 1, 5),
+(5, 700, 5000, 2, 1, 2),
+(6, 1400, 1500, 2, 1, 3),
+(7, 700, 500, 3, 1, 1);
