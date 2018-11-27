@@ -315,6 +315,27 @@
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
 
+     
+        public function getEventSeatByCalendar($idCalendar){
+
+            $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar";
+
+            $parameters["idCalendar"] = $idCalendar;
+            
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            $eventSeatList = array();
+
+            $eventSeatList = $this->generateEventSeat($resultSet);
+
+            $eventSeat = reset($eventSeatList);
+            
+            return $eventSeat;
+
+        }
         
     }
 

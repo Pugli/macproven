@@ -124,6 +124,19 @@
             }
         }
 
+        public function showSelectEventSeat($idCalendar)
+        {
+            $eventSeatList = $this->daoEventSeat->getEventSeatByCalendar($idCalendar);
+            
+            if($eventSeatList != null){
+                include_once VIEWS_PATH.'SelectEventSeat.php';
+            }
+            else
+            {
+                echo "no hay entradas disponibles para este evento";
+                include_once VIEWS_PATH."home.php";
+            }
+        }
     }
 
     

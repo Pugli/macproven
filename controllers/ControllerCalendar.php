@@ -135,6 +135,20 @@ class ControllerCalendar{
                 echo "El archivo no es una imagen";
         }
 
+        public function showViewEvent($id)
+        {
+            
+            $calendarList = $this->daoCalendar->getCalendarForEvent($id);
+           
+            if($calendarList != null){
+                include_once VIEWS_PATH.'ViewEvent.php';
+            }
+            else
+            {
+                echo "no hay fechas para este evento";
+                include_once VIEWS_PATH."home.php";
+            }
+        }
     }
 
 

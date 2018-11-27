@@ -8,6 +8,15 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Home/extranet">Extranet</a>
           </li>
          <?php if(isset($_SESSION['userLogged'])){?>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Event/showCheckEventForCategory">consultar por categorias</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT?>Event/showCheckEventForDate">consultar por fechas</a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Ticket/showGetTicketsFromClient">consultar por artistas</a>
+          </li>
             <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Ticket/showGetTicketsFromClient">Mis Tickets</a>
           </li>

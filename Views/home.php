@@ -112,10 +112,15 @@
 
         for($u=0;$u<3;$u++){ 
             if (!empty($events[$z])){ ?>
-            <div class="col-xs-4">
-                <a href="">
+            <div class="col-lg-4 row">
+                <form action="<?php echo FRONT_ROOT; ?>calendar/showViewEvent" method="post"> 
+                
+                    <h5 class="mb-9 text-md-center"> <?php  echo $events[$z]->getTitle() ?></h5> 
+                      
+                    <input type="hidden" name="id" value="<?php echo $events[$z]->getId() ?>">
                     <img class="containerImg ml-5" src="<?php echo IMG_PATH.$events[$z]->getNameImg() ?>" width="300" height="300">
-                </a>
+                    <input type="submit" class="btn btn-success ml-3 table " value="Consultar">
+                </form>
             </div> <?php
             $z++;
             }else{

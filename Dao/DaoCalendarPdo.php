@@ -297,7 +297,7 @@
         {
             $query = $this->generalQuery() . ' WHERE e.id_event = :id AND dateevent >= now() AND cl.isActive = 1 ORDER BY ac.pfk_id_calendar';
 
-            echo $query;
+            
 
             $parameters['id'] = $eventId;
 
@@ -309,6 +309,7 @@
 
             $calendarList = $this->generateCalendar($resultSet);
 
+           
             return $calendarList;
         }
 
