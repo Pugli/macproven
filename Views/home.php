@@ -44,61 +44,7 @@
         </div>
     </div>
 
-  <!--    <div class="container">
-        <h3> Eventos principales</h3>
-        <div class="row mt-4">
-            <div class="col-xs-4">
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>equus.jpg" width="300" height="300">
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>laVela.jpg" width="300" height="300">
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>lollapalooza.jpg" width="300" height="300">
-                </a>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-xs-4">
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>lpda.jpg" width="300" height="300">
-                </a>
-            </div>
-            <div class="col-xs-4">
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>RollingStones.jpg" width="300" height="300">
-                </a>
-            </div class="col-xs-4">
-            <div>
-                <a href="">
-                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>shakira.jpg" width="300" height="300">
-                </a>
-            </div>
-        </div>
-        <div class="row mt-4">
-                <div class="col-xs-4">
-                    <a href="">
-                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>tomorrowland.jpg" width="300" height="300">
-                    </a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="">
-                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>malumashakira.jpg" width="300" height="300">
-                    </a>
-                </div>
-                <div class="col-xs-4">
-                    <a href="">
-                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>ulises.jpg" width="300" height="300">
-                    </a>
-                </div>
-            </div>
-            <hr>
-    </div> -->
+
 
     <div class="container">
      <h3> Eventos principales</h3>
