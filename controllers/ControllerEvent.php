@@ -77,6 +77,11 @@
         {
             include_once VIEWS_PATH."CheckEventForDate.php";
         }
+        public function showCheck()
+        {
+            $arrayCategory = $this->daoCategory->getAllActives();
+            include_once VIEWS_PATH."queries.php";
+        }
 
         public function checkEventForDate($date)
         {
