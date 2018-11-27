@@ -19,6 +19,7 @@
                         <th>Lugar</th>
                         <th>Fecha</th>
                         <th>Imagen</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <?php
@@ -42,6 +43,7 @@
                                             <td><?php echo $Calendar->getEventPlace()->getName();?></td>
                                             <td><?php echo $Calendar->getDate();?></td>
                                             <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Calendar->getNameImg() ?>" width="50" height="50"></td>
+                                            <td><a href="<?php echo FRONT_ROOT."EventSeat/getEventSeatsByCalendar/".$Calendar->getId()?>" class="btn btn-info ml-3">Ver Entradas</a></td>
                                         </tr>
                                     <?php
                                 }
