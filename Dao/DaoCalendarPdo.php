@@ -271,10 +271,10 @@
 
         public function checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT fk_id_eventseat FROM " . $this->tableNameEventSeat . " AS es 
-            INNER JOIN " . $this->tableNamePurchaseLines . " 
-            ON fk_id_eventseat = id_eventseat
-            WHERE es.isActive = 1 AND fk_id_calendar = :id"; 
+            $query = "SELECT * FROM " . $this->tableNameEventSeat . " AS es 
+            INNER JOIN " . $this->tableName . " 
+            ON fk_id_calendar = id_calendar
+            WHERE es.isActive = 1 AND id_calendar = :id AND dateevent >= now()"; 
 
             $parameters['id'] = $calendarId;
 

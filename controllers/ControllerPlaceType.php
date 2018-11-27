@@ -48,6 +48,11 @@ class controllerPlaceType{
         return $this->daoPlaceType->getAll();
     }
 
+    public function getAllActives()
+    {
+        return $this->daoPlaceType->getAllActives();
+    }
+
     public function delete($idPlaceType)     
     {
         if($this->daoCalendar->checkCalendarByPlaceType($idPlaceType) == false){

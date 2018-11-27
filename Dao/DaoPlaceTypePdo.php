@@ -119,7 +119,7 @@
         {
             try
             {
-                $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_placetype = (:idPlaceType)";
+                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_placetype = :idPlaceType";
             
                 $parameters["idPlaceType"] = $idPlaceType;
 
