@@ -110,7 +110,6 @@ class ControllerCalendar{
         }
 
         private function setImage(Calendar $calendar,$file){
-            var_dump($file);
             $fileName = $file["name"];
             $tempFileName = $file["tmp_name"];
             $type = $file["type"];

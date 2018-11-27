@@ -56,7 +56,7 @@
         </td>
     </tr>
     <tr>
-    <td>  Imagen: <input type="file" name="image" value="" class="form-control-file ml-3" > </td>
+    <td>  Imagen: <input type="file" name="image" value="" class="form-control-file ml-3" required > </td>
     </tr>
         
         <input type="submit" value="Enviar"/>
