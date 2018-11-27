@@ -56,8 +56,12 @@ class ControllerCalendar{
                        $newCalendar = $newCalendarWithImg;
                    }
 
-                $newCalendar->setDate($date);
-                $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
+                if($date >= date('Y-m-d'))
+                {
+                    $newCalendar->setDate($date);
+                    $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
+                }
+
                 foreach($artists as $i){
                     $newCalendar->addArtist($this->daoArtist->checkArtistById($i));
                 }
