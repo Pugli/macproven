@@ -15,9 +15,10 @@
 
         public function add(Ticket $ticket)
         {
-            $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine) VALUES (:idPurchaseLine)";
+            $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine,qr) VALUES (:idPurchaseLine, :qr)";
 
             $parameters['idPurchaseLine'] = $ticket->getPurchaseLine()->getId();
+            $parameters['qr'] = $ticket->getQr();
 
             $this->connection = Connection::GetInstance();
 
@@ -26,7 +27,7 @@
 
         public function getTicketsFromClient($idUser)
         {
-            $query = "SELECT id_ticket as idTicket, fk_id_purchaseLine as idPurchaseLine 
+            $query = "SELECT id_ticket as idTicket, fk_id_purchaseLine as idPurchaseLine , qr as qr
             FROM " . $this->tableNameUser . " 
             INNER JOIN " . $this->tableNamePurchase . " 
             ON id_user = fk_id_user 
@@ -49,6 +50,7 @@
                 $ticket = new Ticket();
                 $ticket->setId($row['idTicket']);
                 $ticket->setPurchaseLine($row['idPurchaseLine']);
+                $ticket->setQr($row["qr"]);
 
                 array_push($ticketList, $ticket);
             }

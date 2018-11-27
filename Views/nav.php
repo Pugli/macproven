@@ -8,6 +8,9 @@
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Home/prueba">Extranet</a>
           </li>
          <?php if(isset($_SESSION['userLogged'])){?>
+            <li class="nav-item">
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Ticket/showGetTicketsFromClient">Mis Tickets</a>
+          </li>
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>PurchaseLine/showCurrentPurchaseLines">Mi carrito</a>
           </li>
