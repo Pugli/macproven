@@ -31,6 +31,7 @@
             cl.id_calendar AS idCalendar,
             cl.dateevent AS dateEventCalendar,
             ct.category AS nameCategory,
+            cl.imagepath AS imagePath,
             a.name AS nameArtist 
             FROM " . $this->tableNameArtistXCalendars . " AS ac
             INNER JOIN " . $this->tableName . " AS cl
@@ -43,16 +44,16 @@
                 ON cl.fk_id_event = e.id_event
             INNER JOIN " . $this->tableNameCategory . " AS ct
                 ON e.fk_category = ct.id_category";
-            //ORDER BY ac.pfk_id_calendar";
         }
 
         public function add(Calendar $calendar)
         {
             try{
-                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event)";
+                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event, imagepath) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event, :imagepath)";
                 $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
+                $parameters["imagePath"] = $calendar->getNameImg();
     
                 $this->connection = Connection::GetInstance();
     
@@ -105,6 +106,7 @@
                     $calendar->setDate($row['dateEventCalendar']);
                     $calendar->setEvent($event);
                     $calendar->setEventPlace($eventPlace);
+                    $calendar->setNameImg($row["imagePath"]);
 
                     array_push($calendarList, $calendar);
                 }

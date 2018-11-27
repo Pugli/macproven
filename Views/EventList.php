@@ -30,7 +30,7 @@
                                             <td><?php echo $Event->getId() ?></td>
                                             <td><?php echo $Event->getTitle() ?></td>
                                             <td><?php echo $Event->getCategory()->getDescription() ?></td>
-                                            <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Event->getNameImg() ?>" width="30" height="30"></td>
+                                            <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Event->getNameImg() ?>" width="50" height="50"></td>
                                             
                                             <form action="<?php echo FRONT_ROOT?>event/changeTittle" method="POST">
                                             <input type="hidden" name="id" value="<?php echo $Category->getId() ?>">

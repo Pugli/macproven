@@ -21,6 +21,7 @@
                         <th>Evento</th>
                         <th>Lugar</th>
                         <th>Fecha</th>
+                        <th>Imagen</th>
                     </thead>
                     <tbody>
                         <?php
@@ -43,6 +44,7 @@
                                             <td><?php echo $Calendar->getEvent()->getTitle();?></td>
                                             <td><?php echo $Calendar->getEventPlace()->getName();?></td>
                                             <td><?php echo $Calendar->getDate();?></td>
+                                            <td><td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Calendar->getNameImg() ?>" width="50" height="50"></td></td>
                                         </tr>
                                     <?php
                                 }

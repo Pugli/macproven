@@ -21,7 +21,7 @@
     <title>Agregar Calendario</title>
 </head>
 <body>
-    <form action="<?php echo FRONT_ROOT; ?>/Calendar/addCalendar" method="POST">
+    <form action="<?php echo FRONT_ROOT; ?>/Calendar/addCalendar" method="POST" enctype="multipart/form-data">
     
     <tr>
     
@@ -54,6 +54,9 @@
                 <?php }?>
             </select>
         </td>
+    </tr>
+    <tr>
+    <td>  Imagen: <input type="file" name="image" value="" class="form-control-file ml-3" > </td>
     </tr>
         
         <input type="submit" value="Enviar"/>
