@@ -10,7 +10,8 @@
         private $remaind;
         private $calendar;
         private $placeType;
-        private $id; private $active;
+        private $id; 
+        private $active;
 
         public function getActive(){
             return $this->active;
