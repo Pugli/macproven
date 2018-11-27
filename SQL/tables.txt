@@ -108,7 +108,7 @@ FOREIGN KEY(fk_id_eventseat) REFERENCES eventseats(id_eventseat)
 
 CREATE TABLE TICKETS (
 id_ticket int AUTO_INCREMENT,
-qr int,
+qr varchar(23),
 fk_id_purchaseLine int not null,
 PRIMARY KEY(id_ticket),
 FOREIGN KEY(fk_id_purchaseLine) REFERENCES purchaseLines(id_purchaseLine)

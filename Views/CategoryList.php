@@ -11,6 +11,7 @@
      <section id="listado" class="mb-5">
           <div class="container">
                <h2 class="mb-4">Listado de Categorias</h2>
+               
                <table class="table bg-light-alpha">
                     <thead>
                          <th>Id</th>
@@ -26,13 +27,20 @@
                                         <tr>
                                             <td><?php echo $Category->getId() ?></td>
                                             <td><?php echo $Category->getDescription() ?></td>
+                                            <form action="<?php echo FRONT_ROOT?>category/changeDescription" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $Category->getId() ?>">
+                                            <td><input type="text" name="description"></td>
+                                            <td><input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
+                                            </form>
                                         </tr>
                                     <?php
+
                                 }
                             }
                         ?>
                     </tbody>
                </table>
+              
           </div>
      </section>
 

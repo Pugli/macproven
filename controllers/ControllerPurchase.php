@@ -53,6 +53,8 @@
             for($i=0; $i<$purchaseLineWithId->getQuantity();$i++){
                 $ticket = new Ticket();
                 $ticket->setPurchaseLine($purchaseLineWithId);
+                echo uniqid("",false);
+                $ticket->setQr(uniqid ("",false));
                 $this->daoTicket->add($ticket);
                 array_push($tickets,$ticket);
             }

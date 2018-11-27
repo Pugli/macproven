@@ -34,7 +34,8 @@ class ControllerCalendar{
             include_once VIEWS_PATH.'addCalendar.php';
         }
 
-        public function addCalendar($date,$artists,$placeId,$eventId){
+        public function addCalendar($date,$artists,$placeId,$eventId,$file){
+            var_dump($file);
             $flag = 0;
             foreach($artists as $i){
                 if($this->daoArtist->checkArtistById($i) == null){
@@ -43,6 +44,15 @@ class ControllerCalendar{
             }
             if( $flag == 0 && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
                 $newCalendar = new Calendar();
+
+                if(!empty($file)){
+                    $newCalendarWithImg = $this->setImage($newCalendar,$file);
+                   }
+    
+                   if($newCalendarWithImg != null){
+                       $newCalendar = $newCalendarWithImg;
+                   }
+
                 $newCalendar->setDate($date);
                 $newCalendar->setEventPlace($this->daoPlace->checkEventPlaceById($placeId));
                 foreach($artists as $i){
@@ -94,6 +104,32 @@ class ControllerCalendar{
                     echo "<script> if(alert('algo fallo'));</script>";
                 }
             
+        }
+
+        private function setImage(Calendar $calendar,$file){
+            var_dump($file);
+            $fileName = $file["name"];
+            $tempFileName = $file["tmp_name"];
+            $type = $file["type"];
+            
+            $filePath = UPLOADS_PATH.basename($fileName);            
+
+            $fileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+            $imageSize = getimagesize($tempFileName);
+
+            if($imageSize !== false)
+            {
+                if (move_uploaded_file($tempFileName, $filePath))
+                {
+                    $calendar->setNameImg($fileName);
+                    return $calendar;
+                }
+                else
+                    echo "Error en la carga de la imagen";
+            }
+            else   
+                echo "El archivo no es una imagen";
         }
 
     }

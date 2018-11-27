@@ -1,10 +1,13 @@
-<?php namespace View;
+<?php 
+
+include("lib/qrcode/qrlib.php");
 
     use controllers\ControllerArtist as ControllerArtist;
 
     $controller = new ControllerArtist();
 
     $artistList = $controller->getAllActives();
+
 ?>
 
 <main class="py-5">

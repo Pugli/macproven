@@ -26,7 +26,15 @@ MODIFICAR EVENTOS;
 HACER CARGA DINAMICA, PLAZA EVENTO;
 REMAINDER;
 
+<?php
+    include("lib/qrcode/qrlib.php");  // include, hay q pegarle a la carpeta...
+    $tempDir ="lib/tmp/"; // variable con una carpeta temporal donde aloja los qrs creados
 
+    $filename=  rand(01,99).".png"; 
+$qrContent= "MACCHI SE LA RE COME";
+QRcode::png($qrContent, $tempDir.$filename, QR_ECLEVEL_L, 9);  //esta linea crea y almacena el qr
+?>
+<img src="<?php echo FRONT_ROOT.$tempDir.$filename?>" alt="Qr Code" 
 
 
 
