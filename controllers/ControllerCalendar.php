@@ -35,13 +35,13 @@ class ControllerCalendar{
         }
 
         public function addCalendar($date,$artists,$placeId,$eventId,$file){
-            var_dump($file);
             $flag = 0;
             foreach($artists as $i){
                 if($this->daoArtist->checkArtistById($i) == null){
                     $flag = 1;
                 }
             }
+
             if( $flag == 0 && $this->daoPlace->checkEventPlaceById($placeId) != null && $this->daoEvent->checkEventById($eventId) != null){
                 $newCalendar = new Calendar();
 

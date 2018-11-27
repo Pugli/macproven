@@ -5,7 +5,7 @@
      </span>
      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Home/prueba">Extranet</a>
+               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Home/extranet">Extranet</a>
           </li>
          <?php if(isset($_SESSION['userLogged'])){?>
             <li class="nav-item">

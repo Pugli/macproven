@@ -14,8 +14,13 @@
             include_once VIEWS_PATH."login.php";
         }
 
-        public function prueba(){
-            include_once VIEWS_PATH."prueba.php";
+        public function extranet(){
+            if(isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 1){
+                include_once VIEWS_PATH."extranet.php";
+            }else{
+                echo "Ud. No tiene los permisos necesarios para ingresar al menu de administrador";
+            }
+            
         }
 
     }

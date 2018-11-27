@@ -2,8 +2,6 @@
     use controllers\ControllerPlaceType as ControllerPlaceType;
     use controllers\ControllerCalendar as ControllerCalendar;
     
-
-
     $placeType = new ControllerPlaceType;
     $placeTypeList = $placeType->getAll();
 
@@ -12,8 +10,6 @@
     $calendarList = $calendar->getAll();
 
    
-    
-
 ?>
 <html>
 <head>
@@ -22,10 +18,13 @@
 </head>
 <body>
     <form action="<?php echo FRONT_ROOT; ?>/EventSeat/addEventSeat" method="POST">
-    <br>
+    
+    <?php for($i=0;$i<count($placeTypeList);$i++){ ?>
+        <br>
     <tr>
+    
         <td>Calendario: 
-            <select name="calendarId">
+            <select name="calendarId[]">
                 <?php 
                 foreach ($calendarList as $calendar){?>
                     <option value="<?php echo $calendar->getId()?>"><?php echo $calendar->getEvent()->getTitle()?></option>
@@ -33,18 +32,24 @@
             </select>
         </td>
         <td>Localidad: 
-            <select name="placeId">
+            <select name="placeId[]">
                 <?php 
                 foreach ($placeTypeList as $placeType){?>
                     <option value="<?php echo $placeType->getId()?>"><?php echo $placeType->getDescription()?></option>
                 <?php }?>
             </select>
         </td>
-        <td>Cantidad: <input type="number" name="quantity"> </td>
-        <td>Precio: <input type="number" name="price"> </td>
-    </tr>
+        <td>Cantidad: <input type="number" name="quantity[]"> </td>
+        <td>Precio: <input type="number" name="price[]"> </td>
+        <br>
+    </tr> <?php
+    } ?>
+        <br>
+        <div class="container-fluid">
+            <input type="submit" value="Agregar" class="btn btn-success"/>
+            <input type="reset" value="Resetear Campos" class="btn btn-success">
+        </div>
         
-        <input type="submit" value="Enviar"/>
     </form>
 </body>
 </html>
