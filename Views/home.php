@@ -1,30 +1,133 @@
+<?php
+    use controllers\ControllerEvent as ControllerEvent;
+    $controllerEvents = new ControllerEvent;
+    $events = $controllerEvents->getAll();
+?>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner container mt-5">
+                <div class="carousel-item active">
+                    <img class="d-block w-100 FirstImg">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Las pastillas del abuelo</h5>
+                        <p>11 de Diciembre - Velez Sarfield</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 SecondImg">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Lollapalooza</h5>
+                        <p>8-9-10 de marzo - Hipodromo de BSAS</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100 ThirdImg">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Rolling Stones</h5>
+                        <p>25 de Enero - Estadio Monumental</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            <hr>
+        </div>
+    </div>
 
-<h1 style="text-align:center">Bienvenido a MacProven </h1>
-<h3 style ="text-align:center">La mejor cartelera, AHORA EN TU HOGAR!</h3>
-<br><br>
-<div class="text-center">
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Artistas" onclick="location='<?php echo FRONT_ROOT?>Artist'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Artista" onclick="location='<?php echo FRONT_ROOT?>Artist/showAddArtist'">
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Categorias" onclick="location='<?php echo FRONT_ROOT?>Category'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Categoria" onclick="location='<?php echo FRONT_ROOT?>Category/showAddCategory'">
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Eventos" onclick="location='<?php echo FRONT_ROOT?>Event'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Evento" onclick="location='<?php echo FRONT_ROOT?>Event/showAddEvent'">
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Espacios" onclick="location='<?php echo FRONT_ROOT?>EventPlace'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Espacio" onclick="location='<?php echo FRONT_ROOT?>EventPlace/showAddEventPlace'">
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Localidades" onclick="location='<?php echo FRONT_ROOT?>PlaceType'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir una Localidad" onclick="location='<?php echo FRONT_ROOT?>PlaceType/showAddPlacetype'"/>
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Calendarios" onclick="location='<?php echo FRONT_ROOT?>Calendar'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Calendario" onclick="location='<?php echo FRONT_ROOT?>Calendar/showAddCalendar'"/>
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="Lista de Plaza-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Plaz-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat/showAddEventSeat'"/>
-    <br><br>
-    <input class="btn btn-success ml-3" type="submit" value="consultar por fecha" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForDate'"/>
-    <input class="btn btn-success ml-3" type="submit" value="consultar por categoria" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForCategory'"/>
+  <!--    <div class="container">
+        <h3> Eventos principales</h3>
+        <div class="row mt-4">
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>equus.jpg" width="300" height="300">
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>laVela.jpg" width="300" height="300">
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>lollapalooza.jpg" width="300" height="300">
+                </a>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>lpda.jpg" width="300" height="300">
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>RollingStones.jpg" width="300" height="300">
+                </a>
+            </div class="col-xs-4">
+            <div>
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>shakira.jpg" width="300" height="300">
+                </a>
+            </div>
+        </div>
+        <div class="row mt-4">
+                <div class="col-xs-4">
+                    <a href="">
+                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>tomorrowland.jpg" width="300" height="300">
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="">
+                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>malumashakira.jpg" width="300" height="300">
+                    </a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="">
+                        <img class="containerImg ml-5" src="<?php// echo IMG_PATH ?>ulises.jpg" width="300" height="300">
+                    </a>
+                </div>
+            </div>
+            <hr>
+    </div> -->
 
-</div>
+    <div class="container">
+     <h3> Eventos principales</h3>
+
+    <?php 
+    $flag=0;
+    $z=0;
+    for($i=0;$flag==0;$i++){ ?>
+
+        <div class="row mt-4"> <?php
+
+        for($u=0;$u<3;$u++){ 
+            if (!empty($events[$z])){ ?>
+            <div class="col-xs-4">
+                <a href="">
+                    <img class="containerImg ml-5" src="<?php echo IMG_PATH.$events[$z]->getNameImg() ?>" width="300" height="300">
+                </a>
+            </div> <?php
+            $z++;
+            }else{
+                $flag=1;
+                break;
+            }
+        } ?>
+
+        </div> <?php
+    }
+    
+    ?>
+
+    </div>
+

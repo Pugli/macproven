@@ -53,7 +53,7 @@
                 $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
-                $parameters["imagePath"] = $calendar->getNameImg();
+                $parameters["imagepath"] = $calendar->getNameImg();
     
                 $this->connection = Connection::GetInstance();
     

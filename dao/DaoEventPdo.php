@@ -94,7 +94,9 @@
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
                 $eventList = $this->generate($resultSet);
-                return reset($eventList);
+
+                $event = reset($eventList);
+                return $event;
             }
             catch(Exception $ex)
             {
@@ -117,7 +119,9 @@
                 $resultSet = $this->connection->Execute($query, $parameters);
                 
                 $eventList = $this->generate($resultSet);
-                return $eventList[0];
+
+                return reset($eventList);
+
             }
             catch(Exception $ex)
             {

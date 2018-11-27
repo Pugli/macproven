@@ -39,31 +39,46 @@
         }
 
         public function addEventSeat($calendarId,$placeTypeId,$quantity,$price){
+          /*   var_dump($calendarId);
+            var_dump($placeTypeId);
+            var_dump($quantity);
+            var_dump($price); */
+        for($i=0;$i<5;$i++){
+           /*  var_dump($calendarId[$i]);
+            var_dump($placeTypeId[$i]);
+            var_dump($quantity[$i]);
+            var_dump($price[$i]); */
 
-            if ($this->daoEventSeat->getEventSeatByCalendarAndPlaceType($calendarId,$placeTypeId) == false){
+            if(!empty($calendarId) && !empty($placeTypeId) && !empty($quantity) && !empty ($price)){
+
+                if ($this->daoEventSeat->getEventSeatByCalendarAndPlaceType($calendarId[$i],$placeTypeId[$i]) == false){
+                    
             
-                if($this->daoCalendar->checkCalendarById($calendarId) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId) != null){
-                    if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId)->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId))) >= $quantity){
-
-                        $newEventSeat = new EventSeat;
-
-                        $newEventSeat->setCalendar($this->daoCalendar->checkCalendarById($calendarId));
-                        $newEventSeat->setPlaceType($this->daoPlaceType->checkPlaceTypeById($placeTypeId));
-                        $newEventSeat->setQuantityAvailable($quantity);
-                        $newEventSeat->setRemaind($quantity);
-                        $newEventSeat->setPrice($price);
-
-                        $this->daoEventSeat->add($newEventSeat);
-                        echo "<script> if(alert('Nuevo Plaza-Evento Ingresado')); </script>";
+                    if($this->daoCalendar->checkCalendarById($calendarId[$i]) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId[$i]) != null){
+                        if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId[$i])->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId[$i]))) >= $quantity[$i]){
+    
+                            $newEventSeat = new EventSeat;
+    
+                            $newEventSeat->setCalendar($this->daoCalendar->checkCalendarById($calendarId[$i]));
+                            $newEventSeat->setPlaceType($this->daoPlaceType->checkPlaceTypeById($placeTypeId[$i]));
+                            $newEventSeat->setQuantityAvailable($quantity[$i]);
+                            $newEventSeat->setRemaind($quantity[$i]);
+                            $newEventSeat->setPrice($price[$i]);
+    
+                            $this->daoEventSeat->add($newEventSeat);
+                            echo "<script> if(alert('Nuevo Plaza-Evento Ingresado')); </script>";
+                        }else{
+                            echo "<script> if(alert('Cantidad Erronea de entradas')); </script>";
+                        }
                     }else{
-                        echo "<script> if(alert('Cantidad Erronea de entradas')); </script>";
+                        echo "<script> if(alert('No se pudo ingresar la Plaza-Evento')); </script>";
                     }
                 }else{
-                    echo "<script> if(alert('No se pudo ingresar la Plaza-Evento')); </script>";
+                    echo "<script> if(alert('Ya hay entradas de este tipo para el calendario')); </script>";
                 }
             }else{
-                echo "<script> if(alert('Ya hay entradas de este tipo para el calendario')); </script>";
             }
+        }
             $this->showEventSeatList();
         }
 
@@ -98,6 +113,14 @@
         }
             catch(Exception $ex){
                 echo "<script> if(alert('algo fallo'));</script>";
+            }
+        }
+
+        private function verifyIfNotNulls($calendarId,$placeTypeId,$quantity,$price){
+            if (!empty($calendarId) && !empty($placeTypeId) && !empty($quantity) && !empty ($price)){
+                return true;
+            }else{
+                return false;
             }
         }
 

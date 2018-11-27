@@ -138,16 +138,12 @@
         public function changeTittle($id,$tittle)
         {
             try{
-            if($this->daoEvent->checkEventById($id) != null){
-            $this->daoEvent->changeTittle($id,$tittle);
-            }
-            else{
-                echo "<script> if(alert('no existe ese evento'));</script>";
-            }
 
+                $this->daoEvent->changeName($id,$tittle);
+            
         }
             catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
+                echo "<script> if(alert('No es posible realizar la modificacion'));</script>";
             }
         }
 
