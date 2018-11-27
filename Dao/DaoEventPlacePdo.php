@@ -93,7 +93,7 @@
         {
             try
             {
-                $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_eventplace = :idEventPlace";
+                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_eventplace = :idEventPlace";
             
                 $parameters["idEventPlace"] = $idEventPlace;
 

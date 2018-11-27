@@ -60,6 +60,10 @@
             return $this->daoEventPlaces->getAll();
         }
 
+        public function getAllActives(){
+            return $this->daoEventPlaces->getAllActives();
+        }
+
         public function changeQuantity($id,$quantity)
         {
             try{

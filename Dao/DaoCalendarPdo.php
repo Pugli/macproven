@@ -21,6 +21,7 @@
         private $tableNameArtistXCalendars = "artistsXCalendars";
         private $tableNameEventSeat = 'eventseats';
         private $tableNamePurchaseLines = 'purchaselines';
+        private $tableNamePlaceType = 'placetype';
 
         private function generalQuery()
         {
@@ -249,7 +250,7 @@
 
         public function checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " as cl INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEventPlace;
 
@@ -308,9 +309,33 @@
 
             $calendarList = $this->generateCalendar($resultSet);
 
-            var_dump($calendarList);
-
             return $calendarList;
+        }
+
+        public function checkCalendarByPlaceType($id)
+        {
+            $query = "SELECT * FROM " . $this->tableName . " AS cl
+            INNER JOIN " . $this->tableNameEventSeat . "
+            ON fk_id_calendar = id_calendar
+            INNER JOIN " . $this->tableNamePlaceType . "
+            ON fk_id_placetype = id_placetype
+            WHERE id_placetype = :id AND cl.isActive = 1 AND dateevent >= now()";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
         }
 
         public function changeDate($id, $date)
