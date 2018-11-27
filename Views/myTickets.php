@@ -21,11 +21,12 @@ QRcode::png($qrContent, $tempDir.$filename, QR_ECLEVEL_L, 9); */  //esta linea c
                <h2 class="mb-4">Mis Tickets</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Fecha</th>
+                         <th>Fecha de Evento</th>
                          <th>Lugar</th>
                          <th>Evento</th>
                          <th>Precio</th>
                          <th>Codigo QR</th>
+                         <th>Fecha y Hora de compra</th>
                     </thead>
                     <tbody>
                         <?php
@@ -44,6 +45,7 @@ QRcode::png($qrContent, $tempDir.$filename, QR_ECLEVEL_L, 9); */  //esta linea c
                                             <td><?php echo $ticket->getPurchaseLine()->getEventSeat()->getCalendar()->getEvent()->getTitle() ?></td>
                                             <td><?php echo $ticket->getPurchaseLine()->getPrice() ?></td>
                                             <td><img src="<?php echo FRONT_ROOT.$tempDir.$filename?>" alt="Qr Code" </td>
+                                            <td><?php echo $ticket->getDateBought() ?></td>
                                         </tr>
                                     <?php
                                 }

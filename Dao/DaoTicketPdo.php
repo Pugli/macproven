@@ -46,6 +46,7 @@
             cl.dateevent AS dateEventCalendar,
             pu.price as pricePurchaseLine,
             pt.description,
+            pr.datePurchase,
             t.qr
             FROM " . $this->tableNameTicket . " AS t
             INNER JOIN " . $this->tableNamePurchaseLine . " AS pu
@@ -60,7 +61,7 @@
             ON fk_id_event = id_event
             INNER JOIN " . $this->tableNameEventPlaces . " AS ep
             ON ep.id_eventplace = fk_id_eventplace
-            INNER JOIN " . $this->tableNamePurchase . "
+            INNER JOIN " . $this->tableNamePurchase . " AS pr
             ON fk_id_purchase = id_purchase
             INNER JOIN " . $this->tableNameUser . "
             ON fk_id_user = id_user
@@ -93,7 +94,7 @@
                 $eventSeat = new EventSeat();
                 $eventSeat->setPlaceType($placeType);
                 $eventSeat->setCalendar($calendar);
-                
+
                 $purchaseLine = new PurchaseLine();
                 $purchaseLine->setPrice($row['pricePurchaseLine']);
                 $purchaseLine->setEventSeat($eventSeat);
@@ -101,8 +102,9 @@
                 $ticket = new Ticket();
                 $ticket->setQr($row['qr']);
                 $ticket->setPurchaseLine($purchaseLine);
+                $ticket->setDateBought($row['datePurchase']);
 
-                \array_push($ticketList, $ticket);
+                array_push($ticketList, $ticket);
             }
 
             return $ticketList;
@@ -132,7 +134,7 @@
                     $event->setCategory($category);
 
                     $calendar = new Calendar();
-                    $calendar->setId($row['idCalendar']);//
+                    $calendar->setId($row['idCalendar']);
                     $calendar->setDate($row['dateEventCalendar']);
                     $calendar->setEvent($event);
                     $calendar->setEventPlace($eventPlace);
@@ -157,8 +159,6 @@
                     $ticket->setId($row['idTicket']);
                     $ticket->setPurchaseLine($purchaseLine);
                     $ticket->setQr($row["qr"]);
-
-                    echo "HOLA";
 
                     array_push($ticketList, $ticket);
                 }

@@ -10,6 +10,7 @@
         private $nickName;
         private $idUser;
         private $active;
+        
 
         public function getActive(){
             return $this->active;
@@ -72,5 +73,7 @@
         {
             return $this->purchase;
         }
+
+        
     }
 ?>

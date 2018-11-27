@@ -55,6 +55,7 @@
                     
             
                     if($this->daoCalendar->checkCalendarById($calendarId[$i]) != null && $this->daoPlaceType->checkPlaceTypeById($placeTypeId[$i]) != null){
+                        if($quantity[$i] > 0){
                         if((($this->daoEventPlace->checkEventPlaceById($this->daoCalendar->checkCalendarById($calendarId[$i])->getEventPlace()->getId())->getQuantity()) - ($this->daoEventSeat->quantityAvailable($calendarId[$i]))) >= $quantity[$i]){
     
                             $newEventSeat = new EventSeat;
@@ -69,6 +70,9 @@
                             echo "<script> if(alert('Nuevo Plaza-Evento Ingresado')); </script>";
                         }else{
                             echo "<script> if(alert('Cantidad Erronea de entradas')); </script>";
+                        }
+                        }else{
+                            echo "<script> if(alert('La cantidad de entradas a dar de alta, debe ser mayor a 0')); </script>";
                         }
                     }else{
                         echo "<script> if(alert('No se pudo ingresar la Plaza-Evento')); </script>";

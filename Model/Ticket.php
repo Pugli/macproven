@@ -8,6 +8,7 @@
         private $id;
         private $purchaseLine;
         private $qr;
+        private $dateBought;
 
         public function setPurchaseLine(PurchaseLine $purchaseLine)
         {
@@ -45,6 +46,14 @@
         public function getQr()
         {
             return $this->qr;
+        }
+
+        public function getDateBought(){
+            return $this->dateBought;
+        }
+
+        public function setDateBought($dateBought){
+            $this->dateBought = $dateBought;
         }
 
 
