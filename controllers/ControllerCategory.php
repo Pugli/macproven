@@ -69,12 +69,10 @@
         public function changeDescription($id,$description)
         {
             try{
-            if($this->daoCategory->checkCategoryById($id) != null){
-            $this->daoCategory->changeDescription($id,$description);
-            }
-            else{
-                echo "<script> if(alert('no existe esa categoria'));</script>";
-            }
+            
+            $this->daoCategory->changeName($id,$description);
+            $this->showCategoryList();
+           
 
         }
             catch(Exception $ex){

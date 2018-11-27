@@ -31,6 +31,20 @@
                                             <td><?php echo $Event->getTitle() ?></td>
                                             <td><?php echo $Event->getCategory()->getDescription() ?></td>
                                             <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Event->getNameImg() ?>" width="30" height="30"></td>
+                                            
+                                            <form action="<?php echo FRONT_ROOT?>event/changeTittle" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $Category->getId() ?>">
+                                            <td><input type="text" name="tittle"></td>
+                                            <td><input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
+                                            </form>
+
+                                            <form action="<?php echo FRONT_ROOT?>event/changeCategory" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $Category->getId() ?>">
+                                            //traer todas las categorias
+                                            <td><input type="text" name="description"></td>
+                                            <td><input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
+                                            </form>
+
                                         </tr>
                                     <?php
                                 }
