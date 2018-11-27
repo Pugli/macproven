@@ -46,7 +46,7 @@
             $this->showEventPlaceList();
         }
 
-       /*  public function delete($idEventPlace){
+        public function delete($idEventPlace){
             if ($this->daoCalendar->checkCalendarByEventPlace($idEventPlace) == false){
                 $this->daoEventPlaces->delete($idEventPlace);
             }else{
@@ -54,10 +54,14 @@
             }
             
             $this->showEventPlaceList();
-        } */
+        }
 
         public function getAll(){
             return $this->daoEventPlaces->getAll();
+        }
+
+        public function getAllActives(){
+            return $this->daoEventPlaces->getAllActives();
         }
 
         public function changeQuantity($id,$quantity)

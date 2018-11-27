@@ -55,7 +55,7 @@
            $this->showEventList();
         }
 
-       /*  public function delete($idEvent){
+        public function delete($idEvent){
 
             if($this->daoCalendar->checkCalendarsFutureByEvent($idEvent) == false){
                 $this->daoEvent->delete($idEvent);
@@ -63,10 +63,14 @@
                 echo "<script> if(alert('No es posible borrar el evento. Hay fechas futuras'));</script>";
             }
             $this->showEventList();
-        } */
+        }
 
         public function getAll(){
             return $this->daoEvent->getAll();
+        }
+
+        public function getAllActives(){
+            return $this->daoEvent->getAllActives();
         }
 
         public function showCheckEventForDate()
@@ -88,7 +92,7 @@
 
         public function showCheckEventForCategory()
         {
-            $arrayCategory = $this->daoCategory->getAll();
+            $arrayCategory = $this->daoCategory->getAllActives();
             include_once VIEWS_PATH."CheckEventForCategory.php";
         }
 
@@ -138,16 +142,12 @@
         public function changeTittle($id,$tittle)
         {
             try{
-            if($this->daoEvent->checkEventById($id) != null){
-            $this->daoEvent->changeTittle($id,$tittle);
-            }
-            else{
-                echo "<script> if(alert('no existe ese evento'));</script>";
-            }
 
+                $this->daoEvent->changeName($id,$tittle);
+            
         }
             catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
+                echo "<script> if(alert('No es posible realizar la modificacion'));</script>";
             }
         }
 

@@ -7,6 +7,7 @@
         private $number;
         private $id;
         private $purchaseLine;
+        private $qr;
 
         public function setPurchaseLine(PurchaseLine $purchaseLine)
         {
@@ -36,5 +37,16 @@
         {
             return $this->number;
         }
+        public function setQr($qr)
+        {
+            $this->qr = $qr;
+        }
+
+        public function getQr()
+        {
+            return $this->qr;
+        }
+
+
     }
 ?>

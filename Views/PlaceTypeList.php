@@ -4,7 +4,7 @@
 
     $controller = new ControllerPlaceType();
 
-    $placeTypeList = $controller->getAll();
+    $placeTypeList = $controller->getAllActives();
 ?>
 
 <main class="py-5">
@@ -36,7 +36,7 @@
           </div>
      </section>
 
-<!--      <section id="eliminar">
+     <section id="eliminar">
           <div class="container">
                <h2 class="mb-4">Eliminar Tipo de Plaza</h2>
 
@@ -48,4 +48,4 @@
                     <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
                </form>
           </div>
-     </section> -->
+     </section>

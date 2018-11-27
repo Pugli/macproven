@@ -21,6 +21,7 @@
         private $tableNameArtistXCalendars = "artistsXCalendars";
         private $tableNameEventSeat = 'eventseats';
         private $tableNamePurchaseLines = 'purchaselines';
+        private $tableNamePlaceType = 'placetype';
 
         private function generalQuery()
         {
@@ -29,8 +30,10 @@
             ep.id_eventPlace AS idEventPlace,
             e.title AS titleEvent,
             cl.id_calendar AS idCalendar,
+            cl.imagePath,
             cl.dateevent AS dateEventCalendar,
             ct.category AS nameCategory,
+            cl.imagepath AS imagePath,
             a.name AS nameArtist 
             FROM " . $this->tableNameArtistXCalendars . " AS ac
             INNER JOIN " . $this->tableName . " AS cl
@@ -43,16 +46,16 @@
                 ON cl.fk_id_event = e.id_event
             INNER JOIN " . $this->tableNameCategory . " AS ct
                 ON e.fk_category = ct.id_category";
-            //ORDER BY ac.pfk_id_calendar";
         }
 
         public function add(Calendar $calendar)
         {
             try{
-                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event)";
+                $query = "INSERT INTO " . $this->tableName . " (dateevent,fk_id_eventplace, fk_id_event, imagepath) VALUES (:dateevent, :fk_id_eventplace, :fk_id_event, :imagepath)";
                 $parameters["dateevent"] = $calendar->getDate();
                 $parameters["fk_id_eventplace"] = $calendar->getEventPlace()->getId();
                 $parameters["fk_id_event"] = $calendar->getEvent()->getId();
+                $parameters["imagepath"] = $calendar->getNameImg();
     
                 $this->connection = Connection::GetInstance();
     
@@ -105,6 +108,7 @@
                     $calendar->setDate($row['dateEventCalendar']);
                     $calendar->setEvent($event);
                     $calendar->setEventPlace($eventPlace);
+                    $calendar->setnameImg($row['imagePath']);
 
                     array_push($calendarList, $calendar);
                 }
@@ -225,7 +229,7 @@
 
         public function checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " AS cl INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEvent;
 
@@ -246,7 +250,7 @@
 
         public function checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT * FROM " . $this->tableName . " INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " as cl INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEventPlace;
 
@@ -267,10 +271,10 @@
 
         public function checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
-            $query = "SELECT fk_id_eventseat FROM " . $this->tableNameEventSeat . " AS es 
-            INNER JOIN " . $this->tableNamePurchaseLines . " 
-            ON fk_id_eventseat = id_eventseat
-            WHERE es.isActive = 1 AND fk_id_calendar = :id"; 
+            $query = "SELECT * FROM " . $this->tableNameEventSeat . " AS es 
+            INNER JOIN " . $this->tableName . " 
+            ON fk_id_calendar = id_calendar
+            WHERE es.isActive = 1 AND id_calendar = :id AND dateevent >= now()"; 
 
             $parameters['id'] = $calendarId;
 
@@ -305,9 +309,33 @@
 
             $calendarList = $this->generateCalendar($resultSet);
 
-            var_dump($calendarList);
-
             return $calendarList;
+        }
+
+        public function checkCalendarByPlaceType($id)
+        {
+            $query = "SELECT * FROM " . $this->tableName . " AS cl
+            INNER JOIN " . $this->tableNameEventSeat . "
+            ON fk_id_calendar = id_calendar
+            INNER JOIN " . $this->tableNamePlaceType . "
+            ON fk_id_placetype = id_placetype
+            WHERE id_placetype = :id AND cl.isActive = 1 AND dateevent >= now()";
+
+            $parameters['id'] = $id;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet)
+            {
+                $resultSet = true;
+            }
+            else
+            {
+                $resultSet = false;
+            }
+            return $resultSet;
         }
 
         public function changeDate($id, $date)

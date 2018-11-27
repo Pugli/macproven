@@ -12,9 +12,10 @@
             $this->daoTicket = new DaoTicketPdo;
         }
 
-        public function getTicketsFromClient(){
+        public function showGetTicketsFromClient(){
             $client = $_SESSION["userLogged"];
-            return $this->daoTicket->getTicketsFromClient($client->getId());
+            $tickets = $this->daoTicket->getTicketsFromClient($client->getId());
+            require_once VIEWS_PATH."myTickets.php";
         }
     }
 

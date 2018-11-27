@@ -61,27 +61,26 @@
             return $this->DaoArtist->getAllActives();
         }
 
-        /* public function delete($idArtist){
+        public function delete($idArtist){
 
             if($this->daoCalendar->checkCalendarByArtist($idArtist) == false){
                 $this->DaoArtist->delete($idArtist);
             }else{
                 echo "<script> if(alert('Imposible eliminar, Hay calendarios con este artista.'));</script>";
             }
+
+            $this->showArtistList();
             
-        } */
+        }
 
         public function changeName($id,$name)
         {
-            try{
-            if($this->DaoArtist->checkArtistById($id) != null){
-            $this->daoArtist->changeName($id,$name);
-            }
-            else{
-                echo "<script> if(alert('no existe ese artista'));</script>";
-            }
+            try
+            {            
+                $this->DaoArtist->changeName($id,$name);
 
-        }
+                $this->showArtistList();
+            }
             catch(Exception $ex){
                 echo "<script> if(alert('algo fallo'));</script>";
             }

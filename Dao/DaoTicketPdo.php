@@ -1,23 +1,37 @@
 <?php
     namespace dao;
 
+    use Model\PurchaseLine as PurchaseLine;
+    use Model\Purchase as Purchase;
+    use Model\EventSeat as EventSeat;
+    use Model\EventPlace as EventPlace; 
+    use Model\Category as Category;
+    use Model\Calendar as Calendar;
+    use Model\PlaceType as PlaceType;
+    use Model\Artist as Artist;
+    use Model\Event as Event; 
     use Model\Ticket as Ticket;
     use dao\Connection as Connection;
 
     class DaoTicketPdo
     {
         private $connection;
-        private $tableNameUser = 'users';
+        private $tableNameTicket = 'tickets';
         private $tableNamePurchase = 'purchases';
         private $tableNamePurchaseLine = 'purchaseLines';
-        private $tableNameTicket = 'tickets';
         private $tableNameEventSeats = "EVENTSEATS";
+        private $tableNameCalendars = "CALENDARS";
+        private $tableNameEvents = "EVENTS";
+        private $tableNameEventPlaces = "EVENTPLACES";
+        private $tableNamePlaceType = "PLACETYPE";
+        private $tableNameUser = 'users';
 
         public function add(Ticket $ticket)
         {
-            $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine) VALUES (:idPurchaseLine)";
+            $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine,qr) VALUES (:idPurchaseLine, :qr)";
 
             $parameters['idPurchaseLine'] = $ticket->getPurchaseLine()->getId();
+            $parameters['qr'] = $ticket->getQr();
 
             $this->connection = Connection::GetInstance();
 
@@ -26,14 +40,30 @@
 
         public function getTicketsFromClient($idUser)
         {
-            $query = "SELECT id_ticket as idTicket, fk_id_purchaseLine as idPurchaseLine 
-            FROM " . $this->tableNameUser . " 
-            INNER JOIN " . $this->tableNamePurchase . " 
-            ON id_user = fk_id_user 
-            INNER JOIN " . $this->tableNamePurchaseLine . " 
-            ON id_purchase = fk_id_purchase 
-            INNER JOIN " . $this->tableNameTicket . " 
-            ON id_purchaseLine = fk_id_purchaseLine 
+            $query = "SELECT
+            ep.name AS nameEventPlace,
+            e.title AS titleEvent,
+            cl.dateevent AS dateEventCalendar,
+            pu.price as pricePurchaseLine,
+            pt.description,
+            t.qr
+            FROM " . $this->tableNameTicket . " AS t
+            INNER JOIN " . $this->tableNamePurchaseLine . " AS pu
+            ON t.fk_id_purchaseline = pu.id_purchaseline 
+            INNER JOIN " . $this->tableNameEventSeats . "
+            ON fk_id_eventseat = id_eventseat 
+            INNER JOIN " . $this->tableNamePlaceType . " AS pt
+                ON fk_id_placetype = id_placetype
+            INNER JOIN " . $this->tableNameCalendars . " AS cl
+            ON fk_id_calendar = id_calendar
+            INNER JOIN " . $this->tableNameEvents . " AS e
+            ON fk_id_event = id_event
+            INNER JOIN " . $this->tableNameEventPlaces . " AS ep
+            ON ep.id_eventplace = fk_id_eventplace
+            INNER JOIN " . $this->tableNamePurchase . "
+            ON fk_id_purchase = id_purchase
+            INNER JOIN " . $this->tableNameUser . "
+            ON fk_id_user = id_user
             WHERE id_user = :id";
 
             $parameters['id'] = $idUser;
@@ -46,15 +76,99 @@
 
             foreach ($resultSet as $row)
             {
-                $ticket = new Ticket();
-                $ticket->setId($row['idTicket']);
-                $ticket->setPurchaseLine($row['idPurchaseLine']);
+                $eventPlace = new EventPlace();
+                $eventPlace->setName($row['nameEventPlace']);
+                
+                $event = new Event();
+                $event->setTitle($row['titleEvent']);
+                
+                $calendar = new Calendar();
+                $calendar->setDate($row['dateEventCalendar']);
+                $calendar->setEventPlace($eventPlace);
+                $calendar->setEvent($event);
+                
+                $placeType = new PlaceType();
+                $placeType->setDescription($row['description']);
 
-                array_push($ticketList, $ticket);
+                $eventSeat = new EventSeat();
+                $eventSeat->setPlaceType($placeType);
+                $eventSeat->setCalendar($calendar);
+                
+                $purchaseLine = new PurchaseLine();
+                $purchaseLine->setPrice($row['pricePurchaseLine']);
+                $purchaseLine->setEventSeat($eventSeat);
+
+                $ticket = new Ticket();
+                $ticket->setQr($row['qr']);
+                $ticket->setPurchaseLine($purchaseLine);
+
+                \array_push($ticketList, $ticket);
             }
 
             return $ticketList;
 
+        }
+
+        private function generateTicket($resultSet)
+        {            
+            $ticketList = array();
+            $lastId = 0;
+
+            foreach ($resultSet as $row){
+
+                $idCalendar = ($row["idCalendar"]);               
+
+                if($lastId != $idCalendar){
+                    $lastId = $row["idCalendar"];
+                    $eventPlace = new EventPlace();
+                    $eventPlace->setName($row['nameEventPlace']);
+                    $eventPlace->setQuantity($row['quantityEventPlace']);
+
+                    $category = new Category();
+                    $category->setDescription($row['nameCategory']);
+
+                    $event = new Event();
+                    $event->setTitle($row['titleEvent']);
+                    $event->setCategory($category);
+
+                    $calendar = new Calendar();
+                    $calendar->setId($row['idCalendar']);//
+                    $calendar->setDate($row['dateEventCalendar']);
+                    $calendar->setEvent($event);
+                    $calendar->setEventPlace($eventPlace);
+
+                    $placeType = new PlaceType();
+                    $placeType->setDescription($row['descriptionPlaceType']);
+
+                    $eventSeat = new EventSeat;
+                    $eventSeat->setId($row["idEventSeat"]);
+                    $eventSeat->setQuantityAvailable($row["quantityEventSeat"]);
+                    $eventSeat->setPrice($row["priceEventSeat"]);
+                    $eventSeat->setCalendar($calendar);
+                    $eventSeat->setPlaceType($placeType);
+
+                    $purchaseLine = new PurchaseLine();
+                    $purchaseLine->setQuantity($row['quantityPurchaseLine']);
+                    $purchaseLine->setPrice($row['pricePurchaseLine']);
+                    $purchaseLine->setId($row['idPurchaseLine']);
+                    $purchaseLine->setEventSeat($eventSeat);
+
+                    $ticket = new Ticket();
+                    $ticket->setId($row['idTicket']);
+                    $ticket->setPurchaseLine($purchaseLine);
+                    $ticket->setQr($row["qr"]);
+
+                    echo "HOLA";
+
+                    array_push($ticketList, $ticket);
+                }
+                $artist = new Artist();
+                $artist->setName($row['nameArtist']);
+
+                $calendarResult = $ticketList[(count($ticketList)) - 1]->getPurchaseLine()->getEventSeat()->getCalendar();
+                $calendarResult->addArtist($artist);
+            }            
+            return $ticketList;
         }
 
         public function ticketsSold($idEventSeat)
