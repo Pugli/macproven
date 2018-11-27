@@ -22,7 +22,7 @@
     <input class="btn btn-success ml-3" type="submit" value="Añadir un Calendario" onclick="location='<?php echo FRONT_ROOT?>Calendar/showAddCalendar'"/>
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="Lista de Plaza-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat'">
-    <input class="btn btn-success ml-3" type="submit" value="Añadir un Plaz-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat/showAddEventSeat'"/>
+    <input class="btn btn-success ml-3" type="submit" value="Añadir un Plaza-Evento" onclick="location='<?php echo FRONT_ROOT?>EventSeat/showAddEventSeat'"/>
     <br><br>
     <input class="btn btn-success ml-3" type="submit" value="consultar por fecha" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForDate'"/>
     <input class="btn btn-success ml-3" type="submit" value="consultar por categoria" onclick="location='<?php echo FRONT_ROOT?>Event/showCheckEventForCategory'"/>

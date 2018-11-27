@@ -1,7 +1,7 @@
 <?php
     use controllers\ControllerEvent as ControllerEvent;
     $controllerEvents = new ControllerEvent;
-    $events = $controllerEvents->getAll();
+    $events = $controllerEvents->getAllActives();
 ?>
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">

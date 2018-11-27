@@ -82,18 +82,26 @@
             $this->showEventSeatList();
         }
 
-       /*  public function delete($eventSeatId){
-            if($this->daoPurchaseLines->checkPurchasesByEventSeat($eventSeatId)){
+        public function delete($eventSeatId){
+            if($this->daoEventSeat->checkPurchasesByEventSeat($eventSeatId)){
                 $this->daoEventSeat->delete($eventSeatId);
             }else{
                 echo "<script> if(alert('Ya hay entradas vendidas. Imposible eliminar la plaza evento')); </script>";
             }
            
             $this->showEventSeatList();
-        } */
+        }
 
         public function getAll(){
             $eventSeats = $this->daoEventSeat->getAll();
+            foreach($eventSeats as $eventSeat){
+                $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
+            }
+            return $eventSeats;
+        }
+
+        public function getAllActives(){
+            $eventSeats = $this->daoEventSeat->getAllActives();
             foreach($eventSeats as $eventSeat){
                 $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
             }

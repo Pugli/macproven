@@ -2,17 +2,17 @@
     use Model\Artist as Artist;
     use controllers\ControllerArtist as ControllerArtist;
     $artists = new ControllerArtist;
-    $artistsList = $artists->getAll();
+    $artistsList = $artists->getAllActives();
 
     use Model\EventPlace as EventPlace;
     use controllers\ControllerEventPlace as ControllerEventPlace;
     $eventPlace = new ControllerEventPlace;
-    $eventPlaceList = $eventPlace->getAll();
+    $eventPlaceList = $eventPlace->getAllActives();
 
     use Model\Event as Event;
     use controllers\ControllerEvent as ControllerEvent;
     $events = new ControllerEvent;
-    $eventsList = $events->getAll();
+    $eventsList = $events->getAllActives();
 
 ?>
 <html>
