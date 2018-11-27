@@ -107,11 +107,7 @@
                     $calendar->setDate($row['dateEventCalendar']);
                     $calendar->setEvent($event);
                     $calendar->setEventPlace($eventPlace);
-<<<<<<< HEAD
                     $calendar->setnameImg($row['imagePath']);
-=======
-                    $calendar->setNameImg($row["imagePath"]);
->>>>>>> ef4e98968f3deecfe2f4ca7a0f9789c77b7ec5a1
 
                     array_push($calendarList, $calendar);
                 }
