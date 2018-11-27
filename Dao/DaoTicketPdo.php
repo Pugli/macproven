@@ -69,7 +69,6 @@
             ON fk_id_user = id_user
             WHERE id_user = :id";
 
-            echo $query;
             $parameters['id'] = $idUser;
 
             $this->connection = Connection::GetInstance();

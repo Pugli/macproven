@@ -113,7 +113,7 @@
         for($u=0;$u<3;$u++){ 
             if (!empty($events[$z])){ ?>
             <div class="col-xs-4">
-                <a href="">
+                <a href="<?php echo FRONT_ROOT."Event/getEventById/".$events[$z]->getId(); ?>">
                     <img class="containerImg ml-5" src="<?php echo IMG_PATH.$events[$z]->getNameImg() ?>" width="300" height="300">
                 </a>
             </div> <?php

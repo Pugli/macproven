@@ -137,6 +137,7 @@
         public function getEventById($eventId){
             $event = $this->daoEvent->checkEventById($eventId);
             $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
+            include_once VIEWS_PATH."showCalendarsForEvent.php";
         }
 
         public function changeTittle($id,$tittle)

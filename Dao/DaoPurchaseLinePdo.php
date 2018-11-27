@@ -111,13 +111,13 @@
             es.quantity AS quantityEventSeat,
             es.price AS priceEventSeat,
             ep.id_eventPlace AS idEventPlace,
-            e.title AS titleEvent,//
+            e.title AS titleEvent,
             cl.id_calendar AS idCalendar,
-            cl.dateevent AS dateEventCalendar,//
+            cl.dateevent AS dateEventCalendar,
             ct.category AS nameCategory,
-            pt.description AS descriptionPlaceType,//
+            pt.description AS descriptionPlaceType,
             pu.quantity as quantityPurchaseLine,
-            pu.price as pricePurchaseLine,//
+            pu.price as pricePurchaseLine,
             pu.id_purchaseline as idPurchaseLine,
             a.name AS nameArtist 
             FROM " . $this->tableNameArtistsXCalendars . " AS ac

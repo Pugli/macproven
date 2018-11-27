@@ -20,11 +20,6 @@ Constantes de querys(crear archivo para no mandar choclo en los select de los da
 casos de uso, diagrama de clases, 1 o 2 historias narrativas, (class model -> (click derecho)code engineering -> import source directory)
 phpMyAdmin genere el der
 
-PRE ENTREGA COSAS PENDIENTES:
-BAJAS LOGICAS;
-MODIFICAR EVENTOS;
-HACER CARGA DINAMICA, PLAZA EVENTO;
-REMAINDER;
 
 <?php
     include("lib/qrcode/qrlib.php");  // include, hay q pegarle a la carpeta...
@@ -35,6 +30,20 @@ $qrContent= "MACCHI SE LA RE COME";
 QRcode::png($qrContent, $tempDir.$filename, QR_ECLEVEL_L, 9);  //esta linea crea y almacena el qr
 ?>
 <img src="<?php echo FRONT_ROOT.$tempDir.$filename?>" alt="Qr Code" 
+
+
+
+------------ FALTA PARA ENTREGA DE MIERCOLES -------------------
+
+1)VER MIS COMPRAS.
+2)ACCESOS SEGUN USUARIO CLIENTE/ADMIN/SIN LOG
+3)FACTURACION SEGUN PLAZA EVENTO / CALENDARIO.
+4)CORREO
+5)CLICK EN CALENDARIO Y VER LAS PLAZA EVENTO Y SUS COMPRAS.
+6)TRY AND CATCH
+7)MODIFICAR CATEOGRY EN ADELANTE.
+
+------------ FALTA PARA ENTREGA DE MIERCOLES --------------------
 
 
 
