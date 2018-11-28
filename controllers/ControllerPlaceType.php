@@ -4,6 +4,7 @@ namespace controllers;
 use Dao\DaoPlaceTypePdo as DaoPlaceTypePdo;
 use Model\PlaceType as PlaceType;
 use dao\DaoCalendarPdo as DaoCalendarPdo;
+use \Exception as Exception;
 
 class controllerPlaceType{
 

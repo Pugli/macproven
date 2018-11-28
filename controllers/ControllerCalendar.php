@@ -8,6 +8,7 @@
     use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
     use dao\DaoEventSeatPdo as DaoEventSeatPdo;
     use Dao\DaoEventPdo as DaoEventPdo;
+    use \Exception as Exception;
 
 class ControllerCalendar{
 

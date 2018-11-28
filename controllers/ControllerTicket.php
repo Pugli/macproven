@@ -3,6 +3,7 @@
 
     use Model\Ticket as Ticket;
     use dao\DaoTicketPdo as DaoTicketPdo;
+    use \Exception as Exception;
 
     class ControllerTicket{
 

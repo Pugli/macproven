@@ -93,7 +93,7 @@
             {
                 $category = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE category = :category";
+                $query = "SELECT * FROM ".$this->tableName." WHERE category = :category && isActive = 1";
 
                 $parameters["category"] = $categoryname;
 

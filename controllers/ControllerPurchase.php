@@ -9,6 +9,7 @@
     use dao\DaoPurchaseLinePdo as DaoPurchaseLinePdo;
     use dao\DaoTicketPdo as DaoTicketPdo;
     use dao\DaoCurrentPurchaseList as DaoCurrentPurchaseList;
+    use \Exception as Exception;
 
     class ControllerPurchase{
 

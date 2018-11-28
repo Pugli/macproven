@@ -2,11 +2,15 @@
 
     use controllers\ControllerEvent as ControllerEvent;
     use controllers\ControllerCategory as ControllerCategory;
+    
+    $categories = new ControllerCategory;
+    
 
     $controllerEvent = new ControllerEvent();
     $controllerCategory = new ControllerCategory();
 
     $EventList = $controllerEvent->getAllActives();
+    $categoriesList = $controllerCategory->getAll();
 ?>
 
 <main class="py-5">
@@ -52,6 +56,35 @@
                     </tbody>
                </table>
           </div>
-     </section>
+     </section>     
 
-    
+       <div class="container">
+        <p class="text-center"><h2>Dar de alta una Categoria</h2></p>
+        <form action="<?php echo FRONT_ROOT; ?>/Event/addEvent" method="POST" enctype="multipart/form-data">
+        <br>
+        <table class="table bg-light-alfa">
+            <thead>
+                    <th>Evento</th>
+                    <th>Categoria</th>
+                    <th>Imagen</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="text" name="event"/> </td> 
+                    <td>
+                    <select name="category">
+                        <?php 
+                        foreach ($categoriesList as $category){?>
+                            <option value="<?php echo $category->getId()?>"><?php echo $category->getDescription()?></option>
+                        <?php }?>
+                    </select></td>
+                    <td><input type="file" name="image" value=""> </td>
+                    <td> <input type="submit" value="Enviar" class="btn btn-info"/> </td>
+                </form>
+                </tr>
+            </tbody>
+        </table>
+        
+            
+            
+    </div>

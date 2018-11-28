@@ -8,6 +8,7 @@
     use dao\DaoEventPlacePdo as DaoEventPlacePdo;
     use dao\DaoPurchaseLinePdo as DaoPurchaseLinePdo; 
     use dao\DaoTicketPdo as DaoTicketPdo;
+    use \Exception as Exception;
 
     class ControllerEventSeat {
         private $daoCalendar;

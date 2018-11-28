@@ -5,6 +5,7 @@
     use Model\User as User;
     use dao\Connection as Connection;
     use dao\IDaoUser as IDaoUser;
+    use \Exception as Exception;
 
     class DaoUserPdo implements IDaoUser
     {

@@ -42,16 +42,12 @@
           </div>
      </section>
 
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Lugar</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>EventPlace/delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idEventPlace" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
-          </div>
-     </section>
+        <div class="container">
+        <p class="text-center"><h2>Dar de alta una Categoria</h2></p>
+        <form action="<?php echo FRONT_ROOT; ?>/EventPlace/addEventPlace" method="POST">
+            <br>
+            <td> Lugar de Evento: <input type="text" name="eventPlace"/> </td> 
+            <td> Capacidad: <input type="text" name="Quantity"/> </td> 
+            <td><input type="submit" value="Enviar" class="btn btn-info"/> </td>
+        </form>
+    </div>

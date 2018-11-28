@@ -12,6 +12,7 @@
     use Model\Event as Event; 
     use dao\Connection as Connection;
     use dao\IDaoPurchaseLine as IDaoPurchaseLine;
+    use \Exception as Exception;
 
     class DaoPurchaseLinePdo implements IDaoPurchaseLine
     {

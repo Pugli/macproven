@@ -4,6 +4,7 @@
     use Dao\DaoEventPlacePdo as DaoEventPlacePdo;
     use Model\EventPlace as EventPlace;
     use dao\DaoCalendarPdo as DaoCalendarPdo;
+    use \Exception as Exception;
 
     class ControllerEventPlace{
         private $daoEventPlaces;

@@ -12,6 +12,7 @@
     use Model\Event as Event; 
     use Model\Ticket as Ticket;
     use dao\Connection as Connection;
+    use \Exception as Exception;
 
     class DaoTicketPdo
     {

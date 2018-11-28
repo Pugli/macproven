@@ -5,6 +5,7 @@
     use Model\Category as Category;
     use dao\DaoCategoryPdo as DaoCategoryPdo;
     use dao\DaoEventPdo as DaoEventPdo;
+    use \Exception as Exception;
 
     class ControllerCategory{
 

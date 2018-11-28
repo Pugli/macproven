@@ -5,6 +5,7 @@
     use dao\DaoArtistList as DaoArtistList;
     use dao\DaoArtistPdo as DaoArtistPdo;
     use dao\DaoCalendarPdo as DaoCalendarPdo;
+    use \Exception as Exception;
 
     class ControllerArtist{
 

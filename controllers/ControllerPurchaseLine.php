@@ -4,6 +4,7 @@
     use Model\PurchaseLine as PurchaseLine;
     use dao\DaoCurrentPurchaseList as DaoCurrentPurchaseList;
     use dao\DaoEventSeatPdo as DaoEventSeatPdo;
+    use \Exception as Exception;
 
     class ControllerPurchaseLine{
 

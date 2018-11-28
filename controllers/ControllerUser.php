@@ -4,6 +4,7 @@
 
     use Model\User as User;
     use dao\DaoUserPdo as DaoUserPdo;
+    use \Exception as Exception;
 
     class ControllerUser{
 

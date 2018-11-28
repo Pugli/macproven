@@ -5,6 +5,7 @@
     use dao\Connection as Connection;
     use Model\Purchase as Purchase;
     use Model\User as User;
+    use \Exception as Exception;
 
     class DaoPurchasePdo implements IDaoPurchase
     {
