@@ -7,6 +7,7 @@
         public function delete($idEvent);
         public function checkEvent($eventname);
         public function getAll();
+        public function checkEventForArtistDao($id);
     }
 
 ?>

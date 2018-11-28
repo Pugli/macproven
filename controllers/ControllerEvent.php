@@ -105,7 +105,7 @@
         {
             
            if(($arrayEvent=$this->daoEvent->checkEventForCategoryDao($id)) != null){
-            include_once VIEWS_PATH."listCheckEventForCategory.php";
+            include_once VIEWS_PATH."listCheckEventForDate.php";
             }
            else{
             echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
@@ -175,6 +175,17 @@
                 }
             
         }
+        public function checkEventForArtist($id)
+        {
+            
+           if(($arrayEvent=$this->daoEvent->checkEventForArtistDao($id)) != null){
+            include_once VIEWS_PATH."listCheckEventForDate.php";
+            }
+           else{
+            echo "<script> if(alert('No existen eventos con ese artista'));</script>";
+            include_once VIEWS_PATH .'Searchs.php';
+        } 
+    }
 
     }
 

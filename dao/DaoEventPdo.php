@@ -284,6 +284,44 @@
 
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
+
+        public function checkEventForArtistDao($id)
+        {
+            $arrayEvent = array();
+            try{
+                $query = "SELECT e.TITLE as 'titulo', e.id_event as 'id', ca.category as 'categoria', ca.ID_CATEGORY as 'idC' FROM EVENTS AS e 
+                INNER JOIN CATEGORIES AS ca ON e.FK_CATEGORY=ca.id_category
+                INNER JOIN CALENDARS AS C ON e.ID_EVENT=c.fk_id_event 
+                INNER JOIN artistsXCalendars AS AC ON c.id_calendar=ac.pfk_id_calendar 
+                where ac.pfk_id_artist = :id;";
+                 
+                
+                $parameters["id"]=$id;
+
+                $this->connection = Connection::GetInstance();
+    
+                $resultSet=$this->connection->Execute($query, $parameters);
+
+                
+
+                foreach($resultSet as $row){
+                    $category = new Category();
+                    $category->setId($row["idC"]);
+                    $category->setDescription($row["categoria"]);
+                    $event = new Event();
+                    $event->setTitle($row["titulo"]);
+                    $event->setId($row["id"]);
+                    $event->setCategory($category);
+                    
+                    array_push($arrayEvent,$event);
+                }
+                return $arrayEvent;
+            }
+            catch(Exception $ex){
+                throw $ex;
+            }
+        }
+        
     }
     
 
