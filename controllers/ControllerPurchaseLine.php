@@ -45,6 +45,12 @@
             require_once VIEWS_PATH."buyEventSeat.php";
         }
 
+        public function delete($id)
+        {
+            $this->daoCurrentPurchase->delete($id);
+            $this->showCurrentPurchaseLines();
+        }
+
 
     }
 

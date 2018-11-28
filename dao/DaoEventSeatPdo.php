@@ -57,8 +57,7 @@
         }
 
         private function generateEventSeat($resultSet)
-        {
-            
+        {            
             $eventSeatList = array();
             $lastIdCalendar = 0;
             $lastIdEventSeat = 0;
@@ -242,7 +241,7 @@
 
         public function getEventSeatByCalendar($idCalendar){
 
-            $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar";
+            $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
 
             $parameters["idCalendar"] = $idCalendar;
 

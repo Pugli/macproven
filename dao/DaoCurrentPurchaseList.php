@@ -66,7 +66,7 @@
                 }
                 $i++;
             }
-            $this->currentPurhcaseLineList = array_values($this->currentPurhcaseLineList);
+            $this->currentPurchase = array_values($this->currentPurchase);
         }
     }
 ?>

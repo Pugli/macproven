@@ -43,6 +43,7 @@
                                             <td><?php echo $purchaseLine->getQuantity()?></td>
                                             <td><?php echo $purchaseLine->getPrice()?></td>
                                             <td><?php echo $purchaseLine->getTotal()?></td>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>purchaseLine/delete/<?php echo $purchaseLine->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
                                 }

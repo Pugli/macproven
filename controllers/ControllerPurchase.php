@@ -24,6 +24,13 @@
             $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
         }
 
+        public function showTicketList()
+        {
+            $client = $_SESSION["userLogged"];
+            $tickets = $this->daoTicket->getTicketsFromClient($client->getId());
+            require_once VIEWS_PATH."myTickets.php";
+        }
+
         public function addPurchase(){
             $currentPurchaseLines = $this->daoCurrentPurchase->getAll();
             
@@ -41,19 +48,21 @@
                     $tickets = $this->generateTickets($tickets,$purchaseLineWithId);
                 }
                 $this->daoCurrentPurchase->reset();
+                $this->showTicketList();
                 return $tickets;
-            }else{
+            }
+            else
+            {
                 echo "No hay compras en tu carrito";
             }
                 include_once VIEWS_PATH."home.php";
-            }
+        }
 
         private function generateTickets($tickets,$purchaseLineWithId){
 
             for($i=0; $i<$purchaseLineWithId->getQuantity();$i++){
                 $ticket = new Ticket();
                 $ticket->setPurchaseLine($purchaseLineWithId);
-                echo uniqid("",false);
                 $ticket->setQr(uniqid ("",false));
                 $this->daoTicket->add($ticket);
                 array_push($tickets,$ticket);
