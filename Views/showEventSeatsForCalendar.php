@@ -5,15 +5,14 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <img style="display:block;" src="<?php echo IMG_PATH.$calendar->getNameImg() ?>" height="400" width="300" >
+        <div class="col-md-2">
+            <img style="margin-left:-130px;" src="<?php echo IMG_PATH.$calendar->getNameImg() ?>" height="400" width="300" >
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
         <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
                <table class="table bg-light-alpha">
-               <?php //var_dump($_SESSION["userLogged"]); ?>
                     <thead>
                         <th>Id</th>
                         <th>Fecha</th>
@@ -23,6 +22,8 @@
                         <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 1){?><th><?php echo "Cantidad";?></th><?php } ?>
                         <th>Remanente</th>
                         <th>Precio</th>
+                        <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 0){?><th><?php echo "Cantidad";?></th><?php } ?>
+                        
                     </thead>
                     <tbody>
                         <?php
@@ -47,7 +48,13 @@
                                             <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 1){?><td><?php echo $eventSeat->getQuantityAvailable();?></td><?php }?>
                                             <td><?php echo $eventSeat->getRemaind()?></td>
                                             <td><?php echo $eventSeat->getPrice()?></td>
-                                            <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 0){ ?><td> <a href="<?php echo FRONT_ROOT?> PurchaseLine/showBuyPurchaseLine/<?php echo $eventSeat->getId(); ?>" class="btn btn-info ml-3">Comprar</a><?php }?>
+                                            <form action="<?php echo FRONT_ROOT?> PurchaseLine/addPurchaseLineOnCart/<?php echo $eventSeat->getId(); ?>" method="POST">
+                                            <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 0){ ?>
+                                            <td><input type="hidden" name="id" value="<?php echo $eventSeat->getId()?>">
+                                                <input type="number" name="quantity" min="1" max="20"></td> 
+                                                <td> <input type="submit" value="Comprar" class="btn btn-info">
+                                                <?php }?>
+                                            </form>
                                         </tr>
                                     <?php
                                 }
