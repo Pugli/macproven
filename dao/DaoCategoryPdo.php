@@ -163,6 +163,7 @@
 
         public function changeName($id, $name)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET category = :name WHERE id_category = :id';
 
             $parameters['name'] = $name;
@@ -171,6 +172,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
     }
 ?>

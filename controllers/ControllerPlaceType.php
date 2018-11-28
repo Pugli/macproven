@@ -32,6 +32,7 @@ class controllerPlaceType{
 
     public function addPlaceType($description)
     {
+        try{
         if($this->daoPlaceType->checkDescription($description)==null){
         $PlaceType = new PlaceType();
         $PlaceType->setDescription($description);
@@ -42,19 +43,40 @@ class controllerPlaceType{
         }
         $this->showPlaceTypeList();
     }
+    catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+    }
 
     public function getAll()
     {
+        try{
         return $this->daoPlaceType->getAll();
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
     }
 
     public function getAllActives()
     {
+        try{
         return $this->daoPlaceType->getAllActives();
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
     }
 
     public function delete($idPlaceType)     
     {
+        try{
         if($this->daoCalendar->checkCalendarByPlaceType($idPlaceType) == false){
             $this->daoPlaceType->delete($idPlaceType);
         }else{
@@ -62,6 +84,12 @@ class controllerPlaceType{
         }
         
         $this->showPlaceTypeList();
+    }
+    catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
     }
 
     public function changeDescription($id,$description)
@@ -75,9 +103,11 @@ class controllerPlaceType{
             }
 
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 }
 

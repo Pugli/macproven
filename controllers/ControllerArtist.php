@@ -35,7 +35,7 @@
 
         public function addArtist($artist){
 
-
+          try{
             if ($this->DaoArtist->checkArtist($artist) == null){
 
                 $newArtist = new Artist();
@@ -49,20 +49,39 @@
                 echo "<script> if(alert('El Artista Ya existe'));</script>";
             }
             $this->showArtistList();
-            
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        }   
         }
 
         public function getAll(){
+            try{
             return $this->DaoArtist->getAll();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function getAllActives()
         {
+            try{
             return $this->DaoArtist->getAllActives();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function delete($idArtist){
-
+                 try{
             if($this->daoCalendar->checkCalendarByArtist($idArtist) == false){
                 $this->DaoArtist->delete($idArtist);
             }else{
@@ -70,7 +89,12 @@
             }
 
             $this->showArtistList();
-            
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeName($id,$name)

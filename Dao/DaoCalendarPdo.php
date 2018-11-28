@@ -204,6 +204,7 @@
 
         public function checkCalendarByArtist($idArtist) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
+            try{
             $query = "SELECT pfk_id_artist, dateevent FROM " . $this->tableNameArtistXCalendars . "
                           INNER JOIN " . $this->tableName .
                         " ON pfk_id_calendar = id_calendar
@@ -226,9 +227,15 @@
 
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function checkCalendarsFutureByEvent($idEvent) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
+            try{
             $query = "SELECT * FROM " . $this->tableName . " AS cl INNER JOIN " . $this->tableNameEvent . " ON fk_id_event = id_event WHERE id_event = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEvent;
@@ -247,9 +254,15 @@
             }
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function checkCalendarByEventPlace($idEventPlace) // DAO Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
+            try{
             $query = "SELECT * FROM " . $this->tableName . " as cl INNER JOIN " . $this->tableNameEventPlace . " ON fk_id_eventPlace = id_eventPlace WHERE id_eventPlace = :id AND dateevent >= now() AND cl.isActive = 1";
 
             $parameters['id'] = $idEventPlace;
@@ -268,9 +281,15 @@
             }
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function checkEventSeatByCalendar($calendarId) // Dao Calendar // TRUE O FALSE -- AND FECHA FUTURA.
         {
+            try{
             $query = "SELECT * FROM " . $this->tableNameEventSeat . " AS es 
             INNER JOIN " . $this->tableName . " 
             ON fk_id_calendar = id_calendar
@@ -292,9 +311,15 @@
             }
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function getCalendarForEvent($eventId)
         {
+            try{
             $query = $this->generalQuery() . ' WHERE e.id_event = :id AND dateevent >= now() AND cl.isActive = 1 ORDER BY ac.pfk_id_calendar';
 
             $parameters['id'] = $eventId;
@@ -308,10 +333,16 @@
             $calendarList = $this->generateCalendar($resultSet);
 
             return $calendarList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function checkCalendarByPlaceType($id)
         {
+            try{
             $query = "SELECT * FROM " . $this->tableName . " AS cl
             INNER JOIN " . $this->tableNameEventSeat . "
             ON fk_id_calendar = id_calendar
@@ -335,9 +366,15 @@
             }
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function changeDate($id, $date)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET dateevent = :date WHERE id_calendar = :id';
 
             $parameters['date'] = $date;
@@ -346,6 +383,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
     }
 ?>

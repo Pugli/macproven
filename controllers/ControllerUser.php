@@ -59,7 +59,7 @@
         }
         
         public function addUser($nickName,$email,$password,$passwordConfirm,$isAdmin = ''){
-
+try{
             if (!empty($nickName) && !empty($password) && !empty($email) && !empty($passwordConfirm) && $isAdmin != ''){
                 
                 $userByEmail = $this->userDao->getUserByEmail($email);
@@ -85,16 +85,30 @@
                 echo "Faltan Ingresar Datos";
             }
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
         
         public function getAll(){
+            try{
             $userLogged = $this->isUserLogged();
 
             if($userLogged != null && $userLogged->getIsAdmin() == 1){
                 return $this->userDao->getAll();
             }
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getPurchasesFromUser($idUser){
+            try{
             $userLogged = $this->isUserLogged();
           
             if($userLogged != null && $userLogged->getIsAdmin() == 1){
@@ -106,6 +120,12 @@
                 }            
             }
             return $user;
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
         
         private function isUserLogged()

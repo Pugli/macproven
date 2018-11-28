@@ -39,7 +39,8 @@
         }
 
         public function addEventSeat($calendarId,$placeTypeId,$quantity,$price){
-          /*   var_dump($calendarId);
+          try{
+            /*   var_dump($calendarId);
             var_dump($placeTypeId);
             var_dump($quantity);
             var_dump($price); */
@@ -84,9 +85,16 @@
             }
         }
             $this->showEventSeatList();
+    }
+    catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function delete($eventSeatId){
+            try{
             if($this->daoEventSeat->checkPurchasesByEventSeat($eventSeatId)){
                 $this->daoEventSeat->delete($eventSeatId);
             }else{
@@ -95,21 +103,41 @@
            
             $this->showEventSeatList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getAll(){
+            try{
             $eventSeats = $this->daoEventSeat->getAll();
             foreach($eventSeats as $eventSeat){
                 $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
             }
             return $eventSeats;
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getAllActives(){
+            try{
             $eventSeats = $this->daoEventSeat->getAllActives();
             foreach($eventSeats as $eventSeat){
                 $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
             }
             return $eventSeats;
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changePrice($id,$price)
@@ -123,20 +151,27 @@
             }
 
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function getEventSeatsByCalendar($calendarId){
-
+try{
             $calendar = $this->daoCalendar->checkCalendarById($calendarId);
             $eventSeats = $this->daoEventSeat->getEventSeatByCalendar($calendarId);
             foreach($eventSeats as $eventSeat){
                 $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
             }
             include_once VIEWS_PATH.'showEventSeatsForCalendar.php';
-
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         private function verifyIfNotNulls($calendarId,$placeTypeId,$quantity,$price){

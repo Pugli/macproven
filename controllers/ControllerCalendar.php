@@ -38,6 +38,7 @@ class ControllerCalendar{
         }
 
         public function addCalendar($date,$artists,$placeId,$eventId,$file){
+           try{
             $flag = 0;
             foreach($artists as $i){
                 if($this->daoArtist->checkArtistById($i) == null){
@@ -75,8 +76,15 @@ class ControllerCalendar{
            } 
            $this->showCalendarList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+    }
 
         public function delete($calendarId){
+            try{
             if($this->daoCalendar->checkEventSeatByCalendar($calendarId) == false){
                 $this->daoCalendar->delete($calendarId);
             }else{
@@ -85,13 +93,33 @@ class ControllerCalendar{
             
             $this->showCalendarList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getAll(){
+            try{
             return $this->daoCalendar->getAll();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function getAllActives(){
+            try{
             return $this->daoCalendar->getAllActives();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeDate($id,$date)
@@ -107,9 +135,11 @@ class ControllerCalendar{
                 }
     
             }
-                catch(Exception $ex){
-                    echo "<script> if(alert('algo fallo'));</script>";
-                }
+            catch(Exception $ex)
+            {
+                echo "<script> if(alert('Upps! algo fallo'));</script>";
+                include_once VIEWS_PATH . 'home.php';
+            } 
             
         }
 

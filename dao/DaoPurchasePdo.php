@@ -32,6 +32,7 @@
 
         public function add(Purchase $purchase)
         {
+            try{
             $query = 'INSERT INTO ' . $this->tableName . " (fk_id_user, datePurchase) VALUES (:fk_id_user, now());";
 
             $parameters['fk_id_user'] = $purchase->getClient()->getId();
@@ -41,10 +42,16 @@
             $this->connection->ExecuteNonQuery($query, $parameters);
 
             return $this->connection->getLastId();
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getPurchasesByClient($id)
         {
+            try{
             $query = $this->generalQuery() . " WHERE fk_id_user = :id";
 
             $parameters['id'] = $id;
@@ -64,9 +71,15 @@
 
             return $purchaseList;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function getPurchaseById($id)
         {
+            try{
             $query = $this->generalQuery() . " WHERE id_purchase = :id";
 
             $parameters['id'] = $id;
@@ -80,10 +93,16 @@
             $purchase = $this->generate($row);
 
             return $purchase;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getGainOnCalendar($idCalendar)
         {
+            try{
             $query = "SELECT ifnull(sum(pl.quantity * pl.price), 0) AS result FROM " . $this->tableNameCalendar . " AS cl
                 INNER JOIN " . $this->tableNameEventSeat . " AS es
                 ON fk_id_calendar = id_calendar
@@ -98,10 +117,16 @@
             $result = $this->connection->Execute($query, $parameters);
 
             return reset($result);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getGainOnEvent($idEvent)
         {
+            try{
             $query = "SELECT ifnull(sum(pl.quantity * pl.price), 0) AS result FROM " . $this->tableNameCalendar . " AS cl
                 INNER JOIN " . $this->tableNameEventSeat . " AS es
                 ON fk_id_calendar = id_calendar
@@ -118,6 +143,11 @@
             $result = $this->connection->Execute($query, $parameters);
 
             return reset($result);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
     }
 ?>

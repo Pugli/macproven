@@ -218,7 +218,7 @@
         }
 
         public function getEventSeatByCalendarAndPlaceType($idCalendar,$idPlaceType){
-
+            try{
             $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar && 
             FK_ID_PLACETYPE = :idPlaceType";
 
@@ -236,11 +236,15 @@
             $eventSeat = reset($eventSeatList);
             
             return $eventSeat;
-
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getEventSeatByCalendar($idCalendar){
-
+              try{
             $query = $this->generalQuery()." WHERE FK_ID_CALENDAR = :idCalendar ORDER BY ac.pfk_id_calendar,es.id_eventSeat";
 
             $parameters["idCalendar"] = $idCalendar;
@@ -254,10 +258,16 @@
             $eventSeatList = $this->generateEventSeat($resultSet);
             
             return $eventSeatList;
+              }
+              catch(Exception $ex)
+              {
+                  throw $ex;
+              }   
         }
      
         public function delete($idEventSeat)
         {
+            try{
             $query = "UPDATE " . $this->tableNameEventSeats . " SET isActive = 0 WHERE id_eventseat = :idEventSeat";
 
             $parameters['idEventSeat'] = $idEventSeat;
@@ -265,10 +275,16 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function checkEventSeatByPlaceType($idPlaceType)
         {
+            try{
             $query = "SELECT * FROM " . $this->tableNameEventSeats . "
              INNER JOIN " . $this->tableNameCalendars . " 
              ON fk_id_calendar = id_calendar
@@ -291,9 +307,15 @@
 
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function checkPurchasesByEventSeat($eventSeatId) // Dao EventSeat // TRUE O FALSE --
         {
+            try{
             $query = "SELECT id_purchase FROM " . $this->tableNameEventSeats . " 
             INNER JOIN " . $this->tableNamePurchaseLine . " 
             ON fk_id_eventseat = id_eventseat
@@ -318,9 +340,15 @@
 
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function changePrice($id, $price)
         {
+            try{
             $query = 'UPDATE ' . $this->tableNameEventSeats . ' SET price = :price WHERE id_eventseat = :id';
 
             $parameters['price'] = $price;
@@ -329,6 +357,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         

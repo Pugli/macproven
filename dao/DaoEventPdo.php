@@ -242,6 +242,7 @@
 
         public function checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
         {
+            try{
             $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1 AND fk_category = :id";
 
             $parameters['id'] = $idCategory;
@@ -260,9 +261,15 @@
             }
             return $resultSet;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function changeName($id, $name)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET title = :name WHERE id_event = :id';
 
             $parameters['name'] = $name;
@@ -271,10 +278,16 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function changeCategory($id, $idCategory)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET fk_id_category = :idCategory WHERE id_event = :id';
 
             $parameters['idCategory'] = $idCategory;
@@ -283,6 +296,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function checkEventForArtistDao($id)

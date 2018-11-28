@@ -16,7 +16,7 @@
         }
 
         public function addPurchaseLineOnCart($idEventSeat,$quantity){
-
+try{
             if ($this->daoCurrentPurchase->upsertPurchaseLine($idEventSeat,$quantity) == 0){
 
                 $eventSeat = $this->daoEventSeat->getEventSeatById($idEventSeat);
@@ -31,24 +31,51 @@
             }
             require_once VIEWS_PATH.'viewCurrentCart.php';
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function showCurrentPurchaseLines(){
             include_once VIEWS_PATH.'viewCurrentCart.php';
         }
 
         public function getCurrentPurchaseLines(){
+            try{
             return $this->daoCurrentPurchase->getAll();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function showBuyPurchaseLine($eventSeatId){
+            try{
             $eventSeat = $this->daoEventSeat->getEventSeatById($eventSeatId);
             require_once VIEWS_PATH."buyEventSeat.php";
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function delete($id)
         {
+            try{
             $this->daoCurrentPurchase->delete($id);
             $this->showCurrentPurchaseLines();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
 

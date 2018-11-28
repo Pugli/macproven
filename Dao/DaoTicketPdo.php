@@ -28,6 +28,7 @@
 
         public function add(Ticket $ticket)
         {
+            try{
             $query = "INSERT INTO " . $this->tableNameTicket . " (fk_id_purchaseLine,qr) VALUES (:idPurchaseLine, :qr)";
 
             $parameters['idPurchaseLine'] = $ticket->getPurchaseLine()->getId();
@@ -36,10 +37,16 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getTicketsFromClient($idUser)
         {
+            try{
             $query = "SELECT
             ep.name AS nameEventPlace,
             e.title AS titleEvent,
@@ -108,7 +115,11 @@
             }
 
             return $ticketList;
-
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
         }
 
         private function generateTicket($resultSet)
@@ -173,6 +184,7 @@
 
         public function ticketsSold($idEventSeat)
         {
+            try{
             $query = "SELECT count(id_ticket) as quantityTickets FROM " . $this->tableNameEventSeats . 
                         " INNER JOIN " . $this->tableNamePurchaseLine . 
                         " ON id_eventseat = fk_id_eventseat
@@ -191,6 +203,11 @@
             $quantity = $row['quantityTickets'];
 
             return $quantity;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
     }
 ?>

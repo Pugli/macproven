@@ -28,6 +28,7 @@
 
         public function add(PurchaseLine $purchaseLine, $idPurchase)
         {
+            try{
             $query = "INSERT INTO " . $this->tableName . " (fk_id_eventseat, quantity, price, fk_id_purchase) VALUES (:idEventSeat, :quantity, :price, :idPurchase)";
 
             $parameters['idEventSeat'] = $purchaseLine->getEventSeat()->getId();
@@ -38,13 +39,24 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getLastPurchaseLine()
         {
+            try{
             $this->connection = Connection::GetInstance();
 
             return $this->getById($this->connection->getLastId());
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         private function generatePurchaseLine($resultSet)
@@ -105,6 +117,7 @@
 
         public function getById($id)
         {
+            try{
             $query = "SELECT ep.quantity AS quantityEventPlace,
             ep.name AS nameEventPlace,
             es.id_eventSeat AS idEventSeat,
@@ -152,5 +165,10 @@
         return reset($purchaseLineList);
 
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+    }
     }
 ?>

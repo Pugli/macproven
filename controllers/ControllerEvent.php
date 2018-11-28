@@ -30,7 +30,7 @@
         }
 
         public function addEvent($event,$categoryId,$file){
-            
+            try{
            if (($this->daoEvent->checkEvent($event) == null) && ($this->daoCategory->checkCategoryById($categoryId) != null)){
                
                $newEvent = new Event;
@@ -54,9 +54,15 @@
            } 
            $this->showEventList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function delete($idEvent){
-
+try{
             if($this->daoCalendar->checkCalendarsFutureByEvent($idEvent) == false){
                 $this->daoEvent->delete($idEvent);
             }else{
@@ -64,13 +70,33 @@
             }
             $this->showEventList();
         }
-
-        public function getAll(){
-            return $this->daoEvent->getAll();
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
+        public function getAll(){
+            try{
+            return $this->daoEvent->getAll();
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+    }
+
         public function getAllActives(){
+            try{
             return $this->daoEvent->getAllActives();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function showCheckEventForDate()
@@ -79,12 +105,20 @@
         }
         public function showCheck()
         {
+            try{
             $arrayCategory = $this->daoCategory->getAllActives();
             include_once VIEWS_PATH."queries.php";
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function checkEventForDate($date)
         {
+            try{
            if(($arrayEvent=$this->daoEvent->checkEventForDateDao($date)) != null){
             include_once VIEWS_PATH."listCheckEventForDate.php";
             }
@@ -92,18 +126,31 @@
             echo "<script> if(alert('No existen eventos para esa fecha'));</script>";
             include_once VIEWS_PATH .'Searchs.php';
             } 
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
 
         }
 
         public function showCheckEventForCategory()
         {
+            try{
             $arrayCategory = $this->daoCategory->getAllActives();
             include_once VIEWS_PATH."CheckEventForCategory.php";
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function checkEventForCategory($id)
         {
-            
+            try{
            if(($arrayEvent=$this->daoEvent->checkEventForCategoryDao($id)) != null){
             include_once VIEWS_PATH."listCheckEventForDate.php";
             }
@@ -111,7 +158,12 @@
             echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
             include_once VIEWS_PATH .'Searchs.php';
             } 
-
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         private function setImage(Event $event,$file){
@@ -140,9 +192,16 @@
         }
 
         public function getEventById($eventId){
+            try{
             $event = $this->daoEvent->checkEventById($eventId);
             $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
             include_once VIEWS_PATH."showCalendarsForEvent.php";
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeTittle($id,$tittle)
@@ -152,9 +211,11 @@
                 $this->daoEvent->changeName($id,$tittle);
             
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('No es posible realizar la modificacion'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeCategory($id,$idC)
@@ -170,20 +231,28 @@
                 }
     
             }
-                catch(Exception $ex){
-                    echo "<script> if(alert('algo fallo'));</script>";
-                }
+            catch(Exception $ex)
+            {
+                echo "<script> if(alert('Upps! algo fallo'));</script>";
+                include_once VIEWS_PATH . 'home.php';
+            } 
             
         }
         public function checkEventForArtist($id)
         {
-            
+            try{
            if(($arrayEvent=$this->daoEvent->checkEventForArtistDao($id)) != null){
             include_once VIEWS_PATH."listCheckEventForDate.php";
             }
            else{
             echo "<script> if(alert('No existen eventos con ese artista'));</script>";
             include_once VIEWS_PATH .'Searchs.php';
+        } 
+    }
+    catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
         } 
     }
 

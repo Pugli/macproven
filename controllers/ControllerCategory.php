@@ -30,7 +30,7 @@
         }
 
         public function addCategory($category){
-            
+            try{
             if ($this->daoCategory->checkCategory($category) == null){
                 $newCategory = new Category;
                 $newCategory->setDescription($category);
@@ -42,14 +42,27 @@
                 echo "<script> if(alert('La Categoria Ya existe'));</script>";
             }
             $this->showCategoryList();
-
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function checkCategoryById($categoryId){
+            try{
             return $this->daoCategory->checkCategoryById($categoryId);
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function delete($idCategory){
+            try{
             if ($this->daoEvent->checkEventByCategory($idCategory) == false){
                 $this->daoCategory->delete($idCategory); 
             }else{
@@ -57,13 +70,33 @@
             }
             $this->showCategoryList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getAll(){
+            try{
             return $this->daoCategory->getAll();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function getAllActives(){
+            try{
             return $this->daoCategory->getAllActives();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeDescription($id,$description)
@@ -75,9 +108,11 @@
            
 
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
     }
 

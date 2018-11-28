@@ -57,6 +57,7 @@
 
         public function getAll()
         {
+            try{
             $query = $this->generalQuery();
 
             $this->connection = Connection::GetInstance();
@@ -74,9 +75,15 @@
 
             return $userList;
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+        }
 
         public function getAllActives()
         {
+            try{
             $query = $this->generalQuery() . " WHERE isActive = 1";
 
             $this->connection = Connection::GetInstance();
@@ -93,11 +100,16 @@
             }
 
             return $userList;
-
+        }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
         }
 
         public function getUserByEmail($email)
         {
+            try{
             $query = $this->generalQuery() . " WHERE email = :email;";
 
             $parameters['email'] = $email;
@@ -113,11 +125,16 @@
             $user = $this->generate($row);
 
             return $user;
-           
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function getUserById($id)
         {
+            try{
             $query = $this->generalQuery() . " WHERE id = :id;";
 
             $parameters['id'] = $id;
@@ -133,10 +150,16 @@
             $user = $this->generate($row);
 
             return $user;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
         public function delete($idUser)
         {
+            try{
             $query = "UPDATE ".$this->tableName."SET isActive = 0 WHERE id_user = (:idUser)";
             
             $parameters["idUser"] = $idUser;
@@ -144,6 +167,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters); 
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
     }
 ?>

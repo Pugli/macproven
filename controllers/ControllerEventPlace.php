@@ -31,7 +31,7 @@
         }
 
         public function addEventPlace($name, $quantity){
-            
+            try{
             if ($this->daoEventPlaces->checkEventPlace($name) == null){
                 $newEventPlace = new EventPlace();
                 $newEventPlace->setName($name);
@@ -45,8 +45,15 @@
             }
             $this->showEventPlaceList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function delete($idEventPlace){
+            try{
             if ($this->daoCalendar->checkCalendarByEventPlace($idEventPlace) == false){
                 $this->daoEventPlaces->delete($idEventPlace);
             }else{
@@ -55,13 +62,33 @@
             
             $this->showEventPlaceList();
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         public function getAll(){
+            try{
             return $this->daoEventPlaces->getAll();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function getAllActives(){
+            try{
             return $this->daoEventPlaces->getAllActives();
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function changeQuantity($id,$quantity)
@@ -75,9 +102,11 @@
             }
 
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
         public function changeName($id,$name)
         {
@@ -90,9 +119,11 @@
             }
 
         }
-            catch(Exception $ex){
-                echo "<script> if(alert('algo fallo'));</script>";
-            }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
     }
 

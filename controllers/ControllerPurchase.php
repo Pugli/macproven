@@ -26,12 +26,20 @@
 
         public function showTicketList()
         {
+            try{
             $client = $_SESSION["userLogged"];
             $tickets = $this->daoTicket->getTicketsFromClient($client->getId());
             require_once VIEWS_PATH."myTickets.php";
+            }
+            catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }
 
         public function addPurchase(){
+            try{
             $currentPurchaseLines = $this->daoCurrentPurchase->getAll();
             
             if(!empty($currentPurchaseLines)){
@@ -57,9 +65,15 @@
             }
                 include_once VIEWS_PATH."home.php";
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         private function generateTickets($tickets,$purchaseLineWithId){
-
+try{
             for($i=0; $i<$purchaseLineWithId->getQuantity();$i++){
                 $ticket = new Ticket();
                 $ticket->setPurchaseLine($purchaseLineWithId);
@@ -69,9 +83,15 @@
             }
             return $tickets;
         }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
+        }
 
         private function getPurchasesFromClient(){
-
+try{
             $client = $_SESSION["userLogged"];
 
             $purchases =  $this->daoPurchase->getPurchasesByClient($client->getId());
@@ -84,7 +104,12 @@
             }
 
             return $purchases;
-            
+        }
+        catch(Exception $ex)
+        {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        } 
         }    
     }
 

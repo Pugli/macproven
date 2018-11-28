@@ -41,7 +41,8 @@ NO LISTAR PLAZA EVENTO SI NO HAY CALENDARIO
 VISTA DE BUSQUEDAS
 VALIDAR NO COMPRAR MAS DE REMANENTES
 VISTA DE ARTISTAS AñADIR CALENDARIO.
-
+INCLUDE CUANDO SE MODIFICA UN EVENTO (no muestra ninguna vista al modificar)
+verificar/sacar alertas que aparecen al agregar una plaza evento 
 ------------ FALTA PARA ENTREGA DE MIERCOLES --------------------
 
 

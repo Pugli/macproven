@@ -169,6 +169,7 @@
 
         public function changeQuantity($id, $quantity)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET quantity = :quantity WHERE id_eventplace = :id';
 
             $parameters['quantity'] = $quantity;
@@ -178,9 +179,15 @@
 
             $this->connection->ExecuteNonQuery($query, $parameters);
         }
+        catch(Exception $ex)
+        {
+            throw $ex;
+        }   
+    }
 
         public function changeName($id, $name)
         {
+            try{
             $query = 'UPDATE ' . $this->tableName . ' SET name = :name WHERE id_eventplace = :id';
 
             $parameters['name'] = $name;
@@ -189,6 +196,11 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }   
         }
 
     }
