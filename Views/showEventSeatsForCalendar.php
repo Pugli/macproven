@@ -51,7 +51,7 @@
                                             <form action="<?php echo FRONT_ROOT?> PurchaseLine/addPurchaseLineOnCart/<?php echo $eventSeat->getId(); ?>" method="POST">
                                             <?php if (isset($_SESSION["userLogged"]) && $_SESSION["userLogged"]->getIsAdmin() == 0){ ?>
                                             <td><input type="hidden" name="id" value="<?php echo $eventSeat->getId()?>">
-                                                <input type="number" name="quantity" min="1" max="20"></td> 
+                                                <input type="number" name="quantity" value="1" min="1" max="20"></td> 
                                                 <td> <input type="submit" value="Comprar" class="btn btn-info">
                                                 <?php }?>
                                             </form>

@@ -79,16 +79,20 @@ try{
                     $user->setPassword($password);
 
                     $this->userDao->add($user);
-                    //$this->showHomeView();
+                    echo "<script> if(alert('El usuario se ha creado exitosamente!'));</script>";
+                    $this->showHomeView();
                     }else{
-                        echo "Las contraseñas no coinciden!";
+                        echo "<script> if(alert('Las contraseñas no coinciden!'));</script>";
+                        $this->showAddUser();
                     }
                 }else{            
-                    echo "El email ya existe!";
+                    echo "<script> if(alert('El email ya existe!'));</script>";
+                    $this->showAddUser();
                 }
                 $this->showAddUser();
             }else{
-                echo "Faltan Ingresar Datos";
+                echo "<script> if(alert('Faltan Ingresar datos!'));</script>";
+                $this->showAddUser();
             }
         }
         catch(Exception $ex)
