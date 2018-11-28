@@ -16,6 +16,11 @@
             $this->daoEventSeat = new DaoEventSeatPdo;
         }
 
+        public function index()
+        {
+            $this->showCurrentPurchaseLines();
+        }
+
         public function addPurchaseLineOnCart($idEventSeat,$quantity){
 try{
             if ($this->daoCurrentPurchase->upsertPurchaseLine($idEventSeat,$quantity) == 0){
@@ -35,7 +40,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -50,7 +55,7 @@ try{
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -62,7 +67,7 @@ try{
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -75,7 +80,7 @@ try{
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 

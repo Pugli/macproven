@@ -49,7 +49,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -66,7 +66,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -77,7 +77,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -88,7 +88,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -106,7 +106,10 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
+        }
+        finally{
+            $this->showEventPlaceList();
         } 
         }
         public function changeName($id,$name)
@@ -123,7 +126,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
     }

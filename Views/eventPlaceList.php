@@ -16,7 +16,7 @@
                        
                          <th>Nombre del Lugar</th>
                          <th>Capacidad</th>
-                         <th>Modificar Nombre</th>
+                         <th>Modificar Capacidad</th>
                          <th>Eliminar</th>
                     </thead>
                     <tbody>
@@ -27,10 +27,16 @@
                                 {
                                     ?>
                                         <tr>
-                                            
+                                        <form method='post' action='<?php echo FRONT_ROOT ?>eventplace/changequantity'>
                                             <td><?php echo $eventPlace->getName() ?></td>
                                             <td><?php echo $eventPlace->getQuantity() ?></td>
-                                            <td></td>
+                                            <td>
+                                            <form method='post' action='<?php echo FRONT_ROOT ?>eventPlace/changequantity'>
+                                             <input type='hidden' name='id' value="<?php echo $eventPlace->getId(); ?>">
+                                             <input type='text' name='number'>
+                                             <input type='submit' name='button' value='Modificar'>
+                                             </form>
+                                            </td>
                                             <td> <a href="<?php echo FRONT_ROOT ?>EventPlace/delete/<?php echo $eventPlace->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php

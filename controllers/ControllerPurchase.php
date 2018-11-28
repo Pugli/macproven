@@ -25,6 +25,11 @@
             $this->daoCurrentPurchase = new DaoCurrentPurchaseList;
         }
 
+        public function index()
+        {
+            $this->showTicketList();
+        }
+
         public function showTicketList()
         {
             try{
@@ -35,7 +40,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -69,7 +74,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -87,7 +92,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -109,7 +114,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }    
     }

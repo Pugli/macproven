@@ -161,12 +161,12 @@
             }
         }
 
-        public function changeName($id, $name)
+        public function changeDescription($id, $description)
         {
             try{
-            $query = 'UPDATE ' . $this->tableName . ' SET name = :name WHERE id_placetype = :id';
+            $query = 'UPDATE ' . $this->tableName . ' SET description = :description WHERE id_placetype = :id';
 
-            $parameters['name'] = $name;
+            $parameters['description'] = $description;
             $parameters['id'] = $id;
 
             $this->connection = Connection::GetInstance();

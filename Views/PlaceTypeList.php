@@ -27,7 +27,13 @@
                                     ?>
                                         <tr>
                                             <td><?php echo $placeType->getDescription() ?></td>
-                                            <td></td>
+                                            <td>
+                                            <form method='post' action='<?php echo FRONT_ROOT ?>placeType/changeDescription'>
+                                             <input type='hidden' name='id' value="<?php echo $placeType->getId(); ?>">
+                                             <input type='text' name='name'>
+                                             <input type='submit' name='button' value='Modificar'>
+                                             </form>
+                                            </td>
                                             <td> <a href="<?php echo FRONT_ROOT ?>PlaceType/delete/<?php echo $placeType->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
