@@ -10,7 +10,7 @@
 ?>
 
 
-<div class="offset-xl-4">
+<div class="offset-xl-4 ">
     
     </div>
     <br><br><br>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row  ">
             <div class="col-md-4">
             <h3>Consultar por Categoria:</h3>
             <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForCategory" method="POST"><br>
@@ -35,7 +35,8 @@
                             <option value="<?php echo $i->getId()?>"><?php echo $i->getDescription()?></option>
                         <?php }?>
                     </select></td>
-        <input class="btn btn-info ml-3" type="submit" value="Enviar"/>
+                    <br> <br> <br>
+        <input class="btn btn-success btn-block" type="submit" value="Enviar"/>
 
     </form>
             </div>
@@ -43,8 +44,10 @@
             <h3>Consultar por fecha:</h3>
                 <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForDate" method="POST"><br>
                 
-                    <td>seleccione fecha: <input type="date" name="date"/></td>             
-                    <input class="btn btn-info ml-3" type="submit" value="Enviar"/>
+                    <td>seleccione fecha: <input type="date" name="date"/></td> 
+                    <br> <br> <br>           
+                    <input class="btn btn-success btn-block" type="submit" value="Enviar"/>
+                    
                 </form>
             </div>
 
@@ -60,7 +63,9 @@
                             <option value="<?php echo $i->getId()?>"><?php echo $i->getName()?></option>
                         <?php }?>
                     </select></td>   
-                <input class="btn btn-info ml-3" type="submit" value="Enviar"/>
+                    <br> <br> <br>
+                <input class="btn btn-success btn-block" type="submit" value="Enviar"/>
+               
             </form>
             </div>
         </div>
