@@ -55,5 +55,18 @@
             }
             return $flag;
         }
+
+        public function delete($idCurrentPurchaseLine)
+        {
+            $i = 0;
+            foreach ($this->currentPurchase as $currentPurchaseLine) {
+                if($currentPurchaseLine->getId() == $idCurrentPurchaseLine){
+                    unset($this->currentPurchase[$i]);
+                    break;
+                }
+                $i++;
+            }
+            $this->currentPurhcaseLineList = array_values($this->currentPurhcaseLineList);
+        }
     }
 ?>

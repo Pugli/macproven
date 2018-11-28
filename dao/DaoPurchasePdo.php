@@ -11,6 +11,10 @@
         private $connection;
         private $tableName = 'purchases';
         private $tableNameUser = 'users';
+        private $tableNameCalendar = 'calendars';
+        private $tableNameEventSeat = 'eventseats';
+        private $tableNameEvent = 'events';
+        private $tableNamePurchaseLine = 'purchaselines';
 
         public function generalQuery()
         {
@@ -76,6 +80,44 @@
             $purchase = $this->generate($row);
 
             return $purchase;
+        }
+
+        public function getGainOnCalendar($idCalendar)
+        {
+            $query = "SELECT ifnull(sum(pl.quantity * pl.price), 0) AS result FROM " . $this->tableNameCalendar . " AS cl
+                INNER JOIN " . $this->tableNameEventSeat . " AS es
+                ON fk_id_calendar = id_calendar
+                INNER JOIN " . $tableNamePurchaseLine . " AS pl
+                ON fk_id_eventseat = id_eventseat
+                WHERE cl.id_calendar = :id";
+
+            $parameters['id'] = $idCalendar;
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query, $parameters);
+
+            return reset($result);
+        }
+
+        public function getGainOnEvent($idEvent)
+        {
+            $query = "SELECT ifnull(sum(pl.quantity * pl.price), 0) AS result FROM " . $this->tableNameCalendar . " AS cl
+                INNER JOIN " . $this->tableNameEventSeat . " AS es
+                ON fk_id_calendar = id_calendar
+                INNER JOIN " . $this->tableNameEvent . " AS e
+                ON fk_id_event = id_event
+                INNER JOIN " . $tableNamePurchaseLine . " AS pl
+                ON fk_id_eventseat = id_eventseat
+                WHERE e.id_event = :id";
+
+            $parameters['id'] = $idEvent;
+
+            $this->connection = Connection::GetInstance();
+
+            $result = $this->connection->Execute($query, $parameters);
+
+            return reset($result);
         }
     }
 ?>
