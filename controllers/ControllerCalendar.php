@@ -38,7 +38,7 @@ class ControllerCalendar{
             include_once VIEWS_PATH.'addCalendar.php';
         }
 
-        public function addCalendar($date,$artists,$placeId,$eventId,$file){
+        public function addCalendar($artists,$date,$placeId,$eventId,$file){
            try{
             $flag = 0;
             foreach($artists as $i){

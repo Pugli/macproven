@@ -102,15 +102,12 @@
                 echo "<script> if(alert('no existe ese lugar'));</script>";
             }
 
-        }
-        catch(Exception $ex)
-        {
-            echo "<script> if(alert('Upps! algo fallo'));</script>";
-            $this->index();
-        }
-        finally{
-            $this->showEventPlaceList();
-        } 
+            }
+            catch(Exception $ex)
+            {
+                echo "<script> if(alert('Upps! algo fallo'));</script>";
+                $this->index();
+            }
         }
         public function changeName($id,$name)
         {
