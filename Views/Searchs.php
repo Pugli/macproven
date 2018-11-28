@@ -26,13 +26,13 @@
     <div class="container">
         <div class="row  ">
             <div class="col-md-4">
-            <h3>Consultar por Categoria:</h3>
-            <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForCategory" method="POST"><br>
+            <h3 class="text-primary " >Consultar por Categoria:</h3>
+            <form  action="<?php echo FRONT_ROOT; ?>/event/checkEventForCategory" method="POST"><br>
                 <td><select name="category">
                         <?php 
                         foreach ($arrayCategory as $i){
                             ?>
-                            <option value="<?php echo $i->getId()?>"><?php echo $i->getDescription()?></option>
+                            <option  value="<?php echo $i->getId()?>"><?php echo $i->getDescription()?></option>
                         <?php }?>
                     </select></td>
                     <br> <br> <br>
@@ -41,7 +41,7 @@
     </form>
             </div>
             <div class="col-md-4">
-            <h3>Consultar por fecha:</h3>
+            <h3 class="text-primary" >Consultar por fecha:</h3>
                 <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForDate" method="POST"><br>
                 
                     <td>seleccione fecha: <input type="date" name="date"/></td> 
@@ -52,7 +52,7 @@
             </div>
 
             <div class="col-md-4">
-                    <h3>Consultar por artista:</h3>
+                    <h3 class="text-primary">Consultar por artista:</h3>
                     <form action="<?php echo FRONT_ROOT; ?>/event/checkEventForArtist" method="POST"> <br>
    
             
