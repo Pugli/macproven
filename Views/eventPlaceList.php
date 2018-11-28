@@ -43,7 +43,7 @@
      </section>
 
         <div class="container">
-        <p class="text-center"><h2>Dar de alta una Categoria</h2></p>
+        <p class="text-center"><h2>Dar de alta un Escenario</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>/EventPlace/addEventPlace" method="POST">
             <br>
             <td> Lugar de Evento: <input type="text" name="eventPlace"/> </td> 
