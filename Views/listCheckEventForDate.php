@@ -6,20 +6,18 @@
                     <thead>
                          <th>TITULO</th>
                          <th>CATEGORIA</th>
-                         <th>IMAGEN</th>
-                         <th>FECHAS</th>
                     </thead>
                     <tbody>
                         <?php
                                 foreach($arrayEvent as $event)
                                 {
                                     ?>
+    
                                   
                                         <tr>
                                             <td><?php echo $event->getTitle() ?></td>
                                             <td><?php echo $event->getCategory()->getDescription() ?></td>
-                                            <td><img style="" src="<?php echo IMG_PATH.$event->getNameImg() ?>" height="50" width="50" ></td>
-                                            <td> <a class="btn btn-info ml-3" href="<?php echo FRONT_ROOT ?>Event/getEventById/<?php echo $event->getId() ?>">ver</a></td>
+                                            <td> <a class="btn btn-info ml-3" href="<?php echo FRONT_ROOT ?>Event/getEventById/<?php echo $event->getId() ?>">Ver Fechas</a></td>
                                         </tr>
                                        
                                     <?php
