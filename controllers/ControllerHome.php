@@ -23,6 +23,10 @@
             
         }
 
+        public function searchs(){
+            include_once VIEWS_PATH.'Searchs.php';
+        }
+
     }
 
 

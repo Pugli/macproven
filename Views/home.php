@@ -14,21 +14,21 @@
                     <img class="d-block w-100 FirstImg">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Las pastillas del abuelo</h5>
-                        <p>11 de Diciembre - Velez Sarfield</p>
+                        <p>25 de Enero - Abbey Road</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100 SecondImg">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Lollapalooza</h5>
-                        <p>8-9-10 de marzo - Hipodromo de BSAS</p>
+                        <p>2-3-4 de febrero - Polideportivo Islas Malvinas</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100 ThirdImg">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>Rolling Stones</h5>
-                        <p>25 de Enero - Estadio Monumental</p>
+                        <p>1 de Enero - Estadio Monumental</p>
                     </div>
                 </div>
             </div>
@@ -42,6 +42,13 @@
             </a>
             <hr>
         </div>
+    </div>
+
+    <div class="container">
+        <row class="col-md-12">
+            <p class="text-center"><input class="btn btn-warning btn btn-primary btn-lg" type="submit" value="Buscar eventos por filtro en especifico" onclick="location='<?php echo FRONT_ROOT?>Home/searchs'"></p>
+        </row>
+        
     </div>
 
 
