@@ -13,8 +13,10 @@
                <h2 class="mb-4">Listado de Tipos de Plaza</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Id</th>
+        
                          <th>Tipo de Plaza</th>
+                         <th>Modificar Plaza</th>
+                         <th>Eliminar</th>
                     </thead>
                     <tbody>
                         <?php
@@ -24,8 +26,9 @@
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $placeType->getId() ?></td>
                                             <td><?php echo $placeType->getDescription() ?></td>
+                                            <td></td>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>PlaceType/delete/<?php echo $placeType->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
                                 }
@@ -36,16 +39,4 @@
           </div>
      </section>
 
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Tipo de Plaza</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>PlaceType/delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idPlaceType" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
-          </div>
-     </section>
+   

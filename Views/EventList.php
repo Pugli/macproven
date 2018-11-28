@@ -15,9 +15,12 @@
                <h2 class="mb-4">Listado de Eventos</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Id</th>
+                         
                          <th>Tipo de evento</th>
                          <th>Categoria</th>
+                         <th>Imagen</th>
+                         <th>Modificar Nombre</th>
+                         <th>Eliminar</th>
                     </thead>
                     <tbody>
                         <?php
@@ -27,16 +30,17 @@
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $Event->getId() ?></td>
+                                          
                                             <td><?php echo $Event->getTitle() ?></td>
                                             <td><?php echo $Event->getCategory()->getDescription() ?></td>
                                             <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Event->getNameImg() ?>" width="50" height="50"></td>
                                             
                                             <form action="<?php echo FRONT_ROOT?>event/changeTittle" method="POST">
                                             <input type="hidden" name="id" value="<?php echo $Event->getId() ?>">
-                                            <td><input type="text" name="tittle"></td>
-                                            <td><input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
+                                            <td><input type="text" name="tittle">
+                                            <input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
                                             </form>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>Event/delete/<?php echo $Event->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
 
             
 
@@ -50,16 +54,4 @@
           </div>
      </section>
 
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Evento</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>Event/delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idEvent" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
-          </div>
-     </section>
+    

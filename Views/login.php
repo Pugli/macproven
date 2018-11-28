@@ -18,6 +18,7 @@
             <button class="btn btn-dark btn-block btn-lg" type="submit">
                     Iniciar Sesión
             </button>
+            <a href="<?php echo FRONT_ROOT; ?>User/showAddUser">¿No tiene cuenta? Cree una ahora mismo!</a>
         </form>
     </div>
 </main>

@@ -16,9 +16,9 @@ include("lib/qrcode/qrlib.php");
                <h2 class="mb-4">Listado de artistas</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Id</th>
                          <th>Nombre</th>
                          <th>Modificar Nombre</th>
+                         <th>Eliminar</th>
                     </thead>
                     <tbody>
                     
@@ -29,7 +29,6 @@ include("lib/qrcode/qrlib.php");
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $artist->getId() ?></td>
                                             <td><?php echo $artist->getName() ?></td>
                                             <td>
                                             <form method='post' action='<?php echo FRONT_ROOT ?>artist/changename'>
@@ -38,6 +37,7 @@ include("lib/qrcode/qrlib.php");
                                              <input type='submit' name='button' value='Modificar'>
                                              </form>
                                             </td>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>artist/delete/<?php echo $artist->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
 
                                         </tr>
                                     <?php
@@ -47,19 +47,5 @@ include("lib/qrcode/qrlib.php");
                     
                     </tbody>
                </table>
-          </div>
-     </section>
-
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Artista</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>Artist/Delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idArtist" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
           </div>
      </section>

@@ -10,12 +10,14 @@
 <main class="py-5">
      <section id="listado" class="mb-5">
           <div class="container">
-               <h2 class="mb-4">Listado de Lugares</h2>
+               <h2 class="mb-4">Listado de Escenarios</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Id</th>
+                       
                          <th>Nombre del Lugar</th>
                          <th>Capacidad</th>
+                         <th>Modificar Nombre</th>
+                         <th>Eliminar</th>
                     </thead>
                     <tbody>
                         <?php
@@ -25,9 +27,11 @@
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $eventPlace->getId() ?></td>
+                                            
                                             <td><?php echo $eventPlace->getName() ?></td>
                                             <td><?php echo $eventPlace->getQuantity() ?></td>
+                                            <td></td>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>EventPlace/delete/<?php echo $eventPlace->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
                                 }

@@ -16,12 +16,12 @@
                <h2 class="mb-4">Listado de Calendario</h2>
                <table class="table bg-light-alpha">
                     <thead>
-                        <th>Id</th>
                         <th>Artista</th>
                         <th>Evento</th>
                         <th>Lugar</th>
                         <th>Fecha</th>
                         <th>Imagen</th>
+                        <th>Eliminar</th>
                     </thead>
                     <tbody>
                         <?php
@@ -31,7 +31,6 @@
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $Calendar->getId();?></td>
                                             <?php $artistList = $Calendar->getArtist();?>
                                             <td>
                                             <select name="eventId">
@@ -44,7 +43,8 @@
                                             <td><?php echo $Calendar->getEvent()->getTitle();?></td>
                                             <td><?php echo $Calendar->getEventPlace()->getName();?></td>
                                             <td><?php echo $Calendar->getDate();?></td>
-                                            <td><td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Calendar->getNameImg() ?>" width="50" height="50"></td></td>
+                                            <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Calendar->getNameImg() ?>" width="50" height="50"></td>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>Calendar/delete/<?php echo $Calendar->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
                                 }
@@ -55,16 +55,3 @@
           </div>
      </section>
 
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Calendario</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>Calendar/delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idCategory" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
-          </div>
-     </section>

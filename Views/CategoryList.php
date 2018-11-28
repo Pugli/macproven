@@ -14,8 +14,10 @@
                
                <table class="table bg-light-alpha">
                     <thead>
-                         <th>Id</th>
+                         
                          <th>Tipo de evento</th>
+                         <th>Modificar Tipo de evento</th>
+                         <th>Eliminar</th>
                     </thead>
                     <tbody>
                         <?php
@@ -25,13 +27,14 @@
                                 {
                                     ?>
                                         <tr>
-                                            <td><?php echo $Category->getId() ?></td>
+                                            
                                             <td><?php echo $Category->getDescription() ?></td>
                                             <form action="<?php echo FRONT_ROOT?>category/changeDescription" method="POST">
                                             <input type="hidden" name="id" value="<?php echo $Category->getId() ?>">
-                                            <td><input type="text" name="description"></td>
-                                            <td><input class="btn btn-success ml-3" type="submit" value="cambiar"></td>
+                                            <td><input type="text" name="description">
+                                            <input class="btn btn-success ml-3" type="submit" value="Modificar"></td>
                                             </form>
+                                            <td> <a href="<?php echo FRONT_ROOT ?>Category/delete/<?php echo $Category->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>
                                     <?php
 
@@ -41,19 +44,5 @@
                     </tbody>
                </table>
               
-          </div>
-     </section>
-
-     <section id="eliminar">
-          <div class="container">
-               <h2 class="mb-4">Eliminar Categoria</h2>
-
-               <form method="post" action="<?php echo FRONT_ROOT ?>Category/delete" class="form-inline bg-light-alpha p-5">
-                    <div class="form-group text-white">
-                         <label for="">Id</label>
-                         <input type="text" name="idCategory" value="" class="form-control ml-3">
-                    </div>
-                    <button type="submit" name="button" class="btn btn-danger ml-3">Eliminar</button>
-               </form>
           </div>
      </section>
