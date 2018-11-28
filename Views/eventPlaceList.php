@@ -33,7 +33,7 @@
                                             <td>
                                             <form method='post' action='<?php echo FRONT_ROOT ?>eventPlace/changequantity'>
                                              <input type='hidden' name='id' value="<?php echo $eventPlace->getId(); ?>">
-                                             <input type='text' name='number'>
+                                             <input type='number' name='number'>
                                              <input type='submit' name='button' value='Modificar'>
                                              </form>
                                             </td>

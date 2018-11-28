@@ -150,6 +150,7 @@
             else{
                 echo "<script> if(alert('no existe esa plaza'));</script>";
             }
+            $this->index();
 
         }
         catch(Exception $ex)

@@ -94,15 +94,15 @@
 
         public function changeQuantity($id,$quantity)
         {
-            try{
-            if($this->daoEventPlaces->checkEventPlaceById($id) != null){
-            $this->daoEventPlaces->changeQuantity($id,$quantity);
-            }
-            else{
-                echo "<script> if(alert('no existe ese lugar'));</script>";
-            }
+            try
+            {
+                if ($this->daoCalendar->checkCalendarByEventPlace($id) == false){
+                $this->daoEventPlaces->changeQuantity($id,$quantity);
+                }
+                else{
+                    echo "<script> if(alert('No es posible modifcar el Lugar, Hay fechas posteriores en el mismo o no existe'));</script>";
+                }
                 $this->index();
-
             }
             catch(Exception $ex)
             {
@@ -119,6 +119,7 @@
             else{
                 echo "<script> if(alert('no existe ese lugar'));</script>";
             }
+            $this->index();
 
         }
         catch(Exception $ex)

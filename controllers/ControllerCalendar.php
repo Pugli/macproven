@@ -134,7 +134,7 @@ class ControllerCalendar{
                 else{
                     echo "<script> if(alert('no existe ese calendario'));</script>";
                 }
-    
+                $this->index();
             }
             catch(Exception $ex)
             {

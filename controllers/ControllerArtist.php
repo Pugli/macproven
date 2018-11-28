@@ -101,13 +101,19 @@
         public function changeName($id,$name)
         {
             try
-            {            
-                $this->DaoArtist->changeName($id,$name);
+            {
+                if($this->daoCalendar->checkCalendarByArtist($id) == false){
+                    $this->DaoArtist->changeName($id,$name);
+                }
+                else{
+                    echo "<script> if(alert('Imposible modificar, Hay calendarios con este artista.'));</script>";
+                }
 
                 $this->showArtistList();
             }
             catch(Exception $ex){
                 echo "<script> if(alert('algo fallo'));</script>";
+                $this->index();
             }
         }
     }

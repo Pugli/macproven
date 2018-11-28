@@ -210,8 +210,15 @@ try{
         public function changeTittle($id,$tittle)
         {
             try{
-
-                $this->daoEvent->changeName($id,$tittle);
+                if($this->daoCalendar->checkCalendarsFutureByEvent($id) == false)
+                {
+                    $this->daoEvent->changeName($id,$tittle);
+                }
+                else
+                {
+                    echo "<script> if(alert('No es posible cambiar el evento. Hay fechas futuras'));</script>";
+                }
+                $this->index();
             
         }
         catch(Exception $ex)
@@ -227,11 +234,19 @@ try{
                 try{
                   
                 if($this->daoEvent->checkEventById($id) != null){
-                    $this->daoEvent->changeCategory($id,$idC);
+                    if($this->daoCalendar->checkCalendarsFutureByEvent($idEvent) == false)
+                    {
+                        $this->daoEvent->changeCategory($id,$idC);
+                    }
+                    else
+                    {
+                        echo "<script> if(alert('No es posible cambiar el evento. Hay fechas futuras'));</script>";
+                    }
                 }
                 else{
                     echo "<script> if(alert('no existe ese evento'));</script>";
                 }
+                $this->index();
     
             }
             catch(Exception $ex)

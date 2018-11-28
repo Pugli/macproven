@@ -15,8 +15,8 @@
                <table class="table bg-light-alpha">
                     <thead>
                          
-                         <th>Tipo de evento</th>
-                         <th>Modificar Tipo de evento</th>
+                         <th>Nombre de Categoria</th>
+                         <th>Modificar Categoria</th>
                          <th>Eliminar</th>
                     </thead>
                     <tbody>

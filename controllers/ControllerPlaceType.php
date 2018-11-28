@@ -102,6 +102,7 @@ class controllerPlaceType{
             else{
                 echo "<script> if(alert('no existe ese sitio'));</script>";
             }
+            $this->index();
 
         }
         catch(Exception $ex)

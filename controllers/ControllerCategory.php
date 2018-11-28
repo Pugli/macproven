@@ -100,20 +100,26 @@
         } 
         }
 
+
         public function changeDescription($id,$description)
         {
-            try{
-            
-            $this->daoCategory->changeName($id,$description);
-            $this->showCategoryList();
-           
+            try
+            {
+                if ($this->daoEvent->checkEventByCategory($id) == false)
+                {
+                    $this->daoCategory->changeName($id,$description);
+                }
+                else{
+                    echo "<script> if(alert('No se puede modificar la categoria: Hay eventos que la contienen'));</script>";
+                }
 
-        }
-        catch(Exception $ex)
-        {
-            echo "<script> if(alert('Upps! algo fallo'));</script>";
-            $this->index();
-        } 
+                $this->index();
+            }
+            catch(Exception $ex)
+            {
+                echo "<script> if(alert('Upps! algo fallo'));</script>";
+                $this->index();
+            } 
         }
     }
 
