@@ -56,7 +56,7 @@
                                             <td><?php echo $Calendar->getDate();?></td>
                                             <td>
                                             <form method='post' action='<?php echo FRONT_ROOT ?>calendar/changeDate'>
-                                             <input type='hidden' name='id' value="<?php echo $artist->getId(); ?>">
+                                             <input type='hidden' name='id' value="<?php echo $Calendar->getId(); ?>">
                                              <input type="date" name="date" min="<?php echo date("Y-m-d") ?>" required/>
                                              <input type='submit' name='button' value='Modificar'>
                                              </form>
