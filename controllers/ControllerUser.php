@@ -14,6 +14,11 @@
         {
             $this->userDao = new DaoUserPdo;
         }
+
+        public function index()
+        {
+            $this->showLogin();
+        }
         
         public function showLogin()
         {
@@ -89,7 +94,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
         
@@ -104,7 +109,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -125,7 +130,7 @@ try{
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
         

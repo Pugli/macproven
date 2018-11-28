@@ -47,7 +47,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -58,7 +58,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -74,7 +74,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -85,7 +85,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -96,7 +96,7 @@
             catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
 
@@ -112,7 +112,7 @@
         catch(Exception $ex)
         {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
+            $this->index();
         } 
         }
     }
