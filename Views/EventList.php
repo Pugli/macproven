@@ -59,7 +59,7 @@
      </section>     
 
        <div class="container">
-        <p class="text-center"><h2>Dar de alta una Categoria</h2></p>
+        <p class="text-center"><h2>Dar de alta un Evento</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>/Event/addEvent" method="POST" enctype="multipart/form-data">
         <br>
         <table class="table bg-light-alfa">
