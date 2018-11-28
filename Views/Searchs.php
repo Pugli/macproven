@@ -1,3 +1,14 @@
+<?php namespace views;
+ use dao\DaoCategoryPdo as DaoCategoryPdo;
+ use dao\DaoArtistPdo as DaoArtistPdo;
+
+ $categoryDao = new DaoCategoryPdo();
+ $artistDao = new DaoArtistPdo();
+
+ $arrayCategory = $categoryDao->getAllActives();
+ $arrayArtist = $artistDao->getAllActives();
+?>
+
 <html>
 <head>
     <meta charset="utf-8" />

@@ -25,7 +25,7 @@
     
     <tr>
     
-        <td>Fecha: <input type="date" name="date"/></td>
+        <td>Fecha: <input type="date" name="date" min="<?php echo date("Y-m-d") ?>" required/></td>
         
         <td>Artista: 
             <br>
