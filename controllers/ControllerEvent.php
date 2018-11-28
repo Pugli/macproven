@@ -90,7 +90,7 @@
             }
            else{
             echo "<script> if(alert('No existen eventos para esa fecha'));</script>";
-            include_once VIEWS_PATH .'Home.php';
+            include_once VIEWS_PATH .'Searchs.php';
             } 
 
         }
@@ -109,7 +109,7 @@
             }
            else{
             echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
-            include_once VIEWS_PATH .'Home.php';
+            include_once VIEWS_PATH .'Searchs.php';
             } 
 
         }

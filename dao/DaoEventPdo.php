@@ -214,9 +214,6 @@
                 INNER JOIN calendars AS cal ON e.id_event=cal.fk_id_event
                 WHERE c.id_category=:id";
 
-                echo $query;
-                 
-                
                 $parameters["id"]=$id;
 
                 $this->connection = Connection::GetInstance();
