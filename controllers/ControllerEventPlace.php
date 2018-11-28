@@ -101,6 +101,7 @@
             else{
                 echo "<script> if(alert('no existe ese lugar'));</script>";
             }
+                $this->index();
 
             }
             catch(Exception $ex)
