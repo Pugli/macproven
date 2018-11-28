@@ -30,6 +30,7 @@
                         <th>Evento</th>
                         <th>Lugar</th>
                         <th>Fecha</th>
+                        <th>Modificar Fecha</th>
                         <th>Imagen</th>
                         <th>Eliminar</th>
                     </thead>
@@ -53,6 +54,13 @@
                                             <td><?php echo $Calendar->getEvent()->getTitle();?></td>
                                             <td><?php echo $Calendar->getEventPlace()->getName();?></td>
                                             <td><?php echo $Calendar->getDate();?></td>
+                                            <td>
+                                            <form method='post' action='<?php echo FRONT_ROOT ?>calendar/changeDate'>
+                                             <input type='hidden' name='id' value="<?php echo $artist->getId(); ?>">
+                                             <input type="date" name="date" min="<?php echo date("Y-m-d") ?>" required/>
+                                             <input type='submit' name='button' value='Modificar'>
+                                             </form>
+                                            </td>
                                             <td><img src="<?php echo FRONT_ROOT.UPLOADS_PATH.$Calendar->getNameImg() ?>" width="50" height="50"></td>
                                             <td> <a href="<?php echo FRONT_ROOT ?>Calendar/delete/<?php echo $Calendar->getId() ?>"><img src="<?php echo IMG_PATH ?>trash.png" width="20" heigth="20"></a></td>
                                         </tr>

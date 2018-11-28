@@ -126,14 +126,16 @@ class ControllerCalendar{
         public function changeDate($id,$date)
         {
         
-                try{
-                  
-                if($this->daoCalendar->checkCalendarById($id) != null){
-                    $this->daoCalendar->changeDate($id,$date);
-                }
-                else{
-                    echo "<script> if(alert('no existe ese calendario'));</script>";
-                }
+            try{
+                    if($this->daoCalendar->checkEventSeatByCalendar($id) == false)
+                    {
+                        $this->daoCalendar->changeDate($id,$date);
+                    }
+                    else 
+                    {
+                        echo "<script> if(alert('No es posible modificar esta fecha. Hay entradas a la ventas'));</script>";
+                    }
+                
                 $this->index();
             }
             catch(Exception $ex)
