@@ -173,7 +173,7 @@
         {
             $arrayEvent = array();
             try{
-                $query = "SELECT e.title as titulo ,e.id_event as id,ca.category as categoria, ca.id_category as idC FROM events AS e
+                $query = "SELECT e.title as titulo ,e.id_event as id,ca.category as categoria, ca.id_category as idC, e.imagepath as imagePath FROM events AS e
                 INNER JOIN calendars AS c ON c.fk_id_event=e.id_event 
                 INNER JOIN categories AS ca ON ca.id_category=e.FK_CATEGORY
                 WHERE c.dateevent=:date;";
@@ -194,6 +194,7 @@
                     $event->setTitle($row["titulo"]);
                     $event->setId($row["id"]);
                     $event->setCategory($category);
+                    $event->setNameImg($row['imagePath']);
 
                     array_push($arrayEvent,$event);
 
@@ -209,9 +210,11 @@
         {
             $arrayEvent = array();
             try{
-                $query = "SELECT e.title AS titulo,e.id_event AS id,c.category AS categoria,  c.id_category as idC FROM events AS e 
+
+               
+
+                $query = "SELECT e.title AS titulo,e.id_event AS id,c.category AS categoria, e.imagepath as imagePath, c.id_category as idC FROM events AS e 
                 INNER JOIN categories AS c ON e.FK_CATEGORY=c.id_category 
-                INNER JOIN calendars AS cal ON e.id_event=cal.fk_id_event
                 WHERE c.id_category=:id";
 
                 $parameters["id"]=$id;
@@ -223,13 +226,16 @@
                 
 
                 foreach($resultSet as $row){
+
                     $category = new Category();
                     $category->setId($row["idC"]);
                     $category->setDescription($row["categoria"]);
+
                     $event = new Event();
                     $event->setTitle($row["titulo"]);
                     $event->setId($row["id"]);
                     $event->setCategory($category);
+                    $event->setNameImg($row['imagePath']);
                     
                     array_push($arrayEvent,$event);
                 }
@@ -240,7 +246,7 @@
             }
         }
 
-        public function checkEventByCategory($idCategory) // Dao Event // TRUE O FALSE.
+        public function checkEventByCategory($idCategory) 
         {
             try{
             $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1 AND fk_category = :id";
@@ -307,7 +313,7 @@
         {
             $arrayEvent = array();
             try{
-                $query = "SELECT e.TITLE as 'titulo', e.id_event as 'id', ca.category as 'categoria', ca.ID_CATEGORY as 'idC' FROM EVENTS AS e 
+                $query = "SELECT e.TITLE as 'titulo', e.id_event as 'id', ca.category as 'categoria', e.imagepath as imagePath, ca.ID_CATEGORY as 'idC' FROM EVENTS AS e 
                 INNER JOIN CATEGORIES AS ca ON e.FK_CATEGORY=ca.id_category
                 INNER JOIN CALENDARS AS C ON e.ID_EVENT=c.fk_id_event 
                 INNER JOIN artistsXCalendars AS AC ON c.id_calendar=ac.pfk_id_calendar 
@@ -323,13 +329,16 @@
                 
 
                 foreach($resultSet as $row){
+
                     $category = new Category();
                     $category->setId($row["idC"]);
                     $category->setDescription($row["categoria"]);
+
                     $event = new Event();
                     $event->setTitle($row["titulo"]);
                     $event->setId($row["id"]);
                     $event->setCategory($category);
+                    $event->setNameImg($row['imagePath']);
                     
                     array_push($arrayEvent,$event);
                 }

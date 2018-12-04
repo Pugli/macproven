@@ -176,7 +176,9 @@
                 
                 $calendarList = $this->generateCalendar($resultSet);
 
-                return $calendarList[0];
+                $firstElement = reset($calendarList);
+
+                return $firstElement;
             }
             catch(Exception $ex)
             {
