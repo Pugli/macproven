@@ -57,9 +57,13 @@
 
                 $tickets = array();
                 foreach($currentPurchaseLines as $purchaseLine){
+                    if($purchaseLine->getQuantity() <= $purchaseLine->getEventSeat()->getQuantityAvailable() - $this->daoTicket->ticketsSold($purchaseLine->getEventSeat()->getId())){
                     $this->daoPurchaseLine->add($purchaseLine,$purchase->getId());
                     $purchaseLineWithId = $this->daoPurchaseLine->getLastPurchaseLine();
                     $tickets = $this->generateTickets($tickets,$purchaseLineWithId);
+                    }else{
+                        echo '<script> if(alert("Las entradas del evento: '.$purchaseLine->getEventSeat()->getCalendar()->getEvent()->getTitle().' Con Fecha '.$purchaseLine->getEventSeat()->getCalendar()->getDate().' Se exedieron del remanente"));</script>';
+                    }
                 }
                 $this->daoCurrentPurchase->reset();
                 $this->showTicketList();
