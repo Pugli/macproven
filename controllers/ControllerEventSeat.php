@@ -164,6 +164,7 @@ try{
                 include_once VIEWS_PATH.'showEventSeatsForCalendar.php';
             }else{
                 echo "<script> if(alert('No hay entradas a la venta!'));</script>";
+                include_once VIEWS_PATH .'home.php';
             }
         }
         catch(Exception $ex)
