@@ -71,7 +71,7 @@
             }
             else
             {
-                echo "No hay compras en tu carrito";
+                echo "<script> if(alert('No hay compras en el carrito'));</script>";
             }
                 include_once VIEWS_PATH."home.php";
         }
