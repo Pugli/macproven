@@ -47,15 +47,8 @@ class ControllerEventSeat
     public function addEventSeat($calendarId, $placeTypeId, $quantity, $price)
     {
         try {
-            /*   var_dump($calendarId);
-            var_dump($placeTypeId);
-            var_dump($quantity);
-            var_dump($price); */
+
             for ($i = 0; $i < 5; $i++) {
-                /*  var_dump($calendarId[$i]);
-                var_dump($placeTypeId[$i]);
-                var_dump($quantity[$i]);
-                var_dump($price[$i]); */
 
                 if (!empty($calendarId) && !empty($placeTypeId) && !empty($quantity) && !empty($price)) {
 
@@ -162,10 +155,14 @@ class ControllerEventSeat
         try {
             $calendar = $this->daoCalendar->checkCalendarById($calendarId);
             $eventSeats = $this->daoEventSeat->getEventSeatByCalendar($calendarId);
-            foreach ($eventSeats as $eventSeat) {
-                $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
+            if (!empty($eventSeats)) {
+                foreach ($eventSeats as $eventSeat) {
+                    $eventSeat->setRemaind($eventSeat->getQuantityAvailable() - $this->daoTicket->ticketsSold($eventSeat->getId()));
+                }
+                include_once VIEWS_PATH . 'showEventSeatsForCalendar.php';
+            } else {
+                echo "<script> if(alert('No hay entradas a la venta!'));</script>";
             }
-            include_once VIEWS_PATH . 'showEventSeatsForCalendar.php';
         } catch (Exception $ex) {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
             $this->index();

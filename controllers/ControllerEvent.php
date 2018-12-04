@@ -115,10 +115,7 @@ class ControllerEvent
     {
         try {
             if (($arrayEvent = $this->daoEvent->checkEventForDateDao($date)) != null) {
-                include_once VIEWS_PATH . "listCheckEventForDate.php";
-            } else {
-                echo "<script> if(alert('No existen eventos para esa fecha'));</script>";
-                include_once VIEWS_PATH . 'Searchs.php';
+                include_once VIEWS_PATH . "listEventSearched.php";
             }
         } catch (Exception $ex) {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
@@ -142,10 +139,7 @@ class ControllerEvent
     {
         try {
             if (($arrayEvent = $this->daoEvent->checkEventForCategoryDao($id)) != null) {
-                include_once VIEWS_PATH . "listCheckEventForDate.php";
-            } else {
-                echo "<script> if(alert('No existen eventos de esa categoria'));</script>";
-                include_once VIEWS_PATH . 'Searchs.php';
+                include_once VIEWS_PATH . "listEventSearched.php";
             }
         } catch (Exception $ex) {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
@@ -232,21 +226,20 @@ class ControllerEvent
             echo "<script> if(alert('Upps! algo fallo'));</script>";
             $this->index();
         }
-
     }
     public function checkEventForArtist($id)
     {
         try {
             if (($arrayEvent = $this->daoEvent->checkEventForArtistDao($id)) != null) {
-                include_once VIEWS_PATH . "listCheckEventForDate.php";
+                include_once VIEWS_PATH . "listEventSearched.php";
             } else {
                 echo "<script> if(alert('No existen eventos con ese artista'));</script>";
                 include_once VIEWS_PATH . 'Searchs.php';
             }
+
         } catch (Exception $ex) {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
             $this->index();
         }
     }
-
 }
