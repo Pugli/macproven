@@ -1,169 +1,153 @@
 <?php
-    namespace dao;
-    
-    use dao\IDaoCategory as IDaoCategory;
-    use Model\Category as Category;
-    use \Exception as Exception;
-    use Dao\Connection as Connection;
+namespace dao;
 
-    class DaoCategoryPdo implements IDaoCategory
+use Dao\Connection as Connection;
+use dao\IDaoCategory as IDaoCategory;
+use Model\Category as Category;
+use \Exception as Exception;
+
+class DaoCategoryPdo implements IDaoCategory
+{
+    private $connection;
+    private $tableName = "categories";
+
+    public function add(Category $category)
     {
-        private $connection;
-        private $tableName = "categories";
-
-
-        public function add(Category $category)
+        try
         {
-            try
-            {
-                $query = "INSERT INTO ".$this->tableName." (category) VALUES (:category);";
-                $parameters["category"] = $category->getDescription();
+            $query = "INSERT INTO " . $this->tableName . " (category) VALUES (:category);";
+            $parameters["category"] = $category->getDescription();
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters);
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function getAll()
+    public function getAll()
+    {
+        try
         {
-            try
-            {
-                $categoryList = array();
+            $categoryList = array();
 
-                $query = "SELECT * FROM ".$this->tableName;
+            $query = "SELECT * FROM " . $this->tableName;
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
-                
-                foreach ($resultSet as $row)
-                {                
-                    $category = new Category();
-                    $category->setDescription($row["category"]);
-                    $category->setId($row['id_category']);
+            $resultSet = $this->connection->Execute($query);
 
-                    array_push($categoryList, $category);
-                }
+            foreach ($resultSet as $row) {
+                $category = new Category();
+                $category->setDescription($row["category"]);
+                $category->setId($row['id_category']);
 
-                return $categoryList;
+                array_push($categoryList, $category);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $categoryList;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function getAllActives()
+    public function getAllActives()
+    {
+        try
         {
-            try
-            {
-                $categoryList = array();
+            $categoryList = array();
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1";
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
-                
-                foreach ($resultSet as $row)
-                {                
-                    $category = new Category();
-                    $category->setDescription($row["category"]);
-                    $category->setId($row['id_category']);
+            $resultSet = $this->connection->Execute($query);
 
-                    array_push($categoryList, $category);
-                }
+            foreach ($resultSet as $row) {
+                $category = new Category();
+                $category->setDescription($row["category"]);
+                $category->setId($row['id_category']);
 
-                return $categoryList;
+                array_push($categoryList, $category);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $categoryList;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function checkCategory($categoryname)
+    public function checkCategory($categoryname)
+    {
+        try
         {
-            try
-            {
-                $category = null;
+            $category = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE category = :category && isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE category = :category && isActive = 1";
 
-                $parameters["category"] = $categoryname;
+            $parameters["category"] = $categoryname;
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query, $parameters);
-                
-                foreach ($resultSet as $row)
-                {
-                    $category = new Category();
-                    $category->setDescription($row["category"]);
-                    $category->setId($row["id_category"]);
-                }
-                            
-                return $category;
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $category = new Category();
+                $category->setDescription($row["category"]);
+                $category->setId($row["id_category"]);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $category;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function checkCategoryById($categoryId){
-            try
-            {
-                $category = null;
-
-                $query = "SELECT * FROM ".$this->tableName." WHERE id_category = :category";
-
-                $parameters["category"] = $categoryId;
-
-                $this->connection = Connection::GetInstance();
-
-                $resultSet = $this->connection->Execute($query, $parameters);
-                
-                foreach ($resultSet as $row)
-                {
-                    $category = new Category();
-                    $category->setDescription($row["category"]);
-                    $category->setId($row["id_category"]);
-                }
-                return $category;
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
-        }
-
-        public function delete($idCategory)
+    public function checkCategoryById($categoryId)
+    {
+        try
         {
-            try
-            {
-                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_category = :idCategory";
-            
-                $parameters["idCategory"] = $idCategory;
+            $category = null;
 
-                $this->connection = Connection::GetInstance();
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_category = :category";
 
-                $this->connection->ExecuteNonQuery($query, $parameters);   
+            $parameters["category"] = $categoryId;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $category = new Category();
+                $category->setDescription($row["category"]);
+                $category->setId($row["id_category"]);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }            
+            return $category;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function changeName($id, $name)
+    public function delete($idCategory)
+    {
+        try
         {
-            try{
+            $query = "UPDATE " . $this->tableName . " SET isActive = 0 WHERE id_category = :idCategory";
+
+            $parameters["idCategory"] = $idCategory;
+
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function changeName($id, $name)
+    {
+        try {
             $query = 'UPDATE ' . $this->tableName . ' SET category = :name WHERE id_category = :id';
 
             $parameters['name'] = $name;
@@ -172,11 +156,8 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }   
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
-?>
+}
