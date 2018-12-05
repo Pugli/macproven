@@ -33,7 +33,9 @@
 
         public function addEventPlace($name, $quantity){
             try{
+                if($quantity>0){
             if ($this->daoEventPlaces->checkEventPlace($name) == null){
+
                 $newEventPlace = new EventPlace();
                 $newEventPlace->setName($name);
                 $newEventPlace->setQuantity($quantity);
@@ -44,6 +46,10 @@
 
                 echo "<script> if(alert('El lugar Ya existe'));</script>";
             }
+        }
+        else{
+            echo "<script> if(alert('No se pueden cargar numeros menores a 0'));</script>";
+        }
             $this->showEventPlaceList();
         }
         catch(Exception $ex)

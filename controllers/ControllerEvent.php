@@ -149,7 +149,7 @@ try{
         public function checkEventForCategory($id)
         {
             try{
-           if(($arrayEvent=$this->daoEvent->checkEventForCategoryDao($id)) != null){
+           if(($arrayEvent=$this->daoEvent->checkEventForCategoryDao($id)) != null){   
             include_once VIEWS_PATH."listEventSearched.php";
             }
            else{
@@ -198,7 +198,13 @@ try{
             try{
             $event = $this->daoEvent->checkEventById($eventId);
             $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
-            include_once VIEWS_PATH."showCalendarsForEvent.php";
+            if(!empty($calendarsForEvent)){
+                include_once VIEWS_PATH."showCalendarsForEvent.php";
+            }
+            else{
+                echo "<script> if(alert('No se encuentran disponibles fechas para el evento'));</script>";
+                include_once VIEWS_PATH."searchs.php";
+            }
             }
             catch(Exception $ex)
         {
