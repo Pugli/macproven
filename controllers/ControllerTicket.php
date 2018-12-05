@@ -1,31 +1,28 @@
 <?php
-    namespace controllers;
+namespace controllers;
 
-    use Model\Ticket as Ticket;
-    use dao\DaoTicketPdo as DaoTicketPdo;
-    use \Exception as Exception;
+use dao\DaoTicketPdo as DaoTicketPdo;
+use \Exception as Exception;
 
-    class ControllerTicket{
+class ControllerTicket
+{
 
-        private $daoTicket;
+    private $daoTicket;
 
-        public function __construct(){
-            $this->daoTicket = new DaoTicketPdo;
-        }
-
-        public function showGetTicketsFromClient(){
-            try{
-            $client = $_SESSION["userLogged"];
-            $tickets = $this->daoTicket->getTicketsFromClient($client->getId());
-            require_once VIEWS_PATH."myTickets.php";
-            }
-            catch(Exception $ex)
-        {
-            echo "<script> if(alert('Upps! algo fallo'));</script>";
-            include_once VIEWS_PATH . 'home.php';
-        } 
-        }
+    public function __construct()
+    {
+        $this->daoTicket = new DaoTicketPdo;
     }
 
-
-?>
+    public function showGetTicketsFromClient()
+    {
+        try {
+            $client = $_SESSION["userLogged"];
+            $tickets = $this->daoTicket->getTicketsFromClient($client->getId());
+            require_once VIEWS_PATH . "myTickets.php";
+        } catch (Exception $ex) {
+            echo "<script> if(alert('Upps! algo fallo'));</script>";
+            include_once VIEWS_PATH . 'home.php';
+        }
+    }
+}

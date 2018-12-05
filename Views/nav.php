@@ -14,9 +14,6 @@
           <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>PurchaseLine/showCurrentPurchaseLines">Mi carrito</a>
           </li>
-          <li class="nav-item">
-               <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Purchase/addPurchase">Confirmar Compra</a>
-          </li>
          <?php }else { ?>
             <li class="nav-item">
                <a class="nav-link" href="<?php echo FRONT_ROOT; ?>Home/extranet">Extranet</a>

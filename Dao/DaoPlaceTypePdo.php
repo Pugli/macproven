@@ -1,169 +1,154 @@
 <?php
-    namespace dao;
-    
-    use Dao\IdaoPlaceType as IdaoPlaceType;
-    use Model\PlaceType as PlaceType;
-    use \Exception as Exception;
-    use Dao\Connection as Connection;
+namespace dao;
 
-    class DaoPlaceTypePdo implements IDaoPlaceType
+use Dao\Connection as Connection;
+use Dao\IdaoPlaceType as IdaoPlaceType;
+use Model\PlaceType as PlaceType;
+use \Exception as Exception;
+
+class DaoPlaceTypePdo implements IDaoPlaceType
+{
+    private $connection;
+    private $tableName = "PlaceType";
+
+    public function add(PlaceType $PlaceType)
     {
-        private $connection;
-        private $tableName = "PlaceType";
-
-        public function add(PlaceType $PlaceType)
+        try
         {
-            try
-            {
-                $query = "INSERT INTO ".$this->tableName." (description) VALUES (:description);";
-                $parameters["description"] = $PlaceType->getDescription();
+            $query = "INSERT INTO " . $this->tableName . " (description) VALUES (:description);";
+            $parameters["description"] = $PlaceType->getDescription();
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters);
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function getAll()
+    public function getAll()
+    {
+        try
         {
-            try
-            {
-                $TypePlaceList = array();
+            $TypePlaceList = array();
 
-                $query = "SELECT * FROM ".$this->tableName;
+            $query = "SELECT * FROM " . $this->tableName;
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
-                
-                foreach ($resultSet as $row)
-                {                
-                    $PlaceType = new PlaceType();
-                    $PlaceType->setDescription($row["description"]);
-                    $PlaceType->setId($row['id_placetype']);
+            $resultSet = $this->connection->Execute($query);
 
-                    array_push($TypePlaceList, $PlaceType);
-                }
+            foreach ($resultSet as $row) {
+                $PlaceType = new PlaceType();
+                $PlaceType->setDescription($row["description"]);
+                $PlaceType->setId($row['id_placetype']);
 
-                return $TypePlaceList;
+                array_push($TypePlaceList, $PlaceType);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $TypePlaceList;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function getAllActives()
+    public function getAllActives()
+    {
+        try
         {
-            try
-            {
-                $TypePlaceList = array();
+            $TypePlaceList = array();
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE isActive = 1";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE isActive = 1";
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query);
-                
-                foreach ($resultSet as $row)
-                {                
-                    $PlaceType = new PlaceType();
-                    $PlaceType->setDescription($row["description"]);
-                    $PlaceType->setId($row['id_placetype']);
+            $resultSet = $this->connection->Execute($query);
 
-                    array_push($TypePlaceList, $PlaceType);
-                }
+            foreach ($resultSet as $row) {
+                $PlaceType = new PlaceType();
+                $PlaceType->setDescription($row["description"]);
+                $PlaceType->setId($row['id_placetype']);
 
-                return $TypePlaceList;
+                array_push($TypePlaceList, $PlaceType);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $TypePlaceList;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function checkDescription($description)
+    public function checkDescription($description)
+    {
+        try
         {
-            try
-            {
-                $placeType = null;
+            $placeType = null;
 
-                $query = "SELECT * FROM ".$this->tableName." WHERE description = :description";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE description = :description";
 
-                $parameters["description"] = $description;
+            $parameters["description"] = $description;
 
-                $this->connection = Connection::GetInstance();
+            $this->connection = Connection::GetInstance();
 
-                $resultSet = $this->connection->Execute($query, $parameters);
-                
-                foreach ($resultSet as $row)
-                {
-                    $placeType = new PlaceType();
-                    $placeType->setDescription($row["description"]);
-                    $placeType->setId($row["id_placetype"]);
-                }
-                            
-                return $placeType;
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $placeType = new PlaceType();
+                $placeType->setDescription($row["description"]);
+                $placeType->setId($row["id_placetype"]);
             }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
+
+            return $placeType;
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function delete($idPlaceType)
+    public function delete($idPlaceType)
+    {
+        try
         {
-            try
-            {
-                $query = "UPDATE ".$this->tableName." SET isActive = 0 WHERE id_placetype = :idPlaceType";
-            
-                $parameters["idPlaceType"] = $idPlaceType;
+            $query = "UPDATE " . $this->tableName . " SET isActive = 0 WHERE id_placetype = :idPlaceType";
 
-                $this->connection = Connection::GetInstance();
+            $parameters["idPlaceType"] = $idPlaceType;
 
-                $this->connection->ExecuteNonQuery($query, $parameters);   
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }            
+            $this->connection = Connection::GetInstance();
+
+            $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
         }
+    }
 
-        public function checkPlaceTypeById ($idPlaceType){
-            try
-            {
-                $placeType = null;
-
-                $query = "SELECT * FROM ".$this->tableName." WHERE id_placetype = :id_placetype";
-
-                $parameters["id_placetype"] = $idPlaceType;
-
-                $this->connection = Connection::GetInstance();
-
-                $resultSet = $this->connection->Execute($query, $parameters);
-                
-                foreach ($resultSet as $row)
-                {
-                    $placeType = new PlaceType();
-                    $placeType->setDescription($row["description"]);
-                    $placeType->setId($row["id_placetype"]);
-                }
-                            
-                return $placeType;
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }
-        }
-
-        public function changeDescription($id, $description)
+    public function checkPlaceTypeById($idPlaceType)
+    {
+        try
         {
-            try{
+            $placeType = null;
+
+            $query = "SELECT * FROM " . $this->tableName . " WHERE id_placetype = :id_placetype";
+
+            $parameters["id_placetype"] = $idPlaceType;
+
+            $this->connection = Connection::GetInstance();
+
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            foreach ($resultSet as $row) {
+                $placeType = new PlaceType();
+                $placeType->setDescription($row["description"]);
+                $placeType->setId($row["id_placetype"]);
+            }
+
+            return $placeType;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function changeDescription($id, $description)
+    {
+        try {
             $query = 'UPDATE ' . $this->tableName . ' SET description = :description WHERE id_placetype = :id';
 
             $parameters['description'] = $description;
@@ -172,11 +157,8 @@
             $this->connection = Connection::GetInstance();
 
             $this->connection->ExecuteNonQuery($query, $parameters);
-            }
-            catch(Exception $ex)
-            {
-                throw $ex;
-            }   
+        } catch (Exception $ex) {
+            throw $ex;
         }
     }
-?>
+}
