@@ -24,7 +24,7 @@
     </div>
 
     <div class="container">
-        <div class="row  ">
+        <div class="row">
             <div class="col-md-4">
             <h3 class="text-primary " >Consultar por Categoria:</h3>
             <form  action="<?php echo FRONT_ROOT; ?>/event/checkEventForCategory" method="POST"><br>
