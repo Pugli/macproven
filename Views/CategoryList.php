@@ -51,7 +51,7 @@
         <p class="text-center"><h2>Dar de alta una Categoria</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>/Category/addCategory" method="POST">
             <br>
-            <td> Tipo de evento: <input type="text" name="category"/> </td> 
+            <td> Tipo de evento: <input type="text" name="category" required/> </td> 
             <td><input type="submit" value="Enviar" class="btn btn-info"/> </td>
         </form>
     </div>

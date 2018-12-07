@@ -52,8 +52,8 @@
         <p class="text-center"><h2>Dar de alta un Escenario</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>/EventPlace/addEventPlace" method="POST">
             <br>
-            <td> Lugar de Evento: <input type="text" name="eventPlace"/> </td> 
-            <td> Capacidad: <input type="text" name="Quantity"/> </td> 
+            <td> Lugar de Evento: <input type="text" name="eventPlace" required/> </td> 
+            <td> Capacidad: <input type="number" name="Quantity" min="1" required/> </td> 
             <td><input type="submit" value="Enviar" class="btn btn-info"/> </td>
         </form>
     </div>

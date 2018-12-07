@@ -49,7 +49,7 @@
         <p class="text-center"><h2>Dar de alta un Tipo de Plaza</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>PlaceType/addPlaceType"  method="post">
             <br>
-            <td> Descripcion: <input type="text" name="description"/> </td> 
+            <td> Descripcion: <input type="text" name="description" required/> </td> 
             <td><input type="submit" value="Enviar" class="btn btn-info"/> </td>
         </form>
     </div>

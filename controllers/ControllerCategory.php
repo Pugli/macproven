@@ -38,14 +38,20 @@ class ControllerCategory
     public function addCategory($category)
     {
         try {
-            if ($this->daoCategory->checkCategory($category) == null) {
-                $newCategory = new Category;
-                $newCategory->setDescription($category);
-                $this->daoCategory->add($newCategory);
-                echo "<script> if(alert('Nueva Categoria ingresada!'));</script>";
-            } else {
-
-                echo "<script> if(alert('La Categoria Ya existe'));</script>";
+            if($category != null)
+            {
+                if ($this->daoCategory->checkCategory($category) == null) {
+                    $newCategory = new Category;
+                    $newCategory->setDescription($category);
+                    $this->daoCategory->add($newCategory);
+                    echo "<script> if(alert('Nueva Categoria ingresada!'));</script>";
+                } else {
+    
+                    echo "<script> if(alert('La Categoria Ya existe'));</script>";
+                }
+            }
+            else {
+                echo "<script> if(alert('Complete el nombre de la categoria'));</script>";
             }
             $this->showCategoryList();
         } catch (Exception $ex) {

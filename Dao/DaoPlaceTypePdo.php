@@ -84,7 +84,7 @@ class DaoPlaceTypePdo implements IDaoPlaceType
         {
             $placeType = null;
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE description = :description";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE description = :description AND isActive = 1";
 
             $parameters["description"] = $description;
 

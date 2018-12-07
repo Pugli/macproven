@@ -39,8 +39,8 @@
                 <?php }?>
             </select>
         </td>
-        <td>Cantidad: <input type="number" name="quantity[]"> </td>
-        <td>Precio: <input type="number" name="price[]"> </td>
+        <td>Cantidad: <input type="number" name="quantity[]" min='1'> </td>
+        <td>Precio: <input type="number" name="price[]" min='1'> </td>
         <br>
     </tr> <?php
     } ?>

@@ -53,7 +53,7 @@ include("lib/qrcode/qrlib.php");
         <p class="text-center"><h2>Dar de alta un Artista</h2></p>
         <form action="<?php echo FRONT_ROOT; ?>/Artist/addArtist" method="POST">
             <br>
-            <td> Nombre: <input type="text" name="name"/> </td> 
+            <td> Nombre: <input type="text" name="name" /> </td> 
             <td><input type="submit" value="Enviar" class="btn btn-info"/> </td>
         </form>
     </div>

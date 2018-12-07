@@ -84,7 +84,7 @@ class DaoArtistPdo implements IDaoArtist
         {
             $artist = null;
 
-            $query = "SELECT * FROM " . $this->tableName . " WHERE name = :name";
+            $query = "SELECT * FROM " . $this->tableName . " WHERE name = :name AND isActive = 1";
 
             $parameters["name"] = $name;
 

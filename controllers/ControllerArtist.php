@@ -40,14 +40,20 @@ class ControllerArtist
     public function addArtist($artist)
     {
         try {
-            if ($this->DaoArtist->checkArtist($artist) == null) {
-                $newArtist = new Artist();
-                $newArtist->setName($artist);
-                $this->DaoArtist->add($newArtist);
-
-                echo "<script> if(alert('Nuevo Artista ingresado!'));</script>";
-            } else {
-                echo "<script> if(alert('El Artista Ya existe'));</script>";
+            if($artist != null)
+            {
+                if ($this->DaoArtist->checkArtist($artist) == null) {
+                    $newArtist = new Artist();
+                    $newArtist->setName($artist);
+                    $this->DaoArtist->add($newArtist);
+    
+                    echo "<script> if(alert('Nuevo Artista ingresado!'));</script>";
+                } else {
+                    echo "<script> if(alert('El Artista Ya existe'));</script>";
+                }
+            }
+            else {
+                echo "<script> if(alert('Complete el nombre'));</script>";
             }
             $this->showArtistList();
         } catch (Exception $ex) {

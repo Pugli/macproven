@@ -35,15 +35,21 @@ class ControllerEventPlace
     public function addEventPlace($name, $quantity)
     {
         try {
-            if ($this->daoEventPlaces->checkEventPlace($name) == null) {
-                $newEventPlace = new EventPlace();
-                $newEventPlace->setName($name);
-                $newEventPlace->setQuantity($quantity);
-                $this->daoEventPlaces->add($newEventPlace);
-                echo "<script> if(alert('Nuevo Lugar ingresado!'));</script>";
-            } else {
-
-                echo "<script> if(alert('El lugar Ya existe'));</script>";
+            if($name != null && $quantity != null && $quantity >= 0)
+            {
+                if ($this->daoEventPlaces->checkEventPlace($name) == null) {
+                    $newEventPlace = new EventPlace();
+                    $newEventPlace->setName($name);
+                    $newEventPlace->setQuantity($quantity);
+                    $this->daoEventPlaces->add($newEventPlace);
+                    echo "<script> if(alert('Nuevo Lugar ingresado!'));</script>";
+                } else {
+    
+                    echo "<script> if(alert('El lugar Ya existe'));</script>";
+                }
+            }
+            else {
+                echo "<script> if(alert('Complete todos los campos correctamente'));</script>";
             }
             $this->showEventPlaceList();
         } catch (Exception $ex) {

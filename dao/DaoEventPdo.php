@@ -101,7 +101,7 @@ class DaoEventPdo implements IDaoEventPdo
         {
             $event = null;
 
-            $query = $this->generalQuery() . " WHERE TITLE = :eventname";
+            $query = $this->generalQuery() . " WHERE TITLE = :eventname AND e.isActive = 1";
 
             $parameters["eventname"] = $eventname;
 

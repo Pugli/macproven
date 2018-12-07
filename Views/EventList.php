@@ -70,7 +70,7 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="text" name="event"/> </td> 
+                <td><input type="text" name="event" required/> </td> 
                     <td>
                     <select name="category">
                         <?php 
@@ -78,7 +78,7 @@
                             <option value="<?php echo $category->getId()?>"><?php echo $category->getDescription()?></option>
                         <?php }?>
                     </select></td>
-                    <td><input type="file" name="image" value=""> </td>
+                    <td><input type="file" name="image" value="" required> </td>
                     <td> <input type="submit" value="Enviar" class="btn btn-info"/> </td>
                 </form>
                 </tr>

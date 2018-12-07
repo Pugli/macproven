@@ -42,14 +42,18 @@ class ControllerEvent
 
                 $newEvent = new Event;
 
-                if (!empty($file['name'])) {
+                if (!empty($file['name'])) 
+                {
                     $newEvent = $this->setImage($newEvent, $file);
+                    $newEvent->setTitle($event);
+                    $newEvent->setCategory($this->daoCategory->checkCategoryById($categoryId));
+                    $this->daoEvent->add($newEvent);
+                    echo "<script> if(alert('Nuevo Evento Ingresado'));</script>";
+                }
+                else {
+                    echo "<script> if(alert('Complete todos los datos'));</script>";
                 }
 
-                $newEvent->setTitle($event);
-                $newEvent->setCategory($this->daoCategory->checkCategoryById($categoryId));
-                $this->daoEvent->add($newEvent);
-                echo "<script> if(alert('Nuevo Evento Ingresado'));</script>";
             } else {
 
                 echo "<script> if(alert('Evento no ingresado, Vuelva a intentar.'));</script>";
@@ -183,7 +187,14 @@ class ControllerEvent
         try {
             $event = $this->daoEvent->checkEventById($eventId);
             $calendarsForEvent = $this->daoCalendar->getCalendarForEvent($eventId);
-            include_once VIEWS_PATH . "showCalendarsForEvent.php";
+
+            if($calendarsForEvent){
+                include_once VIEWS_PATH . "showCalendarsForEvent.php";
+            }
+            else {
+                echo "<script> if(alert('No hay fechas para este evento'));</script>";
+                include_once VIEWS_PATH . "home.php";
+            }
         } catch (Exception $ex) {
             echo "<script> if(alert('Upps! algo fallo'));</script>";
             $this->index();
